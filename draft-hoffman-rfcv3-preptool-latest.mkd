@@ -1,0 +1,193 @@
+---
+title: RFC v3 Prep Tool Description
+cat: info
+docname: draft-hoffman-rfcv3-preptool
+
+stand_alone: true
+
+ipr: trust200902
+area: Internet
+kw: Internet-Draft
+
+pi:
+  toc: yes
+  tocdepth: 4
+  sortrefs: yes
+  symrefs: yes
+
+author:
+  -
+    ins: P. Hoffman
+    name: Paul Hoffman
+    org: VPN Consortium
+    email: paul.hoffman@vpnc.org
+  -
+    ins: J. Hildebrand
+    name: Joe Hildebrand
+    org: Cisco
+    email: jhildebr@cisco.com
+
+normative:
+
+informative:
+  RFC6949:
+  I-D.hoffman-xml2rfc:
+
+--- abstract
+
+This document describes some aspects of the "prep tool" that is expected
+to be created when the new RFC v3 specification is deployed.
+This draft is just a way to keep track of the ideas; it is not (currently)
+expected to be published as an RFC.
+
+
+--- middle
+
+Introduction
+=====
+
+This document describes some aspects of the "prep tool" that is expected
+to be created when the new RFC v3 specification is deployed.
+
+See {{I-D.hoffman-xml2rfc}} and {{RFC6949}} for more context for this draft.
+
+v3 Prep Tool Usage Scenarios
+=====
+
+The prep tool will have (at least) two settings:
+
+* Internet-Draft preparation
+
+* Canonical RFC preparation
+
+There are only a few difference between these two settings. For example, the
+boilerplate output will be different, as will the date output on the front page.
+
+Note that this only describes what the IETF-sponsored prep tool does. Others
+might create their own work-alike prep tools for their own formatting needs.
+However, an output format developer does not not need to change the prep tool in
+order to create their own formatter: they only need to be able to consume
+prepared text.
+
+This tool is described as if it is a separate tool so that we can reason about
+its architectural properties. In actual implementation, it might be a part of a
+larger suite of functionality.
+
+Internet-Draft Submission
+=====
+
+When the IETF draft submission tool accepts v3 XML as an input format, the
+submission tool runs the submitted file through the prep tool. If the tool finds
+no errors, it keeps two XML files: the submitted file and the prepped file. This
+prepped file represents a self-contained record of what any external references
+resolved to at the time of submission. The prepped file is used by the IETF
+formatters to create outputs such as HTML, PDF, and text (or the tools act in a
+way indistinguishable from this). The message sent out by the draft submission
+tool includes a link to the original XML as well as the other outputs, including
+the prepped XML.
+
+The prepped XML can be used by tools not yet developed to output new formats
+that have as similar output as possible to the current IETF formatters. For
+example, if we create a .mobi output renderer later, we can run that renderer on
+all of the prepped XML that we have saved, ensuring that the content of included
+external references and all of the part numbers and boilerplate will be the same
+as what was produced by the previous IETF formatters at the time the document
+was first uploaded.
+
+Canonical RFC Preparation
+=====
+
+During AUTH48, the RPC will run the prep tool in canonical RFC preparation mode
+and make the results available to the authors so they can see what the final
+output might look like. When the document is done with AUTH48 review, the RPC
+runs the prep tool in canonical RFC preparation mode one last time, locks down
+the canonicalized XML, runs the formatters for the non-canonical output, and
+publishes all of those. It is probably a good idea for the RPC to keep a copy of
+the input XML file from the various steps of the RFC production process.
+
+Similarly to I-D's, the prepped XML can be used later to re-render the output
+formats, or to generate new formats.
+
+What the v3 Prep Tool Does
+=====
+
+This is a mostly-complete list of what the v3 prep tool does. The steps are in order of processing.
+
+1. Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more
+&lt;x:include&gt;s (with relative URLs rooted at the xml:base), so set a limit on the
+depth of recursion.
+
+1. If in RFC production mode, remove comments.
+
+1. If boilerplate exists in the input, produce a scary warning. Otherwise, fill in
+boilerplate text with current values.
+
+1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
+
+1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt;.
+
+1. Fill in any default values for attributes on elements, except "keepWithNext" and
+"keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
+
+1. If the &lt;workgroup&gt; content doesn't end with "Group", issue a warning.
+
+1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not contain a valid one
+(all values must be valid HTML id's, and all start with with "n-").
+
+1. Remove any existing "pn" attributes.
+
+1. Add "pn" attributes for all parts.  Parts are:
+  * &lt;section&gt;: pn='s-1.4.2'
+    * except &lt;abstract&gt;, which gets pn='s-abstract'
+    * except &lt;note&gt;, which gets pn='s-note-\[counter\]'
+  * &lt;table&gt;: pn='t-3'
+  * &lt;figure&gt;: pn='f-4'
+  * (&lt;abstract&gt;, &lt;note&gt;, &lt;t&gt;, &lt;aside&gt;, &lt;blockquote&gt;,
+  &lt;li&gt;, &lt;dt&gt;, &lt;artwork&gt;, &lt;sourcecode&gt;, &lt;references&gt;):
+  pn='p-\[section\]-\[counter\]'
+
+1. Add a "start" attribute to every &lt;ol&gt; element containing a group that doesn't already have a start.
+
+1. Sort the references, if "sortRefs" of &lt;rfc&gt; is true.
+
+1. Resolve all &lt;xref&gt; elements. Ensure that each target is valid.
+Invent text for each element that doesn't have it.
+
+1. Process &lt;artwork&gt; elements.
+If an element has type='svg', and if there is a "src" attribute, inline and remove the "src"
+attribute, and insert "xml:base" attribute; also check SVG schema against our TinySVG profile.
+Otherwise, if the "src" attribute is not a "data:" URI, turn it into a "data:"
+URI and insert "xml:base" attribute.
+
+1. Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.
+
+1. Determine all the characters used in the document, and fill in "scripts" attribute for &lt;rfc&gt;.
+
+1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that it is set to "3".
+
+1. Pretty-format the XML output.  Note: <https://github.com/hildjj/dentin> now does an adequate job.
+(This step might be controversial.)
+
+1. Ensure that the result is in full compliance to v3 schema, without any deprecated
+elements or attributes, and give an error if any issues are found.
+
+IANA Considerations {#ianacons}
+=====
+
+None.
+
+
+Security Considerations {#securitycons}
+=====
+
+None.
+
+
+Acknowledgements
+=====
+
+Many people contributed valuable ideas to this document. Special thanks go to
+Robert Sparks for his in-depth review and contributions early in the
+development of this document.
+
+--- back
