@@ -1,5 +1,7 @@
+BRANCH := $(shell git symbolic-ref --short HEAD)
+DRAFT := draft-hoffman-rfcv3-preptool-latest
 .PRECIOUS: %.xml
-all: draft-hoffman-rfcv3-preptool-latest.txt draft-hoffman-rfcv3-preptool-latest.html
+all: $(DRAFT).txt $(DRAFT).html
 
 %.txt: %.xml
 	xml2rfc --text $<
@@ -11,3 +13,12 @@ all: draft-hoffman-rfcv3-preptool-latest.txt draft-hoffman-rfcv3-preptool-latest
 	kramdown-rfc2629 $< >$@.new
 	# -diff $@ $@.new
 	mv $@.new $@
+
+publish: $(DRAFT).html $(DRAFT).txt
+	git checkout gh-pages
+	git checkout $(BRANCH) -- $(DRAFT).txt
+	git checkout $(BRANCH) -- $(DRAFT).xml
+	git checkout $(BRANCH) -- $(DRAFT).html
+	git commit -m "Publish to GitHub pages"
+	git push origin gh-pages
+	git checkout $(BRANCH)
