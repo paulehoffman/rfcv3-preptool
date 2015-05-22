@@ -160,8 +160,7 @@ URI and insert “xml:base” attribute.</t>
   <t>Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.</t>
   <t>Determine all the characters used in the document, and fill in “scripts” attribute for &lt;rfc&gt;.</t>
   <t>Ensure that the output has the “version” attribute of &lt;rfc&gt;, and that it is set to “3”.</t>
-  <t>Pretty-format the XML output.  Note: <eref target="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</eref> now does an adequate job.
-(This step might be controversial.)</t>
+  <t>Pretty-format the XML output.  (Note: tools like <eref target="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</eref> do an adequate job.)</t>
   <t>Ensure that the result is in full compliance to v3 schema, without any deprecated
 elements or attributes, and give an error if any issues are found.</t>
 </list></t>

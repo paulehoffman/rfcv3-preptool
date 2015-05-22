@@ -232,9 +232,8 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2015
    17.  Ensure that the output has the "version" attribute of <rfc>, and
         that it is set to "3".
 
-   18.  Pretty-format the XML output.  Note: https://github.com/hildjj/
-        dentin now does an adequate job.  (This step might be
-        controversial.)
+   18.  Pretty-format the XML output.  (Note: tools like
+        https://github.com/hildjj/dentin do an adequate job.)
 
    19.  Ensure that the result is in full compliance to v3 schema,
         without any deprecated elements or attributes, and give an error
@@ -271,17 +270,6 @@ Authors' Addresses
    Email: paul.hoffman@vpnc.org
 
 
-
-
-
-
-
-
-Hoffman & Hildebrand    Expires November 23, 2015               [Page 5]
-
-Internet-Draft        RFC v3 Prep Tool Description              May 2015
-
-
    Joe Hildebrand
    Cisco
 
@@ -289,48 +277,4 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2015
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Hoffman & Hildebrand    Expires November 23, 2015               [Page 6]
+Hoffman & Hildebrand    Expires November 23, 2015               [Page 5]

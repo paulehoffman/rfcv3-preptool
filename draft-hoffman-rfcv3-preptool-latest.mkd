@@ -40,8 +40,8 @@ to be created when the new RFC v3 specification is deployed.
 This draft is just a way to keep track of the ideas; it is not (currently)
 expected to be published as an RFC.
 
-
 --- middle
+
 
 Introduction
 =====
@@ -50,6 +50,7 @@ This document describes some aspects of the "prep tool" that is expected
 to be created when the new RFC v3 specification is deployed.
 
 See {{I-D.hoffman-xml2rfc}} and {{RFC6949}} for more context for this draft.
+
 
 v3 Prep Tool Usage Scenarios
 =====
@@ -73,6 +74,7 @@ This tool is described as if it is a separate tool so that we can reason about
 its architectural properties. In actual implementation, it might be a part of a
 larger suite of functionality.
 
+
 Internet-Draft Submission
 =====
 
@@ -94,6 +96,7 @@ external references and all of the part numbers and boilerplate will be the same
 as what was produced by the previous IETF formatters at the time the document
 was first uploaded.
 
+
 Canonical RFC Preparation
 =====
 
@@ -107,6 +110,7 @@ the input XML file from the various steps of the RFC production process.
 
 Similarly to I-D's, the prepped XML can be used later to re-render the output
 formats, or to generate new formats.
+
 
 What the v3 Prep Tool Does
 =====
@@ -165,11 +169,11 @@ URI and insert "xml:base" attribute.
 
 1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that it is set to "3".
 
-1. Pretty-format the XML output.  Note: <https://github.com/hildjj/dentin> now does an adequate job.
-(This step might be controversial.)
+1. Pretty-format the XML output.  (Note: tools like <https://github.com/hildjj/dentin> do an adequate job.)
 
 1. Ensure that the result is in full compliance to v3 schema, without any deprecated
 elements or attributes, and give an error if any issues are found.
+
 
 IANA Considerations {#ianacons}
 =====
