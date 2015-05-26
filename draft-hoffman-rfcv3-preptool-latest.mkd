@@ -157,6 +157,15 @@ boilerplate text with current values.
 1. Resolve all &lt;xref&gt; elements. Ensure that each target is valid.
 Invent text for each element that doesn't have it.
 
+<!--
+- if the schema doesn't adequately protect, error if both section and relative don't exist
+- warn if derivedRemoteContent exists?
+- error if <relref> contains both text and derivedRemoteContent
+- fill in derivedLink on all <relref> elements
+- fill in derivedRemoteContent on <relref> elements that do not contain text
+
+-->
+
 1. Process &lt;artwork&gt; elements.
 If an element has type='svg', and if there is a "src" attribute, inline and remove the "src"
 attribute, and insert "xml:base" attribute; also check SVG schema against our TinySVG profile.
