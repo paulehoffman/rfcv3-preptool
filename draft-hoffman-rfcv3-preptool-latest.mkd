@@ -163,7 +163,7 @@ Invent text for each element that doesn't have it.
 - error if <relref> contains both text and derivedRemoteContent
 - fill in derivedLink on all <relref> elements
 - fill in derivedRemoteContent on <relref> elements that do not contain text
-
+- try to fetch the derived URI if it knows the protocol scheme (warning if it doesn't), and warn (or error?) if the doc doesn't exist.
 -->
 
 1. Process &lt;artwork&gt; elements.
