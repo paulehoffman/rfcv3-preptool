@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="May" day="22"/>
+    <date year="2015" month="May" day="28"/>
 
     <area>Internet</area>
     
@@ -54,10 +54,18 @@ expected to be published as an RFC.</t>
 
 <section anchor="introduction" title="Introduction">
 
-<t>This document describes some aspects of the “prep tool” that is expected
-to be created when the new RFC v3 specification is deployed.</t>
+<t>As a part of the new HTML format work, the RFC Editor has decided that the XML2RFCv3 vocabular
+<xref target="I-D.hoffman-xml2rfc"/> will be canonical, in the sense that it is the data that is blessed by the process as
+the actual RFC. See <xref target="RFC6949"/> for more detial on this.</t>
 
-<t>See <xref target="I-D.hoffman-xml2rfc"/> and <xref target="RFC6949"/> for more context for this draft.</t>
+<t>Most people will read other formats, such as HTML, PDF, ASCII text, or other formats of the future, however. 
+In order to ensure each of these format is as similar as possible to one another as well as the canonical XML,
+we’re hoping that the translation from XML into the other formats will be straightforward syntactic
+translation – that means that a good amount of data will need to be in the XML format that isn’t there today.
+ That data will be added by a program we’re currently calling the “prep tool”, which will often run as a part
+of the xml2rfc process.</t>
+
+<t>This draft specifies the steps that the prep tool will have to take.</t>
 
 </section>
 <section anchor="v3-prep-tool-usage-scenarios" title="v3 Prep Tool Usage Scenarios">
@@ -152,6 +160,18 @@ boilerplate text with current values.</t>
   <t>Sort the references, if “sortRefs” of &lt;rfc&gt; is true.</t>
   <t>Resolve all &lt;xref&gt; elements. Ensure that each target is valid.
 Invent text for each element that doesn’t have it.</t>
+</list></t>
+
+<!--
+- if the schema doesn't adequately protect, error if both section and relative don't exist
+- warn if derivedRemoteContent exists?
+- error if <relref> contains both text and derivedRemoteContent
+- fill in derivedLink on all <relref> elements
+- fill in derivedRemoteContent on <relref> elements that do not contain text
+- try to fetch the derived URI if it knows the protocol scheme (warning if it doesn't), and warn (or error?) if the doc doesn't exist.
+-->
+
+<t><list style="numbers">
   <t>Process &lt;artwork&gt; elements.
 If an element has type=’svg’, and if there is a “src” attribute, inline and remove the “src”
 attribute, and insert “xml:base” attribute; also check SVG schema against our TinySVG profile.
@@ -160,8 +180,7 @@ URI and insert “xml:base” attribute.</t>
   <t>Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.</t>
   <t>Determine all the characters used in the document, and fill in “scripts” attribute for &lt;rfc&gt;.</t>
   <t>Ensure that the output has the “version” attribute of &lt;rfc&gt;, and that it is set to “3”.</t>
-  <t>Pretty-format the XML output.  Note: <eref target="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</eref> now does an adequate job.
-(This step might be controversial.)</t>
+  <t>Pretty-format the XML output.  (Note: tools like <eref target="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</eref> do an adequate job.)</t>
   <t>Ensure that the result is in full compliance to v3 schema, without any deprecated
 elements or attributes, and give an error if any issues are found.</t>
 </list></t>
@@ -223,15 +242,15 @@ development of this document.</t>
     <organization />
 </author>
 
-<date month='April' day='17' year='2015' />
+<date month='May' day='26' year='2015' />
 
 <abstract><t>This document defines the "XML2RFC" version 3 vocabulary; an XML- based language used for writing RFCs and Internet-Drafts.  It is heavily derived from the version 2 vocabulary that is also under discussion.  This document obsoletes the v2 grammar described in RFC 2629 and its expected followup, draft-iab-xml2rfc.  Editorial Note (To be removed by RFC Editor)  Discussion of this draft takes place on the rfc-interest mailing list (rfc-interest@rfc-editor.org), which has its home page at &lt;https://www.rfc-editor.org/mailman/listinfo/rfc-interest>.</t></abstract>
 
 </front>
 
-<seriesInfo name='Internet-Draft' value='draft-hoffman-xml2rfc-17' />
+<seriesInfo name='Internet-Draft' value='draft-hoffman-xml2rfc-18' />
 <format type='TXT'
-        target='http://www.ietf.org/internet-drafts/draft-hoffman-xml2rfc-17.txt' />
+        target='http://www.ietf.org/internet-drafts/draft-hoffman-xml2rfc-18.txt' />
 </reference>
 
 
