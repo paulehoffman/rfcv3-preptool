@@ -391,7 +391,7 @@
 
   <meta name="dct.creator" content="Hoffman, P. and J. Hildebrand" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-hoffman-rfcv3-preptool" />
-  <meta name="dct.issued" scheme="ISO8601" content="2015-5-22" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-5-28" />
   <meta name="dct.abstract" content="This short document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.  This draft is just a way to keep track of the ideas; it is not (currently) expected to be published as an RFC." />
   <meta name="description" content="This short document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.  This draft is just a way to keep track of the ideas; it is not (currently) expected to be published as an RFC." />
 
@@ -415,12 +415,12 @@
   <td class="right">J. Hildebrand</td>
 </tr>
 <tr>
-  <td class="left">Expires: November 23, 2015</td>
+  <td class="left">Expires: November 29, 2015</td>
   <td class="right">Cisco</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">May 22, 2015</td>
+  <td class="right">May 28, 2015</td>
 </tr>
 
     	
@@ -440,7 +440,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 23, 2015.</p>
+<p>This Internet-Draft will expire on November 29, 2015.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -467,8 +467,9 @@
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
-<p id="rfc.section.1.p.1">This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.</p>
-<p id="rfc.section.1.p.2">See <a href="#I-D.hoffman-xml2rfc">[I-D.hoffman-xml2rfc]</a> and <a href="#RFC6949">[RFC6949]</a> for more context for this draft.</p>
+<p id="rfc.section.1.p.1">As a part of the new HTML format work, the RFC Editor has decided that the XML2RFCv3 vocabular <a href="#I-D.hoffman-xml2rfc">[I-D.hoffman-xml2rfc]</a> will be canonical, in the sense that it is the data that is blessed by the process as the actual RFC. See <a href="#RFC6949">[RFC6949]</a> for more detial on this.</p>
+<p id="rfc.section.1.p.2">Most people will read other formats, such as HTML, PDF, ASCII text, or other formats of the future, however.  In order to ensure each of these format is as similar as possible to one another as well as the canonical XML, we&#8217;re hoping that the translation from XML into the other formats will be straightforward syntactic translation &#8211; that means that a good amount of data will need to be in the XML format that isn&#8217;t there today.  That data will be added by a program we&#8217;re currently calling the &#8220;prep tool&#8221;, which will often run as a part of the xml2rfc process.</p>
+<p id="rfc.section.1.p.3">This draft specifies the steps that the prep tool will have to take.</p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#v3-prep-tool-usage-scenarios" id="v3-prep-tool-usage-scenarios">v3 Prep Tool Usage Scenarios</a></h1>
 <p id="rfc.section.2.p.1">The prep tool will have (at least) two settings:</p>
 <p/>
@@ -504,6 +505,10 @@
   <li>Add a &#8220;start&#8221; attribute to every &lt;ol&gt; element containing a group that doesn&#8217;t already have a start.</li>
   <li>Sort the references, if &#8220;sortRefs&#8221; of &lt;rfc&gt; is true.</li>
   <li>Resolve all &lt;xref&gt; elements. Ensure that each target is valid.  Invent text for each element that doesn&#8217;t have it.</li>
+</ol>
+<p/>
+
+<ol>
   <li>Process &lt;artwork&gt; elements.  If an element has type=&#8217;svg&#8217;, and if there is a &#8220;src&#8221; attribute, inline and remove the &#8220;src&#8221; attribute, and insert &#8220;xml:base&#8221; attribute; also check SVG schema against our TinySVG profile.  Otherwise, if the &#8220;src&#8221; attribute is not a &#8220;data:&#8221; URI, turn it into a &#8220;data:&#8221; URI and insert &#8220;xml:base&#8221; attribute.</li>
   <li>Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.</li>
   <li>Determine all the characters used in the document, and fill in &#8220;scripts&#8221; attribute for &lt;rfc&gt;.</li>
@@ -524,7 +529,7 @@
       <td class="reference">
         <b id="I-D.hoffman-xml2rfc">[I-D.hoffman-xml2rfc]</b>
       </td>
-      <td class="top"><a>Hoffman, P.</a>, "<a href="http://tools.ietf.org/html/draft-hoffman-xml2rfc-17">The 'XML2RFC' version 3 Vocabulary</a>", Internet-Draft draft-hoffman-xml2rfc-17, April 2015.</td>
+      <td class="top"><a>Hoffman, P.</a>, "<a href="http://tools.ietf.org/html/draft-hoffman-xml2rfc-18">The 'XML2RFC' version 3 Vocabulary</a>", Internet-Draft draft-hoffman-xml2rfc-18, May 2015.</td>
     </tr>
     <tr>
       <td class="reference">

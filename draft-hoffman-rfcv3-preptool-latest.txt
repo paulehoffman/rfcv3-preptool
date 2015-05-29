@@ -5,12 +5,12 @@
 Network Working Group                                         P. Hoffman
 Internet-Draft                                            VPN Consortium
 Intended status: Informational                             J. Hildebrand
-Expires: November 23, 2015                                         Cisco
-                                                            May 22, 2015
+Expires: November 29, 2015                                         Cisco
+                                                            May 28, 2015
 
 
                       RFC v3 Prep Tool Description
-                      draft-hoffman-rfcv3-preptool-00
+                      draft-hoffman-rfcv3-preptool
 
 Abstract
 
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 23, 2015.
+   This Internet-Draft will expire on November 29, 2015.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Hoffman & Hildebrand    Expires November 23, 2015               [Page 1]
+Hoffman & Hildebrand    Expires November 29, 2015               [Page 1]
 
 Internet-Draft        RFC v3 Prep Tool Description              May 2015
 
@@ -62,22 +62,33 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  v3 Prep Tool Usage Scenarios  . . . . . . . . . . . . . . . .   2
-   3.  Internet-Draft Submission . . . . . . . . . . . . . . . . . .   2
+   3.  Internet-Draft Submission . . . . . . . . . . . . . . . . . .   3
    4.  Canonical RFC Preparation . . . . . . . . . . . . . . . . . .   3
-   5.  What the v3 Prep Tool Does  . . . . . . . . . . . . . . . . .   3
+   5.  What the v3 Prep Tool Does  . . . . . . . . . . . . . . . . .   4
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   5
-   9.  Informative References  . . . . . . . . . . . . . . . . . . .   5
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   5
+   9.  Informative References  . . . . . . . . . . . . . . . . . . .   6
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
 
-   This document describes some aspects of the "prep tool" that is
-   expected to be created when the new RFC v3 specification is deployed.
+   As a part of the new HTML format work, the RFC Editor has decided
+   that the XML2RFCv3 vocabular [I-D.hoffman-xml2rfc] will be canonical,
+   in the sense that it is the data that is blessed by the process as
+   the actual RFC.  See [RFC6949] for more detial on this.
 
-   See [I-D.hoffman-xml2rfc] and [RFC6949] for more context for this
-   draft.
+   Most people will read other formats, such as HTML, PDF, ASCII text,
+   or other formats of the future, however.  In order to ensure each of
+   these format is as similar as possible to one another as well as the
+   canonical XML, we're hoping that the translation from XML into the
+   other formats will be straightforward syntactic translation - that
+   means that a good amount of data will need to be in the XML format
+   that isn't there today.  That data will be added by a program we're
+   currently calling the "prep tool", which will often run as a part of
+   the xml2rfc process.
+
+   This draft specifies the steps that the prep tool will have to take.
 
 2.  v3 Prep Tool Usage Scenarios
 
@@ -94,6 +105,15 @@ Table of Contents
    Note that this only describes what the IETF-sponsored prep tool does.
    Others might create their own work-alike prep tools for their own
    formatting needs.  However, an output format developer does not not
+
+
+
+
+Hoffman & Hildebrand    Expires November 29, 2015               [Page 2]
+
+Internet-Draft        RFC v3 Prep Tool Description              May 2015
+
+
    need to change the prep tool in order to create their own formatter:
    they only need to be able to consume prepared text.
 
@@ -106,14 +126,6 @@ Table of Contents
    When the IETF draft submission tool accepts v3 XML as an input
    format, the submission tool runs the submitted file through the prep
    tool.  If the tool finds no errors, it keeps two XML files: the
-
-
-
-Hoffman & Hildebrand    Expires November 23, 2015               [Page 2]
-
-Internet-Draft        RFC v3 Prep Tool Description              May 2015
-
-
    submitted file and the prepped file.  This prepped file represents a
    self-contained record of what any external references resolved to at
    the time of submission.  The prepped file is used by the IETF
@@ -146,6 +158,18 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2015
    Similarly to I-D's, the prepped XML can be used later to re-render
    the output formats, or to generate new formats.
 
+
+
+
+
+
+
+
+Hoffman & Hildebrand    Expires November 29, 2015               [Page 3]
+
+Internet-Draft        RFC v3 Prep Tool Description              May 2015
+
+
 5.  What the v3 Prep Tool Does
 
    This is a mostly-complete list of what the v3 prep tool does.  The
@@ -162,13 +186,6 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2015
 
    4.   Fill in the "prepTime" attribute of <rfc> with the current
         datetime.
-
-
-
-Hoffman & Hildebrand    Expires November 23, 2015               [Page 3]
-
-Internet-Draft        RFC v3 Prep Tool Description              May 2015
-
 
    5.   If in I-D mode, fill in "expiresDate" attribute of <rfc>.
 
@@ -201,6 +218,14 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2015
            <artwork>, <sourcecode>, <references>):
            pn='p-[section]-[counter]'
 
+
+
+
+Hoffman & Hildebrand    Expires November 29, 2015               [Page 4]
+
+Internet-Draft        RFC v3 Prep Tool Description              May 2015
+
+
    11.  Add a "start" attribute to every <ol> element containing a group
         that doesn't already have a start.
 
@@ -209,35 +234,28 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2015
    13.  Resolve all <xref> elements.  Ensure that each target is valid.
         Invent text for each element that doesn't have it.
 
-   14.  Process <artwork> elements.  If an element has type='svg', and
-        if there is a "src" attribute, inline and remove the "src"
-        attribute, and insert "xml:base" attribute; also check SVG
-        schema against our TinySVG profile.  Otherwise, if the "src"
-        attribute is not a "data:" URI, turn it into a "data:" URI and
-        insert "xml:base" attribute.
+   1.  Process <artwork> elements.  If an element has type='svg', and if
+       there is a "src" attribute, inline and remove the "src"
+       attribute, and insert "xml:base" attribute; also check SVG schema
+       against our TinySVG profile.  Otherwise, if the "src" attribute
+       is not a "data:" URI, turn it into a "data:" URI and insert
+       "xml:base" attribute.
 
-   15.  Add a <link> child element to <rfc> for the DOI, if in RFC
-        production mode.
+   2.  Add a <link> child element to <rfc> for the DOI, if in RFC
+       production mode.
 
+   3.  Determine all the characters used in the document, and fill in
+       "scripts" attribute for <rfc>.
 
+   4.  Ensure that the output has the "version" attribute of <rfc>, and
+       that it is set to "3".
 
-Hoffman & Hildebrand    Expires November 23, 2015               [Page 4]
-
-Internet-Draft        RFC v3 Prep Tool Description              May 2015
+   5.  Pretty-format the XML output.  (Note: tools like
+       https://github.com/hildjj/dentin do an adequate job.)
 
-
-   16.  Determine all the characters used in the document, and fill in
-        "scripts" attribute for <rfc>.
-
-   17.  Ensure that the output has the "version" attribute of <rfc>, and
-        that it is set to "3".
-
-   18.  Pretty-format the XML output.  (Note: tools like
-        https://github.com/hildjj/dentin do an adequate job.)
-
-   19.  Ensure that the result is in full compliance to v3 schema,
-        without any deprecated elements or attributes, and give an error
-        if any issues are found.
+   6.  Ensure that the result is in full compliance to v3 schema,
+       without any deprecated elements or attributes, and give an error
+       if any issues are found.
 
 6.  IANA Considerations
 
@@ -253,11 +271,22 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2015
    thanks go to Robert Sparks for his in-depth review and contributions
    early in the development of this document.
 
+
+
+
+
+
+
+Hoffman & Hildebrand    Expires November 29, 2015               [Page 5]
+
+Internet-Draft        RFC v3 Prep Tool Description              May 2015
+
+
 9.  Informative References
 
    [I-D.hoffman-xml2rfc]
               Hoffman, P., "The 'XML2RFC' version 3 Vocabulary", draft-
-              hoffman-xml2rfc-17 (work in progress), April 2015.
+              hoffman-xml2rfc-18 (work in progress), May 2015.
 
    [RFC6949]  Flanagan, H. and N. Brownlee, "RFC Series Format
               Requirements and Future Development", RFC 6949, May 2013.
@@ -277,4 +306,31 @@ Authors' Addresses
 
 
 
-Hoffman & Hildebrand    Expires November 23, 2015               [Page 5]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hoffman & Hildebrand    Expires November 29, 2015               [Page 6]

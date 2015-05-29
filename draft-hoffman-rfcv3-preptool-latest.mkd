@@ -46,10 +46,18 @@ expected to be published as an RFC.
 Introduction
 =====
 
-This document describes some aspects of the "prep tool" that is expected
-to be created when the new RFC v3 specification is deployed.
+As a part of the new HTML format work, the RFC Editor has decided that the XML2RFCv3 vocabular
+{{I-D.hoffman-xml2rfc}} will be canonical, in the sense that it is the data that is blessed by the process as
+the actual RFC. See {{RFC6949}} for more detial on this.
 
-See {{I-D.hoffman-xml2rfc}} and {{RFC6949}} for more context for this draft.
+Most people will read other formats, such as HTML, PDF, ASCII text, or other formats of the future, however. 
+In order to ensure each of these format is as similar as possible to one another as well as the canonical XML,
+we're hoping that the translation from XML into the other formats will be straightforward syntactic
+translation -- that means that a good amount of data will need to be in the XML format that isn't there today.
+ That data will be added by a program we're currently calling the "prep tool", which will often run as a part
+of the xml2rfc process.
+
+This draft specifies the steps that the prep tool will have to take.
 
 
 v3 Prep Tool Usage Scenarios
