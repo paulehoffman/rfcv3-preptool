@@ -391,7 +391,7 @@
 
   <meta name="dct.creator" content="Hoffman, P. and J. Hildebrand" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-hoffman-rfcv3-preptool" />
-  <meta name="dct.issued" scheme="ISO8601" content="2015-5-28" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-6-01" />
   <meta name="dct.abstract" content="This short document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.  This draft is just a way to keep track of the ideas; it is not (currently) expected to be published as an RFC." />
   <meta name="description" content="This short document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.  This draft is just a way to keep track of the ideas; it is not (currently) expected to be published as an RFC." />
 
@@ -415,12 +415,12 @@
   <td class="right">J. Hildebrand</td>
 </tr>
 <tr>
-  <td class="left">Expires: November 29, 2015</td>
+  <td class="left">Expires: December 3, 2015</td>
   <td class="right">Cisco</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">May 28, 2015</td>
+  <td class="right">June 01, 2015</td>
 </tr>
 
     	
@@ -440,7 +440,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 29, 2015.</p>
+<p>This Internet-Draft will expire on December 3, 2015.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -467,9 +467,9 @@
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
-<p id="rfc.section.1.p.1">As a part of the new HTML format work, the RFC Editor has decided that the XML2RFCv3 vocabular <a href="#I-D.hoffman-xml2rfc">[I-D.hoffman-xml2rfc]</a> will be canonical, in the sense that it is the data that is blessed by the process as the actual RFC. See <a href="#RFC6949">[RFC6949]</a> for more detial on this.</p>
-<p id="rfc.section.1.p.2">Most people will read other formats, such as HTML, PDF, ASCII text, or other formats of the future, however.  In order to ensure each of these format is as similar as possible to one another as well as the canonical XML, we&#8217;re hoping that the translation from XML into the other formats will be straightforward syntactic translation &#8211; that means that a good amount of data will need to be in the XML format that isn&#8217;t there today.  That data will be added by a program we&#8217;re currently calling the &#8220;prep tool&#8221;, which will often run as a part of the xml2rfc process.</p>
-<p id="rfc.section.1.p.3">This draft specifies the steps that the prep tool will have to take.</p>
+<p id="rfc.section.1.p.1">As a part of the new HTML format work, the RFC Editor has decided that the XML2RFCv3 vocabulary <a href="#I-D.hoffman-xml2rfc">[I-D.hoffman-xml2rfc]</a> will be canonical, in the sense that it is the data that is blessed by the process as the actual RFC. See <a href="#RFC6949">[RFC6949]</a> for more detail on this.</p>
+<p id="rfc.section.1.p.2">Most people will read other formats, such as HTML, PDF, ASCII text, or other formats of the future, however.  In order to ensure each of these format is as similar as possible to one another as well as the canonical XML, there is a desire for the translation from XML into the other formats will be straightforward syntactic translation. To make that happen, a good amount of data will need to be in the XML format that is notthere today.  That data will be added by a program called the &#8220;prep tool&#8221;, which will often run as a part of the xml2rfc process.</p>
+<p id="rfc.section.1.p.3">This draft specifies the steps that the prep tool will have to take.  As changes to <a href="#I-D.hoffman-xml2rfc">[I-D.hoffman-xml2rfc]</a> are made, this document will be updated.</p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#v3-prep-tool-usage-scenarios" id="v3-prep-tool-usage-scenarios">v3 Prep Tool Usage Scenarios</a></h1>
 <p id="rfc.section.2.p.1">The prep tool will have (at least) two settings:</p>
 <p/>
@@ -482,29 +482,30 @@
 <p id="rfc.section.2.p.4">Note that this only describes what the IETF-sponsored prep tool does. Others might create their own work-alike prep tools for their own formatting needs.  However, an output format developer does not not need to change the prep tool in order to create their own formatter: they only need to be able to consume prepared text.</p>
 <p id="rfc.section.2.p.5">This tool is described as if it is a separate tool so that we can reason about its architectural properties. In actual implementation, it might be a part of a larger suite of functionality.</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#internet-draft-submission" id="internet-draft-submission">Internet-Draft Submission</a></h1>
-<p id="rfc.section.3.p.1">When the IETF draft submission tool accepts v3 XML as an input format, the submission tool runs the submitted file through the prep tool. If the tool finds no errors, it keeps two XML files: the submitted file and the prepped file. This prepped file represents a self-contained record of what any external references resolved to at the time of submission. The prepped file is used by the IETF formatters to create outputs such as HTML, PDF, and text (or the tools act in a way indistinguishable from this). The message sent out by the draft submission tool includes a link to the original XML as well as the other outputs, including the prepped XML.</p>
-<p id="rfc.section.3.p.2">The prepped XML can be used by tools not yet developed to output new formats that have as similar output as possible to the current IETF formatters. For example, if we create a .mobi output renderer later, we can run that renderer on all of the prepped XML that we have saved, ensuring that the content of included external references and all of the part numbers and boilerplate will be the same as what was produced by the previous IETF formatters at the time the document was first uploaded.</p>
+<p id="rfc.section.3.p.1">When the IETF draft submission tool accepts v3 XML as an input format, the submission tool runs the submitted file through the prep tool. If the tool finds no errors, it keeps two XML files: the submitted file and the prepped file.</p>
+<p id="rfc.section.3.p.2">The prepped file provides a record of what a submitter was attesting to at the time of submission.  It represents a self-contained record of what any external references resolved to at the time of submission.</p>
+<p id="rfc.section.3.p.3">The prepped file is used by the IETF formatters to create outputs such as HTML, PDF, and text (or the tools act in a way indistinguishable from this). The message sent out by the draft submission tool includes a link to the original XML as well as the other outputs, including the prepped XML.</p>
+<p id="rfc.section.3.p.4">The prepped XML can be used by tools not yet developed to output new formats that have as similar output as possible to the current IETF formatters. For example, if the IETF creates a .mobi output renderer later, it can run that renderer on all of the prepped XML that has been saved, ensuring that the content of included external references and all of the part numbers and boilerplate will be the same as what was produced by the previous IETF formatters at the time the document was first uploaded.</p>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#canonical-rfc-preparation" id="canonical-rfc-preparation">Canonical RFC Preparation</a></h1>
 <p id="rfc.section.4.p.1">During AUTH48, the RPC will run the prep tool in canonical RFC preparation mode and make the results available to the authors so they can see what the final output might look like. When the document is done with AUTH48 review, the RPC runs the prep tool in canonical RFC preparation mode one last time, locks down the canonicalized XML, runs the formatters for the non-canonical output, and publishes all of those. It is probably a good idea for the RPC to keep a copy of the input XML file from the various steps of the RFC production process.</p>
 <p id="rfc.section.4.p.2">Similarly to I-D&#8217;s, the prepped XML can be used later to re-render the output formats, or to generate new formats.</p>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#what-the-v3-prep-tool-does" id="what-the-v3-prep-tool-does">What the v3 Prep Tool Does</a></h1>
-<p id="rfc.section.5.p.1">This is a mostly-complete list of what the v3 prep tool does. The steps are in order of processing.</p>
+<p id="rfc.section.5.p.1">The steps listed here are in order of processing.  In all cases where the prep tool would &#8220;add&#8221; an attribute or element, if that attribute or element already exists, the prep tool will replace it, and if the values are different, will warn the user with a message that has the old and new values.</p>
 <p/>
 
 <ol>
   <li>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base), so set a limit on the depth of recursion.</li>
   <li>If in RFC production mode, remove comments.</li>
-  <li>If boilerplate exists in the input, produce a scary warning. Otherwise, fill in boilerplate text with current values.</li>
+  <li>Add the boilerplate text with current values.  However, if different boilerplate text already exists in the input, produce a scary warning that says that other tools, specifically the draft submission tool, will treat that condition as an error.</li>
   <li>Fill in the &#8220;prepTime&#8221; attribute of &lt;rfc&gt; with the current datetime.</li>
   <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt;.</li>
   <li>Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.</li>
   <li>If the &lt;workgroup&gt; content doesn&#8217;t end with &#8220;Group&#8221;, issue a warning.</li>
   <li>Add a &#8220;slugifiedName&#8221; attribute to each &lt;name&gt; element that does not contain a valid one (all values must be valid HTML id&#8217;s, and all start with with &#8220;n-&#8220;).</li>
-  <li>Remove any existing &#8220;pn&#8221; attributes.</li>
   <li>Add &#8220;pn&#8221; attributes for all parts.  Parts are: <ul><li>&lt;section&gt;: pn=&#8217;s-1.4.2&#8217;</li><li>except &lt;abstract&gt;, which gets pn=&#8217;s-abstract&#8217;</li><li>except &lt;note&gt;, which gets pn=&#8217;s-note-[counter]&#8217;</li><li>&lt;table&gt;: pn=&#8217;t-3&#8217;</li><li>&lt;figure&gt;: pn=&#8217;f-4&#8217;</li><li>(&lt;abstract&gt;, &lt;note&gt;, &lt;t&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;li&gt;, &lt;dt&gt;, &lt;artwork&gt;, &lt;sourcecode&gt;, &lt;references&gt;): pn=&#8217;p-[section]-[counter]&#8217;</li></ul></li>
   <li>Add a &#8220;start&#8221; attribute to every &lt;ol&gt; element containing a group that doesn&#8217;t already have a start.</li>
   <li>Sort the references, if &#8220;sortRefs&#8221; of &lt;rfc&gt; is true.</li>
-  <li>Resolve all &lt;xref&gt; elements. Ensure that each target is valid.  Invent text for each element that doesn&#8217;t have it.</li>
+  <li>Resolve all &lt;xref&gt; elements. Ensure that each target is valid.  Invent text for each element that doesn&#8217;t have it.  (More steps will be added here when the community has agreement on *ref.)</li>
 </ol>
 <p/>
 
