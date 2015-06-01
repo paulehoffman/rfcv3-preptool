@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="May" day="28"/>
+    <date year="2015" month="June" day="01"/>
 
     <area>Internet</area>
     
@@ -54,18 +54,19 @@ expected to be published as an RFC.</t>
 
 <section anchor="introduction" title="Introduction">
 
-<t>As a part of the new HTML format work, the RFC Editor has decided that the XML2RFCv3 vocabular
+<t>As a part of the new HTML format work, the RFC Editor has decided that the XML2RFCv3 vocabulary
 <xref target="I-D.hoffman-xml2rfc"/> will be canonical, in the sense that it is the data that is blessed by the process as
-the actual RFC. See <xref target="RFC6949"/> for more detial on this.</t>
+the actual RFC. See <xref target="RFC6949"/> for more detail on this.</t>
 
 <t>Most people will read other formats, such as HTML, PDF, ASCII text, or other formats of the future, however. 
 In order to ensure each of these format is as similar as possible to one another as well as the canonical XML,
-we’re hoping that the translation from XML into the other formats will be straightforward syntactic
-translation – that means that a good amount of data will need to be in the XML format that isn’t there today.
- That data will be added by a program we’re currently calling the “prep tool”, which will often run as a part
+there is a desire for the translation from XML into the other formats will be straightforward syntactic
+translation. To make that happen, a good amount of data will need to be in the XML format that is notthere today.
+That data will be added by a program called the “prep tool”, which will often run as a part
 of the xml2rfc process.</t>
 
-<t>This draft specifies the steps that the prep tool will have to take.</t>
+<t>This draft specifies the steps that the prep tool will have to take.
+As changes to <xref target="I-D.hoffman-xml2rfc"/> are made, this document will be updated.</t>
 
 </section>
 <section anchor="v3-prep-tool-usage-scenarios" title="v3 Prep Tool Usage Scenarios">
@@ -95,9 +96,13 @@ larger suite of functionality.</t>
 
 <t>When the IETF draft submission tool accepts v3 XML as an input format, the
 submission tool runs the submitted file through the prep tool. If the tool finds
-no errors, it keeps two XML files: the submitted file and the prepped file. This
-prepped file represents a self-contained record of what any external references
-resolved to at the time of submission. The prepped file is used by the IETF
+no errors, it keeps two XML files: the submitted file and the prepped file.</t>
+
+<t>The prepped file provides a record of what a submitter was attesting to at the time of submission.
+It represents a self-contained record of what any external references
+resolved to at the time of submission.</t>
+
+<t>The prepped file is used by the IETF
 formatters to create outputs such as HTML, PDF, and text (or the tools act in a
 way indistinguishable from this). The message sent out by the draft submission
 tool includes a link to the original XML as well as the other outputs, including
@@ -105,8 +110,8 @@ the prepped XML.</t>
 
 <t>The prepped XML can be used by tools not yet developed to output new formats
 that have as similar output as possible to the current IETF formatters. For
-example, if we create a .mobi output renderer later, we can run that renderer on
-all of the prepped XML that we have saved, ensuring that the content of included
+example, if the IETF creates a .mobi output renderer later, it can run that renderer on
+all of the prepped XML that has been saved, ensuring that the content of included
 external references and all of the part numbers and boilerplate will be the same
 as what was produced by the previous IETF formatters at the time the document
 was first uploaded.</t>
@@ -128,15 +133,19 @@ formats, or to generate new formats.</t>
 </section>
 <section anchor="what-the-v3-prep-tool-does" title="What the v3 Prep Tool Does">
 
-<t>This is a mostly-complete list of what the v3 prep tool does. The steps are in order of processing.</t>
+<t>The steps listed here are in order of processing.
+In all cases where the prep tool would “add” an attribute or element, if that attribute or element already
+exists, the prep tool will replace it, and if the values are different, will warn the user with a message that
+has the old and new values.</t>
 
 <t><list style="numbers">
   <t>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more
 &lt;x:include&gt;s (with relative URLs rooted at the xml:base), so set a limit on the
 depth of recursion.</t>
   <t>If in RFC production mode, remove comments.</t>
-  <t>If boilerplate exists in the input, produce a scary warning. Otherwise, fill in
-boilerplate text with current values.</t>
+  <t>Add the boilerplate text with current values.
+However, if different boilerplate text already exists in the input, produce a scary warning
+that says that other tools, specifically the draft submission tool, will treat that condition as an error.</t>
   <t>Fill in the “prepTime” attribute of &lt;rfc&gt; with the current datetime.</t>
   <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt;.</t>
   <t>Fill in any default values for attributes on elements, except “keepWithNext” and
@@ -144,7 +153,6 @@ boilerplate text with current values.</t>
   <t>If the &lt;workgroup&gt; content doesn’t end with “Group”, issue a warning.</t>
   <t>Add a “slugifiedName” attribute to each &lt;name&gt; element that does not contain a valid one
 (all values must be valid HTML id’s, and all start with with “n-“).</t>
-  <t>Remove any existing “pn” attributes.</t>
   <t>Add “pn” attributes for all parts.  Parts are:
   <list style="symbols">
       <t>&lt;section&gt;: pn=’s-1.4.2’</t>
@@ -159,7 +167,8 @@ boilerplate text with current values.</t>
   <t>Add a “start” attribute to every &lt;ol&gt; element containing a group that doesn’t already have a start.</t>
   <t>Sort the references, if “sortRefs” of &lt;rfc&gt; is true.</t>
   <t>Resolve all &lt;xref&gt; elements. Ensure that each target is valid.
-Invent text for each element that doesn’t have it.</t>
+Invent text for each element that doesn’t have it.
+(More steps will be added here when the community has agreement on *ref.)</t>
 </list></t>
 
 <!--
