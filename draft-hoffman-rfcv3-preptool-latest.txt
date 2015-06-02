@@ -65,11 +65,11 @@ Table of Contents
    3.  Internet-Draft Submission . . . . . . . . . . . . . . . . . .   3
    4.  Canonical RFC Preparation . . . . . . . . . . . . . . . . . .   3
    5.  What the v3 Prep Tool Does  . . . . . . . . . . . . . . . . .   4
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   6
-   9.  Informative References  . . . . . . . . . . . . . . . . . . .   6
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
+   9.  Informative References  . . . . . . . . . . . . . . . . . . .   8
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
 
 1.  Introduction
 
@@ -177,20 +177,32 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
    The steps listed here are in order of processing.  In all cases where
    the prep tool would "add" an attribute or element, if that attribute
-   or element already exists, the prep tool will replace it, and if the
-   values are different, will warn the user with a message that has the
-   old and new values.
+   or element already exists, the prep tool will check that the
+   attribute or element is correct.  If the value is incorrect, the prep
+   tool will warn with the old and new values, then replace the
+   incorrect value with the new value.
 
    1.   Process all <x:include> elements.  Note: <x:include>d XML may
         include more <x:include>s (with relative URLs rooted at the
-        xml:base), so set a limit on the depth of recursion.
+        xml:base).  The tool must be configurable with a limit on the
+        depth of recursion.
 
-   2.   If in RFC production mode, remove comments.
+   2.   If in RFC production mode:
 
-   3.   Add the boilerplate text with current values.  However, if
-        different boilerplate text already exists in the input, produce
-        a scary warning that says that other tools, specifically the
-        draft submission tool, will treat that condition as an error.
+        *  Remove comments.
+
+        *  Remove processing instructions.
+
+        *  Remove DTD references.
+
+   3.   Add the [RFC5741] boilerplate text with current values.
+        However, if different boilerplate text already exists in the
+        input, produce a warning that says that other tools,
+        specifically the draft submission tool, will treat that
+        condition as an error.  The application will use the "ipr",
+        "category", "submission", and "consensus" attributes of the
+        <rfc> element to determine which [RFC5741] boilerplate to
+        include, as described in Appendix A of [I-D.hoffman-xml2rfc].
 
    4.   Fill in the "prepTime" attribute of <rfc> with the current
         datetime.
@@ -204,19 +216,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    7.   If the <workgroup> content doesn't end with "Group", issue a
         warning.
 
-   8.   Add a "slugifiedName" attribute to each <name> element that does
-        not contain a valid one (all values must be valid HTML id's, and
-        all start with with "n-").
 
-   9.   Add "pn" attributes for all parts.  Parts are:
-
-        *  <section>: pn='s-1.4.2'
-
-        *  except <abstract>, which gets pn='s-abstract'
-
-        *  except <note>, which gets pn='s-note-[counter]'
-
-        *  <table>: pn='t-3'
 
 
 
@@ -226,10 +226,24 @@ Hoffman & Hildebrand    Expires December 3, 2015                [Page 4]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+   8.   Add a "slugifiedName" attribute to each <name> element that does
+        not contain one; replace the attribute if it contains a value
+        that begins with "n-".
+
+   9.   Add "pn" attributes for all parts.  Parts are:
+
+        *  <section>: pn='s-1.4.2'
+
+        *  <abstract>: pn='s-abstract'
+
+        *  <note>: pn='s-note-[counter]'
+
+        *  <table>: pn='t-3'
+
         *  <figure>: pn='f-4'
 
-        *  (<abstract>, <note>, <t>, <aside>, <blockquote>, <li>, <dt>,
-           <artwork>, <sourcecode>, <references>):
+        *  <artwork>, <aside>, <blockquote>, <dl>, <dt>, <li>, <ol>,
+           <references>, <sourcecode>, <t>, <ul>:
            pn='p-[section]-[counter]'
 
    10.  Add a "start" attribute to every <ol> element containing a group
@@ -241,38 +255,24 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         Invent text for each element that doesn't have it.  (More steps
         will be added here when the community has agreement on *ref.)
 
-   1.  Process <artwork> elements.  If an element has type='svg', and if
-       there is a "src" attribute, inline and remove the "src"
-       attribute, and insert "xml:base" attribute; also check SVG schema
-       against our TinySVG profile.  Otherwise, if the "src" attribute
-       is not a "data:" URI, turn it into a "data:" URI and insert
-       "xml:base" attribute.
+   13.  If an <artwork> element has both a "src" attribute and there is
+        any existing content, give an error.
 
-   2.  Add a <link> child element to <rfc> for the DOI, if in RFC
-       production mode.
+   14.  If an <artwork> element has a "src" attribute with no scheme is
+        specified, treat the scheme as "file:" in a path relative to the
+        file being processed.
 
-   3.  Determine all the characters used in the document, and fill in
-       "scripts" attribute for <rfc>.
+   15.  If an <artwork> element has a "src" attribute with a "file:"
+        scheme, and if processing the URL would cause the processor to
+        retrieve a file that is not in the same directory, or a
+        subdirectory, as the file being processed, give an error.
 
-   4.  Ensure that the output has the "version" attribute of <rfc>, and
-       that it is set to "3".
+   16.  If an <artwork> element has a "src" attribute URI scheme that is
+        not "data:", "file:", "http:", or "https:", give an error.
 
-   5.  Pretty-format the XML output.  (Note: tools like
-       https://github.com/hildjj/dentin do an adequate job.)
-
-   6.  Ensure that the result is in full compliance to v3 schema,
-       without any deprecated elements or attributes, and give an error
-       if any issues are found.
-
-6.  IANA Considerations
-
-   None.
-
-7.  Security Considerations
-
-   None.
-
-
+   17.  If an <artwork> element has type='svg' and there is a "src"
+        attribute, the data needs to be moved into the content of the
+        <artwork> element.
 
 
 
@@ -282,6 +282,122 @@ Hoffman & Hildebrand    Expires December 3, 2015                [Page 5]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+        *  If the "src" URI scheme is "data:", fill the content of the
+           <artwork> element with that data and remove the "src"
+           attribute.
+
+        *  If the "src" URI scheme is "file:", "http:", or "https:",
+           fill the content of the <artwork> element with the resolved
+           text from the URI in the "src" attribute.  Add an "xml:base"
+           attribute with the value of the URI and remove the "src"
+           attribute.
+
+   18.  If an <artwork> element has type='svg', check the SVG schema of
+        the resulting content against the profile in
+        [I-D.brownlee-svg-rfc].  Give an error (?) if it does not pass
+        the check.
+
+   19.  If an <artwork> element has type='binary-art', the data needs to
+        be in a "src" attribute with a URI scheme of "data:".
+
+        *  If the element has content, give an error.
+
+        *  If in RFC production mode, give an error.
+
+        *  If the "src" URI scheme is "http:" or "https:", resolve the
+           URL.  Replace the "src" attribute with a "data:" URI, add an
+           "xml:base" attribute with the value of the URI, and remove
+           the "src" attribute.
+
+   20.  If an <artwork> element does not have type='svg' or
+        type='binary-art' and there is a "src" attribute, the data needs
+        to be moved into the content of the <artwork> element.  Note
+        that this step assumes that all of the preferred types other
+        than "binary-art" are text.
+
+        *  If the "src" URI scheme is "data:", fill the content of the
+           <artwork> element with that data and remove the "src"
+           attribute.
+
+        *  If the "src" URI scheme is "file:", "http:", or "https:",
+           fill the content of the <artwork> element with the resolved
+           text from the URI in the "src" attribute.  Add an "xml:base"
+           attribute with the value of the URI and remove the "src"
+           attribute.
+
+   21.  If a <sourcecode> element has both a "src" attribute and there
+        is any existing content, give an error.
+
+
+
+
+
+
+Hoffman & Hildebrand    Expires December 3, 2015                [Page 6]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
+   22.  If a <sourcecode> element has a "src" attribute with no scheme
+        is specified, treat the scheme as "file:" in a path relative to
+        the file being processed.
+
+   23.  If an <sourcecode> element has a "src" attribute with a "file:"
+        scheme, and if processing the URL would cause the processor to
+        retrieve a file that is not in the same directory, or a
+        subdirectory, as the file being processed, give an error.
+
+   24.  If a <sourcecode> element has a "src" attribute URI scheme that
+        is not "data:", "file:", "http:", or "https:", give an error.
+
+   25.  If a <sourcecode> element has a "src" attribute, the data needs
+        to be moved into the content of the <sourcecode> element.
+
+        *  If the "src" URI scheme is "data:", fill the content of the
+           <sourcecode> element with that data and remove the "src"
+           attribute.
+
+        *  If the "src" URI scheme is "file:", "http:", or "https:",
+           fill the content of the <sourcecode> element with the
+           resolved text from the URI in the "src" attribute.  Add an
+           "xml:base" attribute with the value of the URI and remove the
+           "src" attribute.
+
+   26.  Add a <link> child element to <rfc> for the DOI, if in RFC
+        production mode.
+
+   27.  Determine all the characters used in the document, and fill in
+        "scripts" attribute for <rfc>.
+
+   28.  Ensure that the output has the "version" attribute of <rfc>, and
+        that it is set to "3".
+
+   29.  Pretty-format the XML output.  (Note: tools like
+        https://github.com/hildjj/dentin do an adequate job.)
+
+   30.  If in RFC production mode, ensure that the result is in full
+        compliance to v3 schema, without any deprecated elements or
+        attributes, and give an error if any issues are found.
+
+6.  IANA Considerations
+
+   None.
+
+
+
+
+
+
+
+Hoffman & Hildebrand    Expires December 3, 2015                [Page 7]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
+7.  Security Considerations
+
+   None.
+
 8.  Acknowledgements
 
    Many people contributed valuable ideas to this document.  Special
@@ -290,9 +406,16 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 9.  Informative References
 
+   [I-D.brownlee-svg-rfc]
+              Brownlee, N., "SVG Drawings for RFCs: SVG 1.2 RFC", draft-
+              brownlee-svg-rfc-09 (work in progress), March 2015.
+
    [I-D.hoffman-xml2rfc]
               Hoffman, P., "The 'XML2RFC' version 3 Vocabulary", draft-
               hoffman-xml2rfc-18 (work in progress), May 2015.
+
+   [RFC5741]  Daigle, L., Kolkman, O., and IAB, "RFC Streams, Headers,
+              and Boilerplates", RFC 5741, December 2009.
 
    [RFC6949]  Flanagan, H. and N. Brownlee, "RFC Series Format
               Requirements and Future Development", RFC 6949, May 2013.
@@ -322,15 +445,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Hoffman & Hildebrand    Expires December 3, 2015                [Page 6]
+Hoffman & Hildebrand    Expires December 3, 2015                [Page 8]
