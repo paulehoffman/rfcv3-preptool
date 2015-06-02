@@ -30,8 +30,10 @@ author:
 normative:
 
 informative:
+  RFC5741:
   RFC6949:
   I-D.hoffman-xml2rfc:
+  I-D.brownlee-svg-rfc:
 
 --- abstract
 
@@ -41,6 +43,16 @@ This draft is just a way to keep track of the ideas; it is not (currently)
 expected to be published as an RFC.
 
 --- middle
+
+<!--
+- if the schema doesn't adequately protect, error if both section and relative don't exist
+- warn if derivedRemoteContent exists?
+- error if <relref> contains both text and derivedRemoteContent
+- fill in derivedLink on all <relref> elements
+- fill in derivedRemoteContent on <relref> elements that do not contain text
+- try to fetch the derived URI if it knows the protocol scheme (warning if it doesn't), and warn (or error?) if the doc doesn't exist.
+-->
+
 
 
 Introduction
@@ -133,16 +145,20 @@ In all cases where the prep tool would "add" an attribute or element, if that at
 exists, the prep tool will check that the attribute or element is correct.
 If the value is incorrect, the prep tool will warn with the old and new values, then replace the incorrect value with the new value.
 
-
 1. Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more
-&lt;x:include&gt;s (with relative URLs rooted at the xml:base), so set a limit on the
-depth of recursion.
+&lt;x:include&gt;s (with relative URLs rooted at the xml:base).
+The tool must be configurable with a limit on the depth of recursion.
 
-1. If in RFC production mode, remove comments.
+1. If in RFC production mode:
+  * Remove comments.
+  * Remove processing instructions.
+  * Remove DTD references.
 
-1. Add the boilerplate text with current values.
-However, if different boilerplate text already exists in the input, produce a scary warning
+1. Add the {{RFC5741}} boilerplate text with current values.
+However, if different boilerplate text already exists in the input, produce a warning
 that says that other tools, specifically the draft submission tool, will treat that condition as an error.
+The application will use the "ipr", "category", "submission", and "consensus" attributes of the &lt;rfc&gt; element
+to determine which {{RFC5741}} boilerplate to include, as described in Appendix A of {{I-D.hoffman-xml2rfc}}.
 
 1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
@@ -153,18 +169,18 @@ that says that other tools, specifically the draft submission tool, will treat t
 
 1. If the &lt;workgroup&gt; content doesn't end with "Group", issue a warning.
 
-1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not contain a valid one
-(all values must be valid HTML id's, and all start with with "n-").
+1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not contain one;
+replace the attribute if it contains a value that begins with "n-".
 
 1. Add "pn" attributes for all parts.  Parts are:
   * &lt;section&gt;: pn='s-1.4.2'
-    * except &lt;abstract&gt;, which gets pn='s-abstract'
-    * except &lt;note&gt;, which gets pn='s-note-\[counter\]'
+  * &lt;abstract&gt;: pn='s-abstract'
+  * &lt;note&gt;: pn='s-note-\[counter\]'
   * &lt;table&gt;: pn='t-3'
   * &lt;figure&gt;: pn='f-4'
-  * (&lt;abstract&gt;, &lt;note&gt;, &lt;t&gt;, &lt;aside&gt;, &lt;blockquote&gt;,
-  &lt;li&gt;, &lt;dt&gt;, &lt;artwork&gt;, &lt;sourcecode&gt;, &lt;references&gt;):
-  pn='p-\[section\]-\[counter\]'
+  * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
+    &lt;li&gt;, &lt;ol&gt;, &lt;references&gt;, &lt;sourcecode&gt;, &lt;t&gt;, &lt;ul&gt;:
+    pn='p-\[section\]-\[counter\]'
 
 1. Add a "start" attribute to every &lt;ol&gt; element containing a group that doesn't already have a start.
 
@@ -174,20 +190,62 @@ that says that other tools, specifically the draft submission tool, will treat t
 Invent text for each element that doesn't have it.
 (More steps will be added here when the community has agreement on *ref.)
 
-<!--
-- if the schema doesn't adequately protect, error if both section and relative don't exist
-- warn if derivedRemoteContent exists?
-- error if <relref> contains both text and derivedRemoteContent
-- fill in derivedLink on all <relref> elements
-- fill in derivedRemoteContent on <relref> elements that do not contain text
-- try to fetch the derived URI if it knows the protocol scheme (warning if it doesn't), and warn (or error?) if the doc doesn't exist.
--->
+1. If an &lt;artwork&gt; element has both a "src" attribute and there is any existing content, give an error.
 
-1. Process &lt;artwork&gt; elements.
-If an element has type='svg', and if there is a "src" attribute, inline and remove the "src"
-attribute, and insert "xml:base" attribute; also check SVG schema against our TinySVG profile.
-Otherwise, if the "src" attribute is not a "data:" URI, turn it into a "data:"
-URI and insert "xml:base" attribute.
+1. If an &lt;artwork&gt; element has a "src" attribute with no scheme is specified,
+treat the scheme as "file:" in a path relative to the file being processed.
+
+1. If an &lt;artwork&gt; element has a "src" attribute with a "file:" scheme,
+and if processing the URL would cause the processor to retrieve a file that is not in the same directory,
+or a subdirectory, as the file being processed, give an error.
+
+1. If an &lt;artwork&gt; element has a "src" attribute URI scheme that is not "data:", "file:", "http:", or "https:", give an error.
+
+1. If an &lt;artwork&gt; element has type='svg' and there is a "src" attribute,
+the data needs to be moved into the content of the &lt;artwork&gt; element.
+  * If the "src" URI scheme is "data:", fill the content of the &lt;artwork&gt; element with that data
+    and remove the "src" attribute.
+  * If the "src" URI scheme is "file:", "http:", or "https:", fill the content of the &lt;artwork&gt; element with the
+    resolved text from the URI in the "src" attribute.
+    Add an "xml:base" attribute with the value of the URI and remove the "src" attribute.
+
+1. If an &lt;artwork&gt; element has type='svg', check the SVG schema of the resulting content
+against the profile in {{I-D.brownlee-svg-rfc}}. Give an error (?) if it does not pass
+the check.
+
+1. If an &lt;artwork&gt; element has type='binary-art', the data needs to be in a "src" attribute with a URI scheme of "data:".
+  * If the element has content, give an error.
+  * If in RFC production mode, give an error.
+  * If the "src" URI scheme is "http:" or "https:", resolve the URL. Replace the "src" attribute with a "data:" URI,
+    add an "xml:base" attribute with the value of the URI, and remove the "src" attribute. 
+
+1. If an &lt;artwork&gt; element does not have type='svg' or type='binary-art' and there is a "src" attribute,
+the data needs to be moved into the content of the &lt;artwork&gt; element. Note that this step assumes that all
+of the preferred types other than "binary-art" are text.
+  * If the "src" URI scheme is "data:", fill the content of the &lt;artwork&gt; element with that data
+    and remove the "src" attribute.
+  * If the "src" URI scheme is "file:", "http:", or "https:", fill the content of the &lt;artwork&gt; element with the
+    resolved text from the URI in the "src" attribute.
+    Add an "xml:base" attribute with the value of the URI and remove the "src" attribute.
+
+1. If a &lt;sourcecode&gt; element has both a "src" attribute and there is any existing content, give an error.
+
+1. If a &lt;sourcecode&gt; element has a "src" attribute with no scheme is specified,
+treat the scheme as "file:" in a path relative to the file being processed.
+
+1. If an &lt;sourcecode&gt; element has a "src" attribute with a "file:" scheme,
+and if processing the URL would cause the processor to retrieve a file that is not in the same directory,
+or a subdirectory, as the file being processed, give an error.
+
+1. If a &lt;sourcecode&gt; element has a "src" attribute URI scheme that is not "data:", "file:", "http:", or "https:", give an error.
+
+1. If a &lt;sourcecode&gt; element has a "src" attribute,
+the data needs to be moved into the content of the &lt;sourcecode&gt; element.
+  * If the "src" URI scheme is "data:", fill the content of the &lt;sourcecode&gt; element with that data
+    and remove the "src" attribute.
+  * If the "src" URI scheme is "file:", "http:", or "https:", fill the content of the &lt;sourcecode&gt; element with the
+    resolved text from the URI in the "src" attribute.
+    Add an "xml:base" attribute with the value of the URI and remove the "src" attribute.
 
 1. Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.
 
@@ -197,7 +255,7 @@ URI and insert "xml:base" attribute.
 
 1. Pretty-format the XML output.  (Note: tools like <https://github.com/hildjj/dentin> do an adequate job.)
 
-1. Ensure that the result is in full compliance to v3 schema, without any deprecated
+1. If in RFC production mode, ensure that the result is in full compliance to v3 schema, without any deprecated
 elements or attributes, and give an error if any issues are found.
 
 
