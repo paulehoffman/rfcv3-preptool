@@ -379,10 +379,11 @@
 <link href="#rfc.section.3" rel="Chapter" title="3 Internet-Draft Submission"/>
 <link href="#rfc.section.4" rel="Chapter" title="4 Canonical RFC Preparation"/>
 <link href="#rfc.section.5" rel="Chapter" title="5 What the v3 Prep Tool Does"/>
-<link href="#rfc.section.6" rel="Chapter" title="6 IANA Considerations"/>
-<link href="#rfc.section.7" rel="Chapter" title="7 Security Considerations"/>
-<link href="#rfc.section.8" rel="Chapter" title="8 Acknowledgements"/>
-<link href="#rfc.references" rel="Chapter" title="9 Informative References"/>
+<link href="#rfc.section.6" rel="Chapter" title="6 Additional Uses for the Prep Tool"/>
+<link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations"/>
+<link href="#rfc.section.8" rel="Chapter" title="8 Security Considerations"/>
+<link href="#rfc.section.9" rel="Chapter" title="9 Acknowledgements"/>
+<link href="#rfc.references" rel="Chapter" title="10 Informative References"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
 
@@ -457,10 +458,11 @@
 <li>3.   <a href="#rfc.section.3">Internet-Draft Submission</a></li>
 <li>4.   <a href="#rfc.section.4">Canonical RFC Preparation</a></li>
 <li>5.   <a href="#rfc.section.5">What the v3 Prep Tool Does</a></li>
-<li>6.   <a href="#rfc.section.6">IANA Considerations</a></li>
-<li>7.   <a href="#rfc.section.7">Security Considerations</a></li>
-<li>8.   <a href="#rfc.section.8">Acknowledgements</a></li>
-<li>9.   <a href="#rfc.references">Informative References</a></li>
+<li>6.   <a href="#rfc.section.6">Additional Uses for the Prep Tool</a></li>
+<li>7.   <a href="#rfc.section.7">IANA Considerations</a></li>
+<li>8.   <a href="#rfc.section.8">Security Considerations</a></li>
+<li>9.   <a href="#rfc.section.9">Acknowledgements</a></li>
+<li>10.   <a href="#rfc.references">Informative References</a></li>
 <li><a href="#rfc.authors">Authors' Addresses</a></li>
 
 
@@ -489,7 +491,7 @@
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#canonical-rfc-preparation" id="canonical-rfc-preparation">Canonical RFC Preparation</a></h1>
 <p id="rfc.section.4.p.1">During AUTH48, the RPC will run the prep tool in canonical RFC preparation mode and make the results available to the authors so they can see what the final output might look like. When the document is done with AUTH48 review, the RPC runs the prep tool in canonical RFC preparation mode one last time, locks down the canonicalized XML, runs the formatters for the non-canonical output, and publishes all of those. It is probably a good idea for the RPC to keep a copy of the input XML file from the various steps of the RFC production process.</p>
 <p id="rfc.section.4.p.2">Similarly to I-D&#8217;s, the prepped XML can be used later to re-render the output formats, or to generate new formats.</p>
-<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#what-the-v3-prep-tool-does" id="what-the-v3-prep-tool-does">What the v3 Prep Tool Does</a></h1>
+<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#steps" id="steps">What the v3 Prep Tool Does</a></h1>
 <p id="rfc.section.5.p.1">The steps listed here are in order of processing.  In all cases where the prep tool would &#8220;add&#8221; an attribute or element, if that attribute or element already exists, the prep tool will check that the attribute or element is correct.  If the value is incorrect, the prep tool will warn with the old and new values, then replace the incorrect value with the new value.</p>
 <p/>
 
@@ -519,19 +521,23 @@
   <li>If an &lt;sourcecode&gt; element has a &#8220;src&#8221; attribute with a &#8220;file:&#8221; scheme, and if processing the URL would cause the processor to retrieve a file that is not in the same directory, or a subdirectory, as the file being processed, give an error.</li>
   <li>If a &lt;sourcecode&gt; element has a &#8220;src&#8221; attribute URI scheme that is not &#8220;data:&#8221;, &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, give an error.</li>
   <li>If a &lt;sourcecode&gt; element has a &#8220;src&#8221; attribute, the data needs to be moved into the content of the &lt;sourcecode&gt; element.  <ul><li>If the &#8220;src&#8221; URI scheme is &#8220;data:&#8221;, fill the content of the &lt;sourcecode&gt; element with that data and remove the &#8220;src&#8221; attribute.</li><li>If the &#8220;src&#8221; URI scheme is &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, fill the content of the &lt;sourcecode&gt; element with the resolved text from the URI in the &#8220;src&#8221; attribute.  Add an &#8220;xml:base&#8221; attribute with the value of the URI and remove the &#8220;src&#8221; attribute.</li></ul></li>
+  <li>If an &lt;sourcecode&gt; element has a &#8220;type&#8221; attribute that matches one of the known types, and that type has code that can validate the code, do the validation (noting that elements that have the same &#8220;name&#8221; attribute should be collected) and give a warning if the validation fails. </li>
   <li>Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.</li>
   <li>Determine all the characters used in the document, and fill in &#8220;scripts&#8221; attribute for &lt;rfc&gt;.</li>
   <li>Ensure that the output has the &#8220;version&#8221; attribute of &lt;rfc&gt;, and that it is set to &#8220;3&#8221;.</li>
   <li>Pretty-format the XML output.  (Note: tools like <a href="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</a> do an adequate job.)</li>
   <li>If in RFC production mode, ensure that the result is in full compliance to v3 schema, without any deprecated elements or attributes, and give an error if any issues are found.</li>
 </ol>
-<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#ianacons" id="ianacons">IANA Considerations</a></h1>
-<p id="rfc.section.6.p.1">None.</p>
-<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#securitycons" id="securitycons">Security Considerations</a></h1>
+<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#additional-uses-for-the-prep-tool" id="additional-uses-for-the-prep-tool">Additional Uses for the Prep Tool</a></h1>
+<p id="rfc.section.6.p.1">There will be a need for Internet-Draft authors who include files from their local disk (such as for &lt;artwork src=&#8221;file:mydrawing.svg&#8221;/&gt;) to have the contents of those files inlined to their drafts before submitting them to the Internet-Draft processor. (There is a possibility that the Internet-Draft processor will allow XML files and accompanying files to be submitted at the same time, but this seems troublesome to program and thus unlikely.) For these users, having a local copy of the prep tool that has an option to just inline all local files would be terribly useful. That option would be a proper subset of the steps given in <a href="#steps">Section 5</a>.</p>
+<p id="rfc.section.6.p.2">A feature that might be useful in a local prep tool would be the inverse of the &#8220;just inline&#8221; option would be &#8220;extract all&#8221;. This would allow a user who has a v3 RFC or Internet-Draft to dump all of the &lt;artwork&gt; and &lt;sourcecode&gt; elements into local files instead of having to find each one in the XML. This option might even do as much validation as possible on the extracted &lt;sourcecode&gt; elements.</p>
+<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#ianacons" id="ianacons">IANA Considerations</a></h1>
 <p id="rfc.section.7.p.1">None.</p>
-<h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a></h1>
-<p id="rfc.section.8.p.1">Many people contributed valuable ideas to this document. Special thanks go to Robert Sparks for his in-depth review and contributions early in the development of this document.</p>
-<h1 id="rfc.references"><a href="#rfc.references">9.</a> Informative References</h1>
+<h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#securitycons" id="securitycons">Security Considerations</a></h1>
+<p id="rfc.section.8.p.1">None.</p>
+<h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a></h1>
+<p id="rfc.section.9.p.1">Many people contributed valuable ideas to this document. Special thanks go to Robert Sparks for his in-depth review and contributions early in the development of this document.</p>
+<h1 id="rfc.references"><a href="#rfc.references">10.</a> Informative References</h1>
 <table>
   <tbody>
     <tr>
