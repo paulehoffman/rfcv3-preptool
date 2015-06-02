@@ -140,7 +140,7 @@ the input XML file from the various steps of the RFC production process.</t>
 formats, or to generate new formats.</t>
 
 </section>
-<section anchor="what-the-v3-prep-tool-does" title="What the v3 Prep Tool Does">
+<section anchor="steps" title="What the v3 Prep Tool Does">
 
 <t>The steps listed here are in order of processing.
 In all cases where the prep tool would “add” an attribute or element, if that attribute or element already
@@ -237,6 +237,9 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
  resolved text from the URI in the “src” attribute.
  Add an “xml:base” attribute with the value of the URI and remove the “src” attribute.</t>
     </list></t>
+  <t>If an &lt;sourcecode&gt; element has a “type” attribute that matches one of the known types, and that type
+has code that can validate the code, do the validation (noting that elements that have the same “name”
+attribute should be collected) and give a warning if the validation fails. </t>
   <t>Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.</t>
   <t>Determine all the characters used in the document, and fill in “scripts” attribute for &lt;rfc&gt;.</t>
   <t>Ensure that the output has the “version” attribute of &lt;rfc&gt;, and that it is set to “3”.</t>
@@ -244,6 +247,24 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
   <t>If in RFC production mode, ensure that the result is in full compliance to v3 schema, without any deprecated
 elements or attributes, and give an error if any issues are found.</t>
 </list></t>
+
+</section>
+<section anchor="additional-uses-for-the-prep-tool" title="Additional Uses for the Prep Tool">
+
+<t>There will be a need for Internet-Draft authors who include files from their local disk
+(such as for &lt;artwork src=”file:mydrawing.svg”/&gt;) to have the contents of those files
+inlined to their drafts before submitting them to the Internet-Draft processor. (There is a
+possibility that the Internet-Draft processor will allow XML files and accompanying files to
+be submitted at the same time, but this seems troublesome to program and thus unlikely.)
+For these users, having a local copy of the prep tool that has an
+option to just inline all local files would be terribly useful. That option would be a proper
+subset of the steps given in <xref target="steps"/>.</t>
+
+<t>A feature that might be useful in a local prep tool would be the inverse of the
+“just inline” option would be “extract all”. This would allow a user who has a v3 RFC
+or Internet-Draft to dump all of the &lt;artwork&gt; and &lt;sourcecode&gt; elements
+into local files instead of having to find each one in the XML. This option might even
+do as much validation as possible on the extracted &lt;sourcecode&gt; elements.</t>
 
 </section>
 <section anchor="ianacons" title="IANA Considerations">

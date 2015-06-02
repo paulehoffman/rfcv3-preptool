@@ -137,7 +137,7 @@ Similarly to I-D's, the prepped XML can be used later to re-render the output
 formats, or to generate new formats.
 
 
-What the v3 Prep Tool Does
+What the v3 Prep Tool Does {#steps}
 =====
 
 The steps listed here are in order of processing.
@@ -247,6 +247,10 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     resolved text from the URI in the "src" attribute.
     Add an "xml:base" attribute with the value of the URI and remove the "src" attribute.
 
+1. If an &lt;sourcecode&gt; element has a "type" attribute that matches one of the known types, and that type
+has code that can validate the code, do the validation (noting that elements that have the same "name"
+attribute should be collected) and give a warning if the validation fails. 
+
 1. Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.
 
 1. Determine all the characters used in the document, and fill in "scripts" attribute for &lt;rfc&gt;.
@@ -257,6 +261,25 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
 
 1. If in RFC production mode, ensure that the result is in full compliance to v3 schema, without any deprecated
 elements or attributes, and give an error if any issues are found.
+
+
+Additional Uses for the Prep Tool
+=====
+
+There will be a need for Internet-Draft authors who include files from their local disk
+(such as for &lt;artwork src="file:mydrawing.svg"/&gt;) to have the contents of those files
+inlined to their drafts before submitting them to the Internet-Draft processor. (There is a
+possibility that the Internet-Draft processor will allow XML files and accompanying files to
+be submitted at the same time, but this seems troublesome to program and thus unlikely.)
+For these users, having a local copy of the prep tool that has an
+option to just inline all local files would be terribly useful. That option would be a proper
+subset of the steps given in {{steps}}.
+
+A feature that might be useful in a local prep tool would be the inverse of the
+"just inline" option would be "extract all". This would allow a user who has a v3 RFC
+or Internet-Draft to dump all of the &lt;artwork&gt; and &lt;sourcecode&gt; elements
+into local files instead of having to find each one in the XML. This option might even
+do as much validation as possible on the extracted &lt;sourcecode&gt; elements.
 
 
 IANA Considerations {#ianacons}
