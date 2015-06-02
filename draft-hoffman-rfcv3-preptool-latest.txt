@@ -68,7 +68,7 @@ Table of Contents
    6.  Additional Uses for the Prep Tool . . . . . . . . . . . . . .   8
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
-   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   9
    10. Informative References  . . . . . . . . . . . . . . . . . . .   9
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
@@ -182,10 +182,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    tool will warn with the old and new values, then replace the
    incorrect value with the new value.
 
-   1.   Process XML entityrefs and remove all DTD information.  DTDs can
-        bring in external information, so they must be removed; that
-        means all of the entities that are defined in those DTDs must be
-        expanded.
+   1.   Fully process any DTDs in the input document, then remove the
+        DTD.  At a minimum, this entails processing the entityrefs and
+        includes for external files.
 
    2.   Process all <x:include> elements.  Note: <x:include>d XML may
         include more <x:include>s (with relative URLs rooted at the
@@ -218,6 +217,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
    8.   If the <workgroup> content doesn't end with "Group", issue a
         warning.
+
 
 
 
@@ -293,14 +293,14 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
         *  If the "src" URI scheme is "file:", "http:", or "https:",
            fill the content of the <artwork> element with the resolved
-           XML from the URI in the "src" attribute.  Add an "xml:base"
-           attribute with the value of the URI and remove the "src"
-           attribute.
+           XML from the URI in the "src" attribute.  Add an
+           "originalSrc" attribute with the value of the URI and remove
+           the "src" attribute.
 
    19.  If an <artwork> element has type='svg', check the SVG schema of
         the resulting content against the profile in
-        [I-D.brownlee-svg-rfc].  Give an error or strip the offending
-        content if it does not pass the check.
+        [I-D.brownlee-svg-rfc].  If it does not pass the check, give an
+        error (?) or strip the offending content (?).
 
    20.  If an <artwork> element has type='binary-art', the data needs to
         be in a "src" attribute with a URI scheme of "data:".
@@ -311,11 +311,13 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
         *  If the "src" URI scheme is "file:", "http:", or "https:",
            resolve the URL.  Replace the "src" attribute with a "data:"
-           URI, add an "xml:base" attribute with the value of the URI,
-           and remove the "src" attribute.  The mediatype of the "data:"
-           URI should be the Content-Type of the HTTP response, and a
-           guess if the original "src" was a "file:" URI.  Note: since
-           this feature can't be used for RFCs at the moment, this
+           URI, add an "originalSrc" attribute with the value of the
+           URI, and remove the "src" attribute.  For the "http:" and
+           "https:" URI schemes, the mediatype of the "data:" URI will
+           be the Content-Type of the HTTP response.  For the "file:"
+           URI scheme, the mediatype of the "data:" URI needs to be
+           guessed with heuristics (this is possibly a bad idea).  Note:
+           since this feature can't be used for RFCs at the moment, this
            entire feature might be de-prioritized.
 
    21.  If an <artwork> element does not have type='svg' or
@@ -328,8 +330,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
            <artwork> element with the correctly-escaped form of that
            data and remove the "src" attribute.
 
-        *  If the "src" URI scheme is "file:", "http:", or "https:",
-           fill the content of the <artwork> element with the correctly-
 
 
 
@@ -338,9 +338,11 @@ Hoffman & Hildebrand    Expires December 4, 2015                [Page 6]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+        *  If the "src" URI scheme is "file:", "http:", or "https:",
+           fill the content of the <artwork> element with the correctly-
            escaped form of the resolved text from the URI in the "src"
-           attribute.  Add an "xml:base" attribute with the value of the
-           URI and remove the "src" attribute.
+           attribute.  Add an "originalSrc" attribute with the value of
+           the URI and remove the "src" attribute.
 
    22.  If a <sourcecode> element has both a "src" attribute and there
         is any existing content, give an error.
@@ -369,8 +371,8 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         *  If the "src" URI scheme is "file:", "http:", or "https:",
            fill the content of the <sourcecode> element with the
            appropriately-escaped resolved text from the URI in the "src"
-           attribute.  Add an "xml:base" attribute with the value of the
-           URI and remove the "src" attribute.
+           attribute.  Add an "originalSrc" attribute with the value of
+           the URI and remove the "src" attribute.
 
    27.  If an <sourcecode> element has a "type" attribute that matches
         one of the known types, and that type has code that can validate
@@ -384,8 +386,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    29.  Determine all the characters used in the document, and fill in
         "scripts" attribute for <rfc>.
 
-   30.  Ensure that the output has the "version" attribute of <rfc>, and
-        that it is set to "3".
 
 
 
@@ -394,13 +394,18 @@ Hoffman & Hildebrand    Expires December 4, 2015                [Page 7]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
-   31.  Pretty-format the XML output.  (Note: tools like
+   30.  Ensure that the output has the "version" attribute of <rfc>, and
+        that it is set to "3".
 
-   https://github.com/hildjj/dentin do an adequate job.)
+   31.  If in RFC production mode, remove all "xml:base" or
+        "originalSrc" attributes from all elements.
 
-   1.  If in RFC production mode, ensure that the result is in full
-       compliance to v3 schema, without any deprecated elements or
-       attributes, and give an error if any issues are found.
+   32.  Pretty-format the XML output.  (Note: tools like
+        https://github.com/hildjj/dentin do an adequate job.)
+
+   33.  If in RFC production mode, ensure that the result is in full
+        compliance to v3 schema, without any deprecated elements or
+        attributes, and give an error if any issues are found.
 
 6.  Additional Uses for the Prep Tool
 
@@ -434,11 +439,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
    None.
 
-9.  Acknowledgements
-
-   Many people contributed valuable ideas to this document.  Special
-   thanks go to Robert Sparks for his in-depth review and contributions
-   early in the development of this document.
 
 
 
@@ -449,6 +449,12 @@ Hoffman & Hildebrand    Expires December 4, 2015                [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+9.  Acknowledgements
+
+   Many people contributed valuable ideas to this document.  Special
+   thanks go to Robert Sparks for his in-depth review and contributions
+   early in the development of this document.
 
 10.  Informative References
 
@@ -478,12 +484,6 @@ Authors' Addresses
    Cisco
 
    Email: jhildebr@cisco.com
-
-
-
-
-
-
 
 
 
