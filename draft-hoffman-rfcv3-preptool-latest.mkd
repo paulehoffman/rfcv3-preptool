@@ -44,16 +44,6 @@ expected to be published as an RFC.
 
 --- middle
 
-<!--
-- if the schema doesn't adequately protect, error if both section and relative don't exist
-- warn if derivedRemoteContent exists?
-- error if <relref> contains both text and derivedRemoteContent
-- fill in derivedLink on all <relref> elements
-- fill in derivedRemoteContent on <relref> elements that do not contain text
-- try to fetch the derived URI if it knows the protocol scheme (warning if it doesn't), and warn (or error?) if the doc doesn't exist.
--->
-
-
 
 Introduction
 =====
@@ -197,9 +187,33 @@ doesn't already have a start.
 
 1. Sort the references, if "sortRefs" of &lt;rfc&gt; is true.
 
-1. Resolve all &lt;xref&gt; elements. Ensure that each target is valid.
-Invent text for each element that doesn't have it.
-(More steps will be added here when the community has agreement on *ref.)
+1. For each &lt;xref&gt; element, give an error if there is no "target" attribute, or if that attribute is not
+an anchor in another element.
+
+1. For each &lt;xref&gt; element that has content, fill in the "derivedRemoteContent" with the
+element content. Issue a warning if that attribute already exists and has a different value
+than what was being filled in.
+
+1. For each &lt;xref&gt; element that does not have content, fill in the "derivedRemoteContent" based on the
+"format" attribute. Issue a warning if that attribute already exists and has a different value
+than what was being filled in.
+
+1. For each &lt;relref&gt; element, give an error if there is no "target" attribute, or if that attribute is
+not an anchor in a &lt;reference&;gt; or &lt;referencegroup&;gt; element.
+
+1. For each &lt;relref&gt; element, if the element has neither a "relative" nor a "section" attribute, give an error.
+
+1. For each &lt;relref&gt; element, if the element has both a "relative" nor a "section" attribute, give an error.
+
+1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
+
+1. For each &lt;relref&gt; element that has content, fill in the "derivedRemoteContent" with the
+element content. Issue a warning if that attribute already exists and has a different value
+than what was being filled in.
+
+1. For each &lt;relref&gt; element that does not have content, fill in the "derivedRemoteContent" based on the
+"displayFormat" attribute. Issue a warning if that attribute already exists and has a different value
+than what was being filled in.
 
 1. If an &lt;artwork&gt; element has both a "src" attribute and there is any
 existing content, give an error.
