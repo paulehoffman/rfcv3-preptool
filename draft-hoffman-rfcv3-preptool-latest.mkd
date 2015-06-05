@@ -162,12 +162,29 @@ which {{RFC5741}} boilerplate to include, as described in Appendix A of
 
 1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
-1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt;.
+1. If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
+attribute, add a paragraph to the top of the &lt;note&gt; element that says
+"This note is to be removed before publishing as an RFC".
+
+1. If in I-D mode, if there is a &lt;date&gt; element in the document's
+&lt;front&gt; element, and that date is earlier than today, it is an error.
+
+1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on the
+the &lt;date&gt; element of the document's &lt;front&gt; element, if there is one.
 
 1. Fill in any default values for attributes on elements, except "keepWithNext"
 and "keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
 
 1. If the &lt;workgroup&gt; content doesn't end with "Group", issue a warning.
+
+1. Sanity-check the value of the "obsoletes" and "updates" attributes in the
+&lt;rfc&gt; element and give a waring if the sanity check fails.
+
+1. For each &lt;section&gt; element that has a "numbered" attribute set to
+"false", verify that the section is either followed by a section at the
+top level, or is not followed by another section that does
+not contain the "numbered" attribute set to "false"; if both tests
+fail, it is an error.
 
 1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
@@ -184,6 +201,9 @@ contain one; replace the attribute if it contains a value that begins with "n-".
 
 1. Add a "start" attribute to every &lt;ol&gt; element containing a group that
 doesn't already have a start.
+
+1. Look for groups of &lt;postalLine&gt; elements; if found, emit them in the order
+they are seen.
 
 1. Sort the references, if "sortRefs" of &lt;rfc&gt; is true.
 
@@ -311,6 +331,24 @@ attribute for &lt;rfc&gt;.
 
 1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
 it is set to "3".
+
+1. Prepare the index, if one is called for in the document. The steps for doing
+that is out of scope for this document.
+
+1. If in I-D mode, check if there is a &lt;link&gt; element with
+an ISSN for the RFC series; if so, delete it.
+
+1. If in I-D mode, check if there is a &lt;link&gt; element with
+a DOI for this draft; if so, delete it.
+
+1. If in RFC production mode, check if there is a &lt;link&gt; element with
+an ISSN for the RFC series; if not, add one.
+
+1. If in RFC production mode, check if there is a &lt;link&gt; element with
+a DOI for this RFC; if not, add one.
+
+1. If in RFC production mode, check if there is a &lt;link&gt; element with
+the file name of the Internet-Draft that became this RFC; if not, add one.
 
 1. If in RFC production mode, remove all "xml:base" or "originalSrc" attributes from
 all elements.

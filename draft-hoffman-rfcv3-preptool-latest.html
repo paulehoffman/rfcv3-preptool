@@ -392,7 +392,7 @@
 
   <meta name="dct.creator" content="Hoffman, P. and J. Hildebrand" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-hoffman-rfcv3-preptool" />
-  <meta name="dct.issued" scheme="ISO8601" content="2015-6-04" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-6-09" />
   <meta name="dct.abstract" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.  This draft is just a way to keep track of the ideas; it is not (currently) expected to be published as an RFC." />
   <meta name="description" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.  This draft is just a way to keep track of the ideas; it is not (currently) expected to be published as an RFC." />
 
@@ -416,12 +416,12 @@
   <td class="right">J. Hildebrand</td>
 </tr>
 <tr>
-  <td class="left">Expires: December 6, 2015</td>
+  <td class="left">Expires: December 11, 2015</td>
   <td class="right">Cisco</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">June 04, 2015</td>
+  <td class="right">June 09, 2015</td>
 </tr>
 
     	
@@ -441,7 +441,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 6, 2015.</p>
+<p>This Internet-Draft will expire on December 11, 2015.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -501,12 +501,17 @@
   <li>If in RFC production mode: <ul><li>Remove comments.</li><li>Remove processing instructions.</li></ul></li>
   <li>Add the <a href="#RFC5741">[RFC5741]</a> boilerplate text with current values. However, if different boilerplate text already exists in the input, produce a warning that says that other tools, specifically the draft submission tool, will treat that condition as an error. The application will use the &#8220;ipr&#8221;, &#8220;category&#8221;, &#8220;submission&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element to determine which <a href="#RFC5741">[RFC5741]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.hoffman-xml2rfc">[I-D.hoffman-xml2rfc]</a>.</li>
   <li>Fill in the &#8220;prepTime&#8221; attribute of &lt;rfc&gt; with the current datetime.</li>
-  <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt;.</li>
+  <li>If in I-D mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute, add a paragraph to the top of the &lt;note&gt; element that says &#8220;This note is to be removed before publishing as an RFC&#8221;.</li>
+  <li>If in I-D mode, if there is a &lt;date&gt; element in the document&#8217;s &lt;front&gt; element, and that date is earlier than today, it is an error.</li>
+  <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element, if there is one.</li>
   <li>Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.</li>
   <li>If the &lt;workgroup&gt; content doesn&#8217;t end with &#8220;Group&#8221;, issue a warning.</li>
+  <li>Sanity-check the value of the &#8220;obsoletes&#8221; and &#8220;updates&#8221; attributes in the &lt;rfc&gt; element and give a waring if the sanity check fails.</li>
+  <li>For each &lt;section&gt; element that has a &#8220;numbered&#8221; attribute set to &#8220;false&#8221;, verify that the section is either followed by a section at the top level, or is not followed by another section that does not contain the &#8220;numbered&#8221; attribute set to &#8220;false&#8221;; if both tests fail, it is an error.</li>
   <li>Add a &#8220;slugifiedName&#8221; attribute to each &lt;name&gt; element that does not contain one; replace the attribute if it contains a value that begins with &#8220;n-&#8220;.</li>
   <li>Add &#8220;pn&#8221; attributes for all parts.  Parts are: <ul><li>&lt;section&gt;: pn=&#8217;s-1.4.2&#8217;</li><li>&lt;abstract&gt;: pn=&#8217;s-abstract&#8217;</li><li>&lt;note&gt;: pn=&#8217;s-note-[counter]&#8217;</li><li>&lt;table&gt;: pn=&#8217;t-3&#8217;</li><li>&lt;figure&gt;: pn=&#8217;f-4&#8217;</li><li>&lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;, &lt;li&gt;, &lt;ol&gt;, &lt;references&gt;, &lt;sourcecode&gt;, &lt;t&gt;, &lt;ul&gt;: pn=&#8217;p-[section]-[counter]&#8217;</li></ul></li>
   <li>Add a &#8220;start&#8221; attribute to every &lt;ol&gt; element containing a group that doesn&#8217;t already have a start.</li>
+  <li>Look for groups of &lt;postalLine&gt; elements; if found, emit them in the order they are seen.</li>
   <li>Sort the references, if &#8220;sortRefs&#8221; of &lt;rfc&gt; is true.</li>
   <li>For each &lt;xref&gt; element, give an error if there is no &#8220;target&#8221; attribute, or if that attribute is not an anchor in another element.</li>
   <li>For each &lt;xref&gt; element that has content, fill in the &#8220;derivedRemoteContent&#8221; with the element content. Issue a warning if that attribute already exists and has a different value than what was being filled in.</li>
@@ -534,8 +539,19 @@
   <li>Add a &lt;link&gt; child element to &lt;rfc&gt; for the DOI, if in RFC production mode.</li>
   <li>Determine all the characters used in the document, and fill in &#8220;scripts&#8221; attribute for &lt;rfc&gt;.</li>
   <li>Ensure that the output has the &#8220;version&#8221; attribute of &lt;rfc&gt;, and that it is set to &#8220;3&#8221;.</li>
+  <li>Prepare the index, if one is called for in the document. The steps for doing that is out of scope for this document.</li>
+  <li>If in I-D mode, check if there is a &lt;link&gt; element with an ISSN for the RFC series; if so, delete it.</li>
+  <li>If in I-D mode, check if there is a &lt;link&gt; element with a DOI for this draft; if so, delete it.</li>
+  <li>If in RFC production mode, check if there is a &lt;link&gt; element with an ISSN for the RFC series; if not, add one.</li>
+  <li>If in RFC production mode, check if there is a &lt;link&gt; element with a DOI for this RFC; if not, add one.</li>
+  <li>If in RFC production mode, check if there is a &lt;link&gt; element with the file name of the Internet-Draft that became this RFC; if not, add one.</li>
   <li>If in RFC production mode, remove all &#8220;xml:base&#8221; or &#8220;originalSrc&#8221; attributes from all elements.</li>
-  <li>Pretty-format the XML output.  (Note: tools like <a href="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</a> do an adequate job.)</li>
+  <li>Pretty-format the XML output.  (Note: tools like</li>
+</ol>
+<p><a href="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</a> do an adequate job.)</p>
+<p/>
+
+<ol>
   <li>If in RFC production mode, ensure that the result is in full compliance to v3 schema, without any deprecated elements or attributes, and give an error if any issues are found.</li>
 </ol>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#additional-uses-for-the-prep-tool" id="additional-uses-for-the-prep-tool">Additional Uses for the Prep Tool</a></h1>
