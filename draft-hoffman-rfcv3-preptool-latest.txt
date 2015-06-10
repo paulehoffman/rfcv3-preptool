@@ -65,12 +65,21 @@ Table of Contents
    3.  Internet-Draft Submission . . . . . . . . . . . . . . . . . .   3
    4.  Canonical RFC Preparation . . . . . . . . . . . . . . . . . .   3
    5.  What the v3 Prep Tool Does  . . . . . . . . . . . . . . . . .   4
+<<<<<<< HEAD
    6.  Additional Uses for the Prep Tool . . . . . . . . . . . . . .   9
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
    9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   9
    10. Informative References  . . . . . . . . . . . . . . . . . . .   9
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+=======
+   6.  Additional Uses for the Prep Tool . . . . . . . . . . . . . .  10
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
+   10. Informative References  . . . . . . . . . . . . . . . . . . .  11
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
+>>>>>>> e0726110713645bfbd798b37680710443277b563
 
 1.  Introduction
 
@@ -255,6 +264,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         attribute, or if that attribute is not an anchor in another
         element.
 
+<<<<<<< HEAD
    14.  For each <xref> element that has content, fill in the
         "derivedRemoteContent" with the element content.  Issue a
         warning if that attribute already exists and has a different
@@ -264,6 +274,36 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         "derivedRemoteContent" based on the "format" attribute.  Issue a
         warning if that attribute already exists and has a different
         value than what was being filled in.
+=======
+   19.  For each <xref> element that has content, fill the
+        "derivedContent" with the element content.  Issue a warning if
+        the "derivedContent" attribute already exists and has a
+        different value than what was being filled in.
+
+   20.  For each <xref> element that does not have content, fill the
+        "derivedContent" based on the "format" attribute.  For
+        format='counter', the "derivedContent" is the section, figure,
+        table, or ordered list number.  For format='default' and the
+        "target" attribute points to a <reference> or <referencegroup>
+        element, the "derivedContent" is the value of the "target"
+        attribute.  For format='default' and the "target" attribute
+        points something else, the "derivedContent" is the title of the
+        thing pointed to, such as "Section 2.3" or "Table 4".  For
+        format='title', if the target is a <reference> element, the
+        "derivedContent" attribute is the name of the reference,
+        extracted from the <title> child of the <front> child of the
+        reference.  For format='title', if the target element has a
+        <name> child element, the "derivedContent" attribute is the text
+        content of that <name> element concatenated with the text
+        content of each descendant node of <name> (that is, stripping
+        out all of the XML markup, leaving only the text).
+        For format='title', if the target element does not contain a
+        <name> child element, the "derivedContent" attribute is the name
+        of the "anchor" attribute of that element with no other
+        adornment.  Issue a warning if the "derivedContent" attribute
+        already exists and has a different value than what was being
+        filled in.
+>>>>>>> e0726110713645bfbd798b37680710443277b563
 
    16.  For each <relref> element, give an error if there is no "target"
         attribute, or if that attribute is not an anchor in a
@@ -276,6 +316,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         nor a "section" attribute, give an error.
 
 
+<<<<<<< HEAD
 
 Hoffman & Hildebrand    Expires December 6, 2015                [Page 5]
 
@@ -293,6 +334,38 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         the "derivedRemoteContent" based on the "displayFormat"
         attribute.  Issue a warning if that attribute already exists and
         has a different value than what was being filled in.
+=======
+   25.  For each <relref> element that does not have content, fill
+        the"derivedRemoteContent" based on the content of the target
+        reference.  If the target reference is a RFC or Internet-Draft
+
+
+
+Hoffman & Hildebrand    Expires December 11, 2015               [Page 6]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
+        in the v3 format, and the anchor given in the "relative"
+        attribute or derived from the "section" attribute is not in the
+        target refernence, give an error.  If the target reference is a
+        RFC or Internet-Draft in the v3 format, find the anchor given in
+        the "relative" attribute or derived from the "section"
+        attribute, and use the identifier of that element (such as
+        "Section 2.3" or "Table 4") for the "derivedRemoteContent".  If
+        the target reference is not a RFC or Internet-Draft in the v3
+        format, use the value of the "relative" or "section" attribute
+        for the "derivedRemoteContent".  Issue a warning if that
+        attribute already exists and has a different value than what was
+        being filled in.  Issue a warning if the "derivedRemoteContent"
+        attribute already exists and has a different value than what was
+        being filled in.
+
+   26.  For each <relref> element that has content, fill the
+        "derivedRemoteContent" with the element content.  Issue a
+        warning if the "derivedRemoteContent" attribute already exists
+        and has a different value than what was being filled in.
+>>>>>>> e0726110713645bfbd798b37680710443277b563
 
    22.  If an <artwork> element has both a "src" attribute and there is
         any existing content, give an error.
@@ -320,6 +393,15 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
            <artwork> element with that data and remove the "src"
            attribute.  If the mediatype of the data: URI is not "image/
            svg+xml", error.
+
+
+
+
+
+Hoffman & Hildebrand    Expires December 11, 2015               [Page 7]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
 
         *  If the "src" URI scheme is "file:", "http:", or "https:",
            fill the content of the <artwork> element with the resolved
@@ -378,7 +460,19 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    30.  If a <sourcecode> element has both a "src" attribute and there
         is any existing content, give an error.
 
+<<<<<<< HEAD
    31.  If a <sourcecode> element has a "src" attribute with no scheme
+=======
+
+
+
+Hoffman & Hildebrand    Expires December 11, 2015               [Page 8]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
+   36.  If a <sourcecode> element has a "src" attribute with no scheme
+>>>>>>> e0726110713645bfbd798b37680710443277b563
         is specified, treat the scheme as "file:" in a path relative to
         the file being processed.
 
@@ -419,7 +513,11 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         same "name" attribute should be collected) and give a warning if
         the validation fails.
 
+<<<<<<< HEAD
    36.  Add a <link> child element to <rfc> for the DOI, if in RFC
+=======
+   41.  Add a <link> child element to <rfc> for the DOI, if in RFC
+>>>>>>> e0726110713645bfbd798b37680710443277b563
         production mode.
 
    37.  Determine all the characters used in the document, and fill in
@@ -434,14 +532,28 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    40.  Pretty-format the XML output.  (Note: tools like
         https://github.com/hildjj/dentin do an adequate job.)
 
+<<<<<<< HEAD
    41.  If in RFC production mode, ensure that the result is in full
         compliance to v3 schema, without any deprecated elements or
         attributes, and give an error if any issues are found.
+=======
+
+
+
+Hoffman & Hildebrand    Expires December 11, 2015               [Page 9]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
+   46.  If in I-D mode, check if there is a <link> element with a DOI
+        for this draft; if so, delete it.
+>>>>>>> e0726110713645bfbd798b37680710443277b563
 
 
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -449,6 +561,14 @@ Hoffman & Hildebrand    Expires December 6, 2015                [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+=======
+   51.  Pretty-format the XML output.  (Note: tools like
+        https://github.com/hildjj/dentin do an adequate job.)
+
+   52.  If in RFC production mode, ensure that the result is in full
+        compliance to v3 schema, without any deprecated elements or
+        attributes, and give an error if any issues are found.
+>>>>>>> e0726110713645bfbd798b37680710443277b563
 
 6.  Additional Uses for the Prep Tool
 
@@ -474,6 +594,15 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    tool (such as part numbers and slugifiedName's starting with "n-") in
    order to make the resulting file easier to edit.
 
+
+
+
+
+Hoffman & Hildebrand    Expires December 11, 2015              [Page 10]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
 7.  IANA Considerations
 
    None.
@@ -498,6 +627,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
               Hoffman, P., "The 'XML2RFC' version 3 Vocabulary", draft-
               hoffman-xml2rfc-18 (work in progress), May 2015.
 
+<<<<<<< HEAD
 
 
 
@@ -506,6 +636,8 @@ Hoffman & Hildebrand    Expires December 6, 2015                [Page 9]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+=======
+>>>>>>> e0726110713645bfbd798b37680710443277b563
    [RFC5741]  Daigle, L., Kolkman, O., and IAB, "RFC Streams, Headers,
               and Boilerplates", RFC 5741, December 2009.
 
@@ -533,6 +665,7 @@ Authors' Addresses
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -558,3 +691,6 @@ Authors' Addresses
 
 
 Hoffman & Hildebrand    Expires December 6, 2015               [Page 10]
+=======
+Hoffman & Hildebrand    Expires December 11, 2015              [Page 11]
+>>>>>>> e0726110713645bfbd798b37680710443277b563
