@@ -210,13 +210,30 @@ they are seen.
 1. For each &lt;xref&gt; element, give an error if there is no "target" attribute, or if that attribute is not
 an anchor in another element.
 
-1. For each &lt;xref&gt; element that has content, fill in the "derivedRemoteContent" with the
-element content. Issue a warning if that attribute already exists and has a different value
-than what was being filled in.
+1. For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
+content. 
+Issue a warning if the "derivedContent" attribute already exists and has a different value than what
+was being filled in.
 
-1. For each &lt;xref&gt; element that does not have content, fill in the "derivedRemoteContent" based on the
-"format" attribute. Issue a warning if that attribute already exists and has a different value
-than what was being filled in.
+1. For each &lt;xref&gt; element that does not have content, fill the "derivedContent" based on the
+"format" attribute.
+For format='counter', the "derivedContent" is the section, figure, table, or ordered list number.
+For format='default' and the "target" attribute points to a &lt;reference&gt; or
+&lt;referencegroup&gt; element, the "derivedContent" is the value of the "target" attribute.
+For format='default' and the "target" attribute points something else, the "derivedContent" is the
+title of the thing pointed to, such as "Section 2.3" or "Table 4".
+For format='title', if the target is a &lt;reference&gt; element, the "derivedContent" attribute is
+the name of the reference, extracted from the &lt;title&gt; child of the &lt;front&gt; child of the
+reference.
+For format='title', if the target element has a &lt;name&gt; child element, the "derivedContent"
+attribute is the text content of that &lt;name&gt; element concatenated with the text content of
+each descendant node of &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
+text).  
+For format='title', if the target element does not contain a &lt;name&gt; child element, the
+"derivedContent" attribute is the name of the "anchor" attribute of that element with no other
+adornment.
+Issue a warning if the "derivedContent" attribute already exists and has a different value than what
+was being filled in.
 
 1. For each &lt;relref&gt; element, give an error if there is no "target" attribute, or if that attribute is
 not an anchor in a &lt;reference&;gt; or &lt;referencegroup&;gt; element.
@@ -227,12 +244,24 @@ not an anchor in a &lt;reference&;gt; or &lt;referencegroup&;gt; element.
 
 1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
-1. For each &lt;relref&gt; element that has content, fill in the "derivedRemoteContent" with the
-element content. Issue a warning if that attribute already exists and has a different value
+1. For each &lt;relref&gt; element that does not have content, fill the"derivedRemoteContent"
+based on the content of the target reference.
+If the target reference is a RFC or Internet-Draft in the v3 format, and the anchor given in the
+"relative" attribute or derived from the "section" attribute is not in the target refernence, give
+an error.
+If the target reference is a RFC or Internet-Draft in the v3 format, find the anchor given in the
+"relative" attribute or derived from the "section" attribute, and use the identifier of that element
+(such as "Section 2.3" or "Table 4") for the "derivedRemoteContent".
+If the target reference is not a RFC or Internet-Draft in the v3 format, use the value of the
+"relative" or "section" attribute for the "derivedRemoteContent".
+Issue a warning if that attribute already exists and has a different value than what was being
+filled in.
+Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
 than what was being filled in.
 
-1. For each &lt;relref&gt; element that does not have content, fill in the "derivedRemoteContent" based on the
-"displayFormat" attribute. Issue a warning if that attribute already exists and has a different value
+1. For each &lt;relref&gt; element that has content, fill the "derivedRemoteContent" with the
+element content.
+Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
 than what was being filled in.
 
 1. If an &lt;artwork&gt; element has both a "src" attribute and there is any
