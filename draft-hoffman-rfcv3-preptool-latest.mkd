@@ -148,9 +148,9 @@ files.
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.
 
-1. If in RFC production mode:
-  * Remove comments.
-  * Remove processing instructions.
+1. Remove processing instructions.
+
+1. If in RFC production mode, remove comments.
 
 1. Add the {{RFC5741}} boilerplate text with current values. However, if
 different boilerplate text already exists in the input, produce a warning that
