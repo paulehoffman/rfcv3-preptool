@@ -40,7 +40,7 @@ informative:
 This document describes some aspects of the "prep tool" that is expected
 to be created when the new RFC v3 specification is deployed.
 This draft is just a way to keep track of the ideas; it is not (currently)
-expected to be published as an RFC. 
+expected to be published as an RFC.
 
 --- middle
 
@@ -163,8 +163,9 @@ which {{RFC5741}} boilerplate to include, as described in Appendix A of
 1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
 1. If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
-attribute, add a paragraph to the top of the &lt;note&gt; element that says
-"This note is to be removed before publishing as an RFC".
+attribute that has the value "true", add a paragraph to the top of the &lt;note&gt; element that says
+"This note is to be removed before publishing as an RFC.", if such a
+paragraph does not yet exist.
 
 1. If in I-D mode, if there is a &lt;date&gt; element in the document's
 &lt;front&gt; element, and that date is earlier than today, it is an error.
@@ -211,7 +212,7 @@ they are seen.
 an anchor in another element.
 
 1. For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
-content. 
+content.
 Issue a warning if the "derivedContent" attribute already exists and has a different value than what
 was being filled in.
 
@@ -291,7 +292,7 @@ the data needs to be moved into the content of the &lt;artwork&gt; element.
     remove the "src" attribute.
 
 1. If an &lt;artwork&gt; element has type='svg', check the SVG schema of the
-resulting content against the profile in {{I-D.brownlee-svg-rfc}}. 
+resulting content against the profile in {{I-D.brownlee-svg-rfc}}.
 If it does not pass the check, give an error (?) or strip the offending content (?).
 
 1. If an &lt;artwork&gt; element has type='binary-art', the data needs to be in
@@ -324,7 +325,7 @@ preferred types other than "binary-art" are text.
 1. If a &lt;sourcecode&gt; element has both a "src" attribute and there is any
 existing content, give an error.
 
-1. If a &lt;sourcecode&gt; element has a "src" attribute with no scheme is
+un1. If a &lt;sourcecode&gt; element has a "src" attribute with no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
 processed.
 
