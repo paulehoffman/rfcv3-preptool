@@ -167,7 +167,7 @@ paragraph does not yet exist.</t>
   <t>If in I-D mode, if there is a &lt;date&gt; element in the document’s
 &lt;front&gt; element, and that date is earlier than today, it is an error.</t>
   <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on the
-the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is one.</t>
+the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</t>
   <t>Fill in any default values for attributes on elements, except “keepWithNext”
 and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.</t>
   <t>If the &lt;workgroup&gt; content doesn’t end with “Group”, issue a warning.</t>
