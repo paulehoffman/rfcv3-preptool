@@ -228,7 +228,8 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
    9.   If in I-D mode, fill in "expiresDate" attribute of <rfc> based
         on the the <date> element of the document's <front> element, if
-        there is one.
+        there is one.  Use the same expiry date (if needed) in the
+        boilerplate.
 
    10.  Fill in any default values for attributes on elements, except
         "keepWithNext" and "keepWithPrevious" of <t>, and "toc" of
@@ -273,7 +274,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    17.  Look for groups of <postalLine> elements; if found, emit them in
         the order they are seen.
 
-   18.  Sort the references, if "sortRefs" of <rfc> is true.
 
 
 
@@ -281,6 +281,8 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 5]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+   18.  Sort the references, if "sortRefs" of <rfc> is true.
 
    19.  For each <xref> element, give an error if there is no "target"
         attribute, or if that attribute is not an anchor in another
@@ -327,9 +329,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
    25.  For each <relref> element, fill in the "derivedLink" attribute.
 
-   26.  For each <relref> element that does not have content, fill
-        the"derivedRemoteContent" based on the content of the target
-        reference.  If the target reference is a RFC or Internet-Draft
+
 
 
 
@@ -338,6 +338,9 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 6]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+   26.  For each <relref> element that does not have content, fill
+        the"derivedRemoteContent" based on the content of the target
+        reference.  If the target reference is a RFC or Internet-Draft
         in the v3 format, and the anchor given in the "relative"
         attribute or derived from the "section" attribute is not in the
         target refernence, give an error.  If the target reference is a
@@ -382,9 +385,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
         *  If the "src" URI scheme is "data:", fill the content of the
            <artwork> element with that data and remove the "src"
-           attribute.  If the mediatype of the data: URI is not "image/
-           svg+xml", error.
-
 
 
 
@@ -393,6 +393,9 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 7]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+           attribute.  If the mediatype of the data: URI is not "image/
+           svg+xml", error.
 
         *  If the "src" URI scheme is "file:", "http:", or "https:",
            fill the content of the <artwork> element with the resolved
@@ -439,9 +442,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
            attribute.  Add an "originalSrc" attribute with the value of
            the URI and remove the "src" attribute.
 
-   36.  If a <sourcecode> element has both a "src" attribute and there
-        is any existing content, give an error.
-
 
 
 
@@ -449,6 +449,9 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+   36.  If a <sourcecode> element has both a "src" attribute and there
+        is any existing content, give an error.
 
    37.  If a <sourcecode> element has a "src" attribute with no scheme
         is specified, treat the scheme as "file:" in a path relative to
@@ -495,9 +498,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    45.  Prepare the index, if one is called for in the document.  The
         steps for doing that is out of scope for this document.
 
-   46.  If in I-D mode, check if there is a <link> element with an ISSN
-        for the RFC series; if so, delete it.
-
 
 
 
@@ -505,6 +505,9 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 9]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+   46.  If in I-D mode, check if there is a <link> element with an ISSN
+        for the RFC series; if so, delete it.
 
    47.  If in I-D mode, check if there is a <link> element with a DOI
         for this draft; if so, delete it.
@@ -550,9 +553,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    having to find each one in the XML.  This option might even do as
    much validation as possible on the extracted <sourcecode> elements.
    This feature might also remove some of the features added by the prep
-   tool (such as part numbers and slugifiedName's starting with "n-") in
-   order to make the resulting file easier to edit.
-
 
 
 
@@ -561,6 +561,9 @@ Hoffman & Hildebrand    Expires December 17, 2015              [Page 10]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+   tool (such as part numbers and slugifiedName's starting with "n-") in
+   order to make the resulting file easier to edit.
 
 7.  IANA Considerations
 
@@ -604,9 +607,6 @@ Authors' Addresses
    Cisco
 
    Email: jhildebr@cisco.com
-
-
-
 
 
 

@@ -504,7 +504,7 @@
   <li>Fill in the &#8220;prepTime&#8221; attribute of &lt;rfc&gt; with the current datetime.</li>
   <li>If in I-D mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, add a paragraph to the top of the &lt;note&gt; element that says &#8220;This note is to be removed before publishing as an RFC.&#8221;, if such a paragraph does not yet exist.</li>
   <li>If in I-D mode, if there is a &lt;date&gt; element in the document&#8217;s &lt;front&gt; element, and that date is earlier than today, it is an error.</li>
-  <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element, if there is one.</li>
+  <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</li>
   <li>Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.</li>
   <li>If the &lt;workgroup&gt; content doesn&#8217;t end with &#8220;Group&#8221;, issue a warning.</li>
   <li>Sanity-check the value of the &#8220;obsoletes&#8221; and &#8220;updates&#8221; attributes in the &lt;rfc&gt; element and give a waring if the sanity check fails.</li>
