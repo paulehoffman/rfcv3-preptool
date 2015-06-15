@@ -239,8 +239,16 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         warning.
 
    12.  Sanity-check the value of the "obsoletes" and "updates"
-        attributes in the <rfc> element and give a waring if the sanity
-        check fails.
+        attributes in the <rfc> element and give a warning if the sanity
+        check fails.  Sanity checks include:
+
+        *  ensure that the list is separated by a comma and a space
+
+        *  ensure each element of the list consists solely of a string
+           of digits
+
+        *  ensure that each obsoleted or updated RFC appears in the
+           references
 
    13.  For each <section> element that has a "numbered" attribute set
         to "false", verify that the section is either followed by a
@@ -264,6 +272,16 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
         *  <figure>: pn='f-4'
 
+
+
+
+
+
+Hoffman & Hildebrand    Expires December 17, 2015               [Page 5]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
         *  <artwork>, <aside>, <blockquote>, <dl>, <dt>, <li>, <ol>,
            <references>, <sourcecode>, <t>, <ul>:
            pn='p-[section]-[counter]'
@@ -273,14 +291,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
    17.  Look for groups of <postalLine> elements; if found, emit them in
         the order they are seen.
-
-
-
-
-Hoffman & Hildebrand    Expires December 17, 2015               [Page 5]
-
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
-
 
    18.  Sort the references, if "sortRefs" of <rfc> is true.
 
@@ -321,6 +331,13 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         attribute, or if that attribute is not an anchor in a
         <reference&;gt; or <referencegroup&;gt; element.
 
+
+
+Hoffman & Hildebrand    Expires December 17, 2015               [Page 6]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
    23.  For each <relref> element, if the element has neither a
         "relative" nor a "section" attribute, give an error.
 
@@ -328,15 +345,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         nor a "section" attribute, give an error.
 
    25.  For each <relref> element, fill in the "derivedLink" attribute.
-
-
-
-
-
-Hoffman & Hildebrand    Expires December 17, 2015               [Page 6]
-
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
-
 
    26.  For each <relref> element that does not have content, fill
         the"derivedRemoteContent" based on the content of the target
@@ -379,14 +387,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    31.  If an <artwork> element has a "src" attribute URI scheme that is
         not "data:", "file:", "http:", or "https:", give an error.
 
-   32.  If an <artwork> element has type='svg' and there is a "src"
-        attribute, the data needs to be moved into the content of the
-        <artwork> element.
-
-        *  If the "src" URI scheme is "data:", fill the content of the
-           <artwork> element with that data and remove the "src"
-
-
 
 
 Hoffman & Hildebrand    Expires December 17, 2015               [Page 7]
@@ -394,6 +394,12 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 7]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+   32.  If an <artwork> element has type='svg' and there is a "src"
+        attribute, the data needs to be moved into the content of the
+        <artwork> element.
+
+        *  If the "src" URI scheme is "data:", fill the content of the
+           <artwork> element with that data and remove the "src"
            attribute.  If the mediatype of the data: URI is not "image/
            svg+xml", error.
 
@@ -436,12 +442,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
            <artwork> element with the correctly-escaped form of that
            data and remove the "src" attribute.
 
-        *  If the "src" URI scheme is "file:", "http:", or "https:",
-           fill the content of the <artwork> element with the correctly-
-           escaped form of the resolved text from the URI in the "src"
-           attribute.  Add an "originalSrc" attribute with the value of
-           the URI and remove the "src" attribute.
-
 
 
 
@@ -449,6 +449,12 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+        *  If the "src" URI scheme is "file:", "http:", or "https:",
+           fill the content of the <artwork> element with the correctly-
+           escaped form of the resolved text from the URI in the "src"
+           attribute.  Add an "originalSrc" attribute with the value of
+           the URI and remove the "src" attribute.
 
    36.  If a <sourcecode> element has both a "src" attribute and there
         is any existing content, give an error.
@@ -492,12 +498,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    43.  Determine all the characters used in the document, and fill in
         "scripts" attribute for <rfc>.
 
-   44.  Ensure that the output has the "version" attribute of <rfc>, and
-        that it is set to "3".
-
-   45.  Prepare the index, if one is called for in the document.  The
-        steps for doing that is out of scope for this document.
-
 
 
 
@@ -505,6 +505,12 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 9]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+   44.  Ensure that the output has the "version" attribute of <rfc>, and
+        that it is set to "3".
+
+   45.  Prepare the index, if one is called for in the document.  The
+        steps for doing that is out of scope for this document.
 
    46.  If in I-D mode, check if there is a <link> element with an ISSN
         for the RFC series; if so, delete it.
@@ -548,12 +554,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
    A feature that might be useful in a local prep tool would be the
    inverse of the "just inline" option would be "extract all".  This
-   would allow a user who has a v3 RFC or Internet-Draft to dump all of
-   the <artwork> and <sourcecode> elements into local files instead of
-   having to find each one in the XML.  This option might even do as
-   much validation as possible on the extracted <sourcecode> elements.
-   This feature might also remove some of the features added by the prep
-
 
 
 
@@ -562,6 +562,11 @@ Hoffman & Hildebrand    Expires December 17, 2015              [Page 10]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+   would allow a user who has a v3 RFC or Internet-Draft to dump all of
+   the <artwork> and <sourcecode> elements into local files instead of
+   having to find each one in the XML.  This option might even do as
+   much validation as possible on the extracted <sourcecode> elements.
+   This feature might also remove some of the features added by the prep
    tool (such as part numbers and slugifiedName's starting with "n-") in
    order to make the resulting file easier to edit.
 
@@ -603,6 +608,16 @@ Authors' Addresses
    Email: paul.hoffman@vpnc.org
 
 
+
+
+
+
+
+Hoffman & Hildebrand    Expires December 17, 2015              [Page 11]
+
+Internet-Draft        RFC v3 Prep Tool Description             June 2015
+
+
    Joe Hildebrand
    Cisco
 
@@ -613,4 +628,45 @@ Authors' Addresses
 
 
 
-Hoffman & Hildebrand    Expires December 17, 2015              [Page 11]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hoffman & Hildebrand    Expires December 17, 2015              [Page 12]
