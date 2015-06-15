@@ -523,12 +523,11 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         "originalSrc" attributes from all elements.
 
    52.  Pretty-format the XML output.  (Note: tools like
+        https://github.com/hildjj/dentin do an adequate job.)
 
-   https://github.com/hildjj/dentin do an adequate job.)
-
-   1.  If in RFC production mode, ensure that the result is in full
-       compliance to v3 schema, without any deprecated elements or
-       attributes, and give an error if any issues are found.
+   53.  If in RFC production mode, ensure that the result is in full
+        compliance to v3 schema, without any deprecated elements or
+        attributes, and give an error if any issues are found.
 
 6.  Additional Uses for the Prep Tool
 
@@ -553,6 +552,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    This feature might also remove some of the features added by the prep
    tool (such as part numbers and slugifiedName's starting with "n-") in
    order to make the resulting file easier to edit.
+
 
 
 
