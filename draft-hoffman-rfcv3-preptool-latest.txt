@@ -450,21 +450,21 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 8]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
-   un1.  If a <sourcecode> element has a "src" attribute with no scheme
-   is specified, treat the scheme as "file:" in a path relative to the
-   file being processed.
+   37.  If a <sourcecode> element has a "src" attribute with no scheme
+        is specified, treat the scheme as "file:" in a path relative to
+        the file being processed.
 
-   1.   If a <sourcecode> element has a "src" attribute with a "file:"
+   38.  If a <sourcecode> element has a "src" attribute with a "file:"
         scheme, and if processing the URL would cause the processor to
         retrieve a file that is not in the same directory, or a
         subdirectory, as the file being processed, give an error.  This
         rule attempts to prevent <artwork src='file:///etc/passwd'> and
         similar security issues.
 
-   2.   If a <sourcecode> element has a "src" attribute URI scheme that
+   39.  If a <sourcecode> element has a "src" attribute URI scheme that
         is not "data:", "file:", "http:", or "https:", give an error.
 
-   3.   If a <sourcecode> element has a "src" attribute, the data needs
+   40.  If a <sourcecode> element has a "src" attribute, the data needs
         to be moved into the content of the <sourcecode> element.
 
         *  If the "src" URI scheme is "data:", fill the content of the
@@ -477,25 +477,25 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
            attribute.  Add an "originalSrc" attribute with the value of
            the URI and remove the "src" attribute.
 
-   4.   If an <sourcecode> element has a "type" attribute that matches
+   41.  If an <sourcecode> element has a "type" attribute that matches
         one of the known types, and that type has code that can validate
         the code, do the validation (noting that elements that have the
         same "name" attribute should be collected) and give a warning if
         the validation fails.
 
-   5.   Add a <link> child element to <rfc> for the DOI, if in RFC
+   42.  Add a <link> child element to <rfc> for the DOI, if in RFC
         production mode.
 
-   6.   Determine all the characters used in the document, and fill in
+   43.  Determine all the characters used in the document, and fill in
         "scripts" attribute for <rfc>.
 
-   7.   Ensure that the output has the "version" attribute of <rfc>, and
+   44.  Ensure that the output has the "version" attribute of <rfc>, and
         that it is set to "3".
 
-   8.   Prepare the index, if one is called for in the document.  The
+   45.  Prepare the index, if one is called for in the document.  The
         steps for doing that is out of scope for this document.
 
-   9.   If in I-D mode, check if there is a <link> element with an ISSN
+   46.  If in I-D mode, check if there is a <link> element with an ISSN
         for the RFC series; if so, delete it.
 
 
@@ -506,23 +506,23 @@ Hoffman & Hildebrand    Expires December 17, 2015               [Page 9]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
-   10.  If in I-D mode, check if there is a <link> element with a DOI
+   47.  If in I-D mode, check if there is a <link> element with a DOI
         for this draft; if so, delete it.
 
-   11.  If in RFC production mode, check if there is a <link> element
+   48.  If in RFC production mode, check if there is a <link> element
         with an ISSN for the RFC series; if not, add one.
 
-   12.  If in RFC production mode, check if there is a <link> element
+   49.  If in RFC production mode, check if there is a <link> element
         with a DOI for this RFC; if not, add one.
 
-   13.  If in RFC production mode, check if there is a <link> element
+   50.  If in RFC production mode, check if there is a <link> element
         with the file name of the Internet-Draft that became this RFC;
         if not, add one.
 
-   14.  If in RFC production mode, remove all "xml:base" or
+   51.  If in RFC production mode, remove all "xml:base" or
         "originalSrc" attributes from all elements.
 
-   15.  Pretty-format the XML output.  (Note: tools like
+   52.  Pretty-format the XML output.  (Note: tools like
 
    https://github.com/hildjj/dentin do an adequate job.)
 

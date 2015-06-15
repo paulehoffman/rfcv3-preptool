@@ -301,13 +301,9 @@ preferred types other than “binary-art” are text.
     </list></t>
   <t>If a &lt;sourcecode&gt; element has both a “src” attribute and there is any
 existing content, give an error.</t>
-</list></t>
-
-<t>un1. If a &lt;sourcecode&gt; element has a “src” attribute with no scheme is
+  <t>If a &lt;sourcecode&gt; element has a “src” attribute with no scheme is
 specified, treat the scheme as “file:” in a path relative to the file being
 processed.</t>
-
-<t><list style="numbers">
   <t>If a &lt;sourcecode&gt; element has a “src” attribute with a “file:” scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
