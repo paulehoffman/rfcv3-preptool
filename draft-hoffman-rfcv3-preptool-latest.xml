@@ -346,11 +346,7 @@ a DOI for this RFC; if not, add one.</t>
 the file name of the Internet-Draft that became this RFC; if not, add one.</t>
   <t>If in RFC production mode, remove all “xml:base” or “originalSrc” attributes from
 all elements.</t>
-  <t>Pretty-format the XML output.  (Note: tools like</t>
-</list></t>
-<t><eref target="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</eref> do an adequate job.)</t>
-
-<t><list style="numbers">
+  <t>Pretty-format the XML output.  (Note: tools like <eref target="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</eref> do an adequate job.)</t>
   <t>If in RFC production mode, ensure that the result is in full compliance to v3
 schema, without any deprecated elements or attributes, and give an error if any
 issues are found.</t>
