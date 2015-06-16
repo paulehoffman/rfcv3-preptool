@@ -194,12 +194,12 @@ if either test fails, it is an error.
 contain one; replace the attribute if it contains a value that begins with "n-".
 
 1. Add "pn" attributes for all parts.  Parts are:
-  * &lt;section&gt;: pn='s-1.4.2'
+  * &lt;section&gt;: pn='s-\[dotted-section-or-appendix-number\]'
   * &lt;abstract&gt;: pn='s-abstract'
   * &lt;note&gt;: pn='s-note-\[counter\]'
-  * &lt;boilerplate&gt;: pn='s-boilerplate'
-  * &lt;table&gt;: pn='t-3'
-  * &lt;figure&gt;: pn='f-4'
+  * &lt;boilerplate&gt;: pn='s-boilerplate-\[counter\]'
+  * &lt;table&gt;: pn='t-\[counter\]'
+  * &lt;figure&gt;: pn='f-\[counter\]'
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
     &lt;li&gt;, &lt;ol&gt;, &lt;references&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
     &lt;ul&gt;: pn='p-\[section\]-\[counter\]'

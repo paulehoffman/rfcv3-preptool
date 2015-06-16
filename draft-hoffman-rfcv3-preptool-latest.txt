@@ -70,7 +70,7 @@ Table of Contents
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
    10. Informative References  . . . . . . . . . . . . . . . . . . .  11
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
 
@@ -252,10 +252,11 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
            references
 
    13.  For each <section> element that has a "numbered" attribute set
-        to "false", verify that the section is either followed by a
-        section at the top level, or is not followed by another section
-        that does not contain the "numbered" attribute set to "false";
-        if both tests fail, it is an error.
+        to "false", verify that this <section> element is a child of
+        <boilerplate>, <middle>, or <back> element, and verify that this
+        <section> element is followed only by zero or more <section>
+        elements with numbered="false"; if either test fails, it is an
+        error.
 
    14.  Add a "slugifiedName" attribute to each <name> element that does
         not contain one; replace the attribute if it contains a value
@@ -263,16 +264,15 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
    15.  Add "pn" attributes for all parts.  Parts are:
 
-        *  <section>: pn='s-1.4.2'
+        *  <section>: pn='s-[dotted-section-or-appendix-number]'
 
         *  <abstract>: pn='s-abstract'
 
         *  <note>: pn='s-note-[counter]'
 
-        *  <table>: pn='t-3'
+        *  <boilerplate>: pn='s-boilerplate-[counter]'
 
-        *  <figure>: pn='f-4'
-
+        *  <table>: pn='t-[counter]'
 
 
 
@@ -281,6 +281,8 @@ Hoffman & Hildebrand    Expires December 18, 2015               [Page 5]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+        *  <figure>: pn='f-[counter]'
 
         *  <artwork>, <aside>, <blockquote>, <dl>, <dt>, <li>, <ol>,
            <references>, <sourcecode>, <t>, <ul>:
@@ -327,9 +329,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         already exists and has a different value than what was being
         filled in.
 
-   22.  For each <relref> element, give an error if there is no "target"
-        attribute, or if that attribute is not an anchor in a
-        <reference&;gt; or <referencegroup&;gt; element.
+
 
 
 
@@ -337,6 +337,10 @@ Hoffman & Hildebrand    Expires December 18, 2015               [Page 6]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+   22.  For each <relref> element, give an error if there is no "target"
+        attribute, or if that attribute is not an anchor in a
+        <reference&;gt; or <referencegroup&;gt; element.
 
    23.  For each <relref> element, if the element has neither a
         "relative" nor a "section" attribute, give an error.
@@ -381,11 +385,7 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         scheme, and if processing the URL would cause the processor to
         retrieve a file that is not in the same directory, or a
         subdirectory, as the file being processed, give an error.  This
-        rule attempts to prevent <artwork src='file:///etc/passwd'> and
-        similar security issues.
 
-   31.  If an <artwork> element has a "src" attribute URI scheme that is
-        not "data:", "file:", "http:", or "https:", give an error.
 
 
 
@@ -393,6 +393,12 @@ Hoffman & Hildebrand    Expires December 18, 2015               [Page 7]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+        rule attempts to prevent <artwork src='file:///etc/passwd'> and
+        similar security issues.
+
+   31.  If an <artwork> element has a "src" attribute URI scheme that is
+        not "data:", "file:", "http:", or "https:", give an error.
 
    32.  If an <artwork> element has type='svg' and there is a "src"
         attribute, the data needs to be moved into the content of the
@@ -435,12 +441,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    35.  If an <artwork> element does not have type='svg' or
         type='binary-art' and there is a "src" attribute, the data needs
         to be moved into the content of the <artwork> element.  Note
-        that this step assumes that all of the preferred types other
-        than "binary-art" are text.
-
-        *  If the "src" URI scheme is "data:", fill the content of the
-           <artwork> element with the correctly-escaped form of that
-           data and remove the "src" attribute.
 
 
 
@@ -449,6 +449,13 @@ Hoffman & Hildebrand    Expires December 18, 2015               [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+        that this step assumes that all of the preferred types other
+        than "binary-art" are text.
+
+        *  If the "src" URI scheme is "data:", fill the content of the
+           <artwork> element with the correctly-escaped form of that
+           data and remove the "src" attribute.
 
         *  If the "src" URI scheme is "file:", "http:", or "https:",
            fill the content of the <artwork> element with the correctly-
@@ -492,19 +499,18 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
         same "name" attribute should be collected) and give a warning if
         the validation fails.
 
-   42.  Add a <link> child element to <rfc> for the DOI, if in RFC
-        production mode.
-
-   43.  Determine all the characters used in the document, and fill in
-        "scripts" attribute for <rfc>.
-
-
 
 
 Hoffman & Hildebrand    Expires December 18, 2015               [Page 9]
 
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
+
+   42.  Add a <link> child element to <rfc> for the DOI, if in RFC
+        production mode.
+
+   43.  Determine all the characters used in the document, and fill in
+        "scripts" attribute for <rfc>.
 
    44.  Ensure that the output has the "version" attribute of <rfc>, and
         that it is set to "3".
@@ -548,12 +554,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    and accompanying files to be submitted at the same time, but this
    seems troublesome from a security, portability, and complexity
    standpoint.)  For these users, having a local copy of the prep tool
-   that has an option to just inline all local files would be terribly
-   useful.  That option would be a proper subset of the steps given in
-   Section 5.
-
-   A feature that might be useful in a local prep tool would be the
-   inverse of the "just inline" option would be "extract all".  This
 
 
 
@@ -562,6 +562,12 @@ Hoffman & Hildebrand    Expires December 18, 2015              [Page 10]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+   that has an option to just inline all local files would be terribly
+   useful.  That option would be a proper subset of the steps given in
+   Section 5.
+
+   A feature that might be useful in a local prep tool would be the
+   inverse of the "just inline" option would be "extract all".  This
    would allow a user who has a v3 RFC or Internet-Draft to dump all of
    the <artwork> and <sourcecode> elements into local files instead of
    having to find each one in the XML.  This option might even do as
@@ -600,12 +606,6 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
    [RFC6949]  Flanagan, H. and N. Brownlee, "RFC Series Format
               Requirements and Future Development", RFC 6949, May 2013.
 
-Authors' Addresses
-
-   Paul Hoffman
-   VPN Consortium
-
-   Email: paul.hoffman@vpnc.org
 
 
 
@@ -618,18 +618,18 @@ Hoffman & Hildebrand    Expires December 18, 2015              [Page 11]
 Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
+Authors' Addresses
+
+   Paul Hoffman
+   VPN Consortium
+
+   Email: paul.hoffman@vpnc.org
+
+
    Joe Hildebrand
    Cisco
 
    Email: jhildebr@cisco.com
-
-
-
-
-
-
-
-
 
 
 
