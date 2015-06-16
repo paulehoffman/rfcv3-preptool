@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="June" day="15"/>
+    <date year="2015" month="June" day="16"/>
 
     <area>Internet</area>
     
@@ -163,7 +163,7 @@ which <xref target="RFC5741"/> boilerplate to include, as described in Appendix 
   <t>If in I-D mode, if there is a &lt;note&gt; element with a “removeInRFC”
 attribute that has the value “true”, add a paragraph to the top of the &lt;note&gt; element that says
 “This note is to be removed before publishing as an RFC.”, if such a
-paragraph does not yet exist.</t>
+paragraph does not yet exist.  If in RFC mode, removeInRFC=”true” is an error.</t>
   <t>If in I-D mode, if there is a &lt;date&gt; element in the document’s
 &lt;front&gt; element, and that date is earlier than today, it is an error.</t>
   <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on the
