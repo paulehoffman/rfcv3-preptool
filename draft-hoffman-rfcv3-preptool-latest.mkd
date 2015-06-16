@@ -179,17 +179,16 @@ and "keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
 1. If the &lt;workgroup&gt; content doesn't end with "Group", issue a warning.
 
 1. Sanity-check the value of the "obsoletes" and "updates" attributes in the
-&lt;rfc&gt; element and give a warning if the sanity check fails.  Ensure that each list is sorted numerically, ignoring leading zeros.  Sanity checks include:
+&lt;rfc&gt; element and give a warning if the sanity check fails.  Ensure that each list is sorted numerically, ignoring leading zeros.
+Sanity checks include:
   * ensure that the list is separated by a comma and a space
   * ensure each element of the list consists solely of a string of digits
   * ensure that each obsoleted or updated RFC appears in the references
 
-
-1. For each &lt;section&gt; element that has a "numbered" attribute set to
-"false", verify that the section is either followed by a section at the
-top level, or is not followed by another section that does
-not contain the "numbered" attribute set to "false"; if both tests
-fail, it is an error.
+1. For each &lt;section&gt; element that has a "numbered" attribute set to "false",
+verify that this &lt;section&gt; element is a child of &lt;boilerplate&gt;, &lt;middle&gt;, or &lt;back&gt; element,
+and verify that this &lt;section&gt; element is followed only by zero or more &lt;section&gt; elements with numbered="false";
+if either test fails, it is an error.
 
 1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
@@ -198,6 +197,7 @@ contain one; replace the attribute if it contains a value that begins with "n-".
   * &lt;section&gt;: pn='s-1.4.2'
   * &lt;abstract&gt;: pn='s-abstract'
   * &lt;note&gt;: pn='s-note-\[counter\]'
+  * &lt;boilerplate&gt;: pn='s-boilerplate'
   * &lt;table&gt;: pn='t-3'
   * &lt;figure&gt;: pn='f-4'
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
