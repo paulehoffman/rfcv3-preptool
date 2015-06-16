@@ -179,7 +179,11 @@ and "keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
 1. If the &lt;workgroup&gt; content doesn't end with "Group", issue a warning.
 
 1. Sanity-check the value of the "obsoletes" and "updates" attributes in the
-&lt;rfc&gt; element and give a waring if the sanity check fails.
+&lt;rfc&gt; element and give a warning if the sanity check fails.  Ensure that each list is sorted numerically, ignoring leading zeros.  Sanity checks include:
+  * ensure that the list is separated by a comma and a space
+  * ensure each element of the list consists solely of a string of digits
+  * ensure that each obsoleted or updated RFC appears in the references
+
 
 1. For each &lt;section&gt; element that has a "numbered" attribute set to
 "false", verify that the section is either followed by a section at the
