@@ -170,6 +170,10 @@ paragraph does not yet exist.  If in RFC mode, removeInRFC=”true” is an erro
 the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</t>
   <t>Fill in any default values for attributes on elements, except “keepWithNext”
 and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.</t>
+  <t>For any &lt;reference&gt; element that does not already have a “target” attribute, fill that
+attribute in if the element has a &lt;seriesinfo&gt; child element. The particular URLs
+for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
+the IESG. These URLs might also be different from before and after the v3 format is adopted.</t>
   <t>If the &lt;workgroup&gt; content doesn’t end with “Group”, issue a warning.</t>
   <t>Sanity-check the value of the “obsoletes” and “updates” attributes in the
 &lt;rfc&gt; element and give a warning if the sanity check fails.  Ensure that each list is sorted numerically, ignoring leading zeros.
@@ -187,12 +191,12 @@ if either test fails, it is an error.</t>
 contain one; replace the attribute if it contains a value that begins with “n-“.</t>
   <t>Add “pn” attributes for all parts.  Parts are:
   <list style="symbols">
-      <t>&lt;section&gt;: pn=’s-[dotted-section-or-appendix-number]’</t>
+      <t>&lt;section&gt;: pn=’s-1.4.2’</t>
       <t>&lt;abstract&gt;: pn=’s-abstract’</t>
-      <t>&lt;note&gt;: pn=’s-note-[counter]’</t>
-      <t>&lt;boilerplate&gt;: pn=’s-boilerplate-[counter]’</t>
-      <t>&lt;table&gt;: pn=’t-[counter]’</t>
-      <t>&lt;figure&gt;: pn=’f-[counter]’</t>
+      <t>&lt;note&gt;: pn=’s-note-2’</t>
+      <t>&lt;boilerplate&gt;: pn=’s-boilerplate’</t>
+      <t>&lt;table&gt;: pn=’t-3’</t>
+      <t>&lt;figure&gt;: pn=’f-4’</t>
       <t>&lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
  &lt;li&gt;, &lt;ol&gt;, &lt;references&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
  &lt;ul&gt;: pn=’p-[section]-[counter]’</t>
@@ -200,7 +204,7 @@ contain one; replace the attribute if it contains a value that begins with “n-
   <t>Add a “start” attribute to every &lt;ol&gt; element containing a group that
 doesn’t already have a start.</t>
   <t>If the “sortRefs” attribute of the &lt;rfc&gt; element is true,
-sort the &lt;reference&gt;s lexically by anchor, mixing in any &lt;referencegroup&gt;s.</t>
+sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by anchor.</t>
   <t>For each &lt;xref&gt; element, give an error if there is no “target” attribute, or if that attribute is not
 an anchor in another element.</t>
   <t>For each &lt;xref&gt; element that has content, fill the “derivedContent” with the element
@@ -209,44 +213,46 @@ Issue a warning if the “derivedContent” attribute already exists and has a d
 was being filled in.</t>
   <t>For each &lt;xref&gt; element that does not have content, fill the “derivedContent” based on the
 “format” attribute.
-For format=’counter’, if the anchor is not a section, figure, table, or ordered list number, give an error.
-For format=’counter’, the “derivedContent” is the section, figure, table, or ordered list number
-of the element with anchor equal to the xref target.
-For format=’default’ and the “target” attribute points to a &lt;reference&gt; or
-&lt;referencegroup&gt; element, the “derivedContent” is the value of the “target” attribute.
-For format=’default’ and the “target” attribute points something else, the “derivedContent” is the
-title of the thing pointed to, such as “Section 2.3” or “Table 4”.
-For format=’title’, if the target is a &lt;reference&gt; element, the “derivedContent” attribute is
-the name of the reference, extracted from the &lt;title&gt; child of the &lt;front&gt; child of the
-reference.
-For format=’title’, if the target element has a &lt;name&gt; child element, the “derivedContent”
-attribute is the text content of that &lt;name&gt; element concatenated with the text content of
-each descendant node of &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
-text).<vspace />
-For format=’title’, if the target element does not contain a &lt;name&gt; child element, the
-“derivedContent” attribute is the name of the “anchor” attribute of that element with no other
-adornment.
-Issue a warning if the “derivedContent” attribute already exists and has a different value than what
-was being filled in.</t>
+  <list style="symbols">
+      <t>For format=’counter’, if the anchor is not a section, figure, table, or ordered list number, give an error.</t>
+      <t>For format=’counter’, the “derivedContent” is the section, figure, table, or ordered list number
+ of the element with anchor equal to the xref target.</t>
+      <t>For format=’default’ and the “target” attribute points to a &lt;reference&gt; or
+ &lt;referencegroup&gt; element, the “derivedContent” is the value of the “target” attribute.</t>
+      <t>For format=’default’ and the “target” attribute points something else, the “derivedContent” is the
+ title of the thing pointed to, such as “Section 2.3” or “Table 4”.</t>
+      <t>For format=’title’, if the target is a &lt;reference&gt; element, the “derivedContent” attribute is
+ the name of the reference, extracted from the &lt;title&gt; child of the &lt;front&gt; child of the
+ reference.</t>
+      <t>For format=’title’, if the target element has a &lt;name&gt; child element, the “derivedContent”
+ attribute is the text content of that &lt;name&gt; element concatenated with the text content of
+ each descendant node of &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
+ text).</t>
+      <t>For format=’title’, if the target element does not contain a &lt;name&gt; child element, the
+ “derivedContent” attribute is value of the “target” attribute with no other adornment.
+ Issue a warning if the “derivedContent” attribute already exists and has a different value than what
+ was being filled in.</t>
+    </list></t>
   <t>For each &lt;relref&gt; element, give an error if there is no “target” attribute, or if that attribute is
-not an anchor in a &lt;reference&gt; or &lt;referencegroup&gt; element.</t>
+not an anchor in a &lt;reference&gt; element,
+or if the target reference of the &lt;relref&gt; element does not have a “target” attribute.</t>
   <t>For each &lt;relref&gt; element, if the element has neither a “relative” nor a “section” attribute, give an error.</t>
   <t>For each &lt;relref&gt; element, if the element has both a “relative” nor a “section” attribute, give an error.</t>
   <t>For each &lt;relref&gt; element, fill in the “derivedLink” attribute.</t>
   <t>For each &lt;relref&gt; element that does not have content, fill the”derivedRemoteContent”
 based on the content of the target reference.
-If the target reference is a RFC or Internet-Draft in the v3 format, and the anchor given in the
-“relative” attribute or derived from the “section” attribute is not in the target refernence, give
-an error.
-If the target reference is a RFC or Internet-Draft in the v3 format, find the anchor given in the
-“relative” attribute or derived from the “section” attribute, and use the identifier of that element
-(such as “Section 2.3” or “Table 4”) for the “derivedRemoteContent”.
-If the target reference is not a RFC or Internet-Draft in the v3 format, use the value of the
-“relative” or “section” attribute for the “derivedRemoteContent”.
-Issue a warning if that attribute already exists and has a different value than what was being
-filled in.
-Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
-than what was being filled in.</t>
+  <list style="symbols">
+      <t>If the target reference is a RFC or Internet-Draft in the v3 format, and the anchor given in the
+ “relative” attribute or derived from the “section” attribute is not in the target reference, give
+ an error.</t>
+      <t>If the target reference is a RFC or Internet-Draft in the v3 format, find the anchor given in the
+ “relative” attribute or derived from the “section” attribute, and use the identifier of that element
+ (such as “Section 2.3” or “Table 4”) for the “derivedRemoteContent”.</t>
+      <t>If the target reference is not a RFC or Internet-Draft in the v3 format, use the value of the
+ “relative” or “section” attribute for the “derivedRemoteContent”.</t>
+      <t>Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
+ than what was being filled in.</t>
+    </list></t>
   <t>For each &lt;relref&gt; element that has content, fill the “derivedRemoteContent” with the
 element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
