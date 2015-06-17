@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="June" day="16"/>
+    <date year="2015" month="June" day="17"/>
 
     <area>Internet</area>
     
@@ -199,18 +199,19 @@ contain one; replace the attribute if it contains a value that begins with “n-
     </list></t>
   <t>Add a “start” attribute to every &lt;ol&gt; element containing a group that
 doesn’t already have a start.</t>
-  <t>Look for groups of &lt;postalLine&gt; elements; if found, emit them in the order
-they are seen.</t>
-  <t>Sort the references, if “sortRefs” of &lt;rfc&gt; is true.</t>
+  <t>If the “sortRefs” attribute of the &lt;rfc&gt; element is true,
+sort the &lt;reference&gt;s lexically by anchor, mixing in any &lt;referencegroup&gt;s.</t>
   <t>For each &lt;xref&gt; element, give an error if there is no “target” attribute, or if that attribute is not
 an anchor in another element.</t>
   <t>For each &lt;xref&gt; element that has content, fill the “derivedContent” with the element
-content.
+content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedContent” attribute already exists and has a different value than what
 was being filled in.</t>
   <t>For each &lt;xref&gt; element that does not have content, fill the “derivedContent” based on the
 “format” attribute.
-For format=’counter’, the “derivedContent” is the section, figure, table, or ordered list number.
+For format=’counter’, if the anchor is not a section, figure, table, or ordered list number, give an error.
+For format=’counter’, the “derivedContent” is the section, figure, table, or ordered list number
+of the element with anchor equal to the xref target.
 For format=’default’ and the “target” attribute points to a &lt;reference&gt; or
 &lt;referencegroup&gt; element, the “derivedContent” is the value of the “target” attribute.
 For format=’default’ and the “target” attribute points something else, the “derivedContent” is the
@@ -228,7 +229,7 @@ adornment.
 Issue a warning if the “derivedContent” attribute already exists and has a different value than what
 was being filled in.</t>
   <t>For each &lt;relref&gt; element, give an error if there is no “target” attribute, or if that attribute is
-not an anchor in a &lt;reference&amp;;gt; or &lt;referencegroup&amp;;gt; element.</t>
+not an anchor in a &lt;reference&gt; or &lt;referencegroup&gt; element.</t>
   <t>For each &lt;relref&gt; element, if the element has neither a “relative” nor a “section” attribute, give an error.</t>
   <t>For each &lt;relref&gt; element, if the element has both a “relative” nor a “section” attribute, give an error.</t>
   <t>For each &lt;relref&gt; element, fill in the “derivedLink” attribute.</t>
@@ -247,7 +248,7 @@ filled in.
 Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
 than what was being filled in.</t>
   <t>For each &lt;relref&gt; element that has content, fill the “derivedRemoteContent” with the
-element content.
+element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
 than what was being filled in.</t>
   <t>If an &lt;artwork&gt; element has both a “src” attribute and there is any
