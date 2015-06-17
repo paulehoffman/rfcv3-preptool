@@ -194,12 +194,12 @@ if either test fails, it is an error.
 contain one; replace the attribute if it contains a value that begins with "n-".
 
 1. Add "pn" attributes for all parts.  Parts are:
-  * &lt;section&gt;: pn='s-1.4.2'
+  * &lt;section&gt;: pn='s-\[dotted-section-or-appendix-number\]'
   * &lt;abstract&gt;: pn='s-abstract'
   * &lt;note&gt;: pn='s-note-\[counter\]'
-  * &lt;boilerplate&gt;: pn='s-boilerplate'
-  * &lt;table&gt;: pn='t-3'
-  * &lt;figure&gt;: pn='f-4'
+  * &lt;boilerplate&gt;: pn='s-boilerplate-\[counter\]'
+  * &lt;table&gt;: pn='t-\[counter\]'
+  * &lt;figure&gt;: pn='f-\[counter\]'
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
     &lt;li&gt;, &lt;ol&gt;, &lt;references&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
     &lt;ul&gt;: pn='p-\[section\]-\[counter\]'
@@ -207,22 +207,22 @@ contain one; replace the attribute if it contains a value that begins with "n-".
 1. Add a "start" attribute to every &lt;ol&gt; element containing a group that
 doesn't already have a start.
 
-1. Look for groups of &lt;postalLine&gt; elements; if found, emit them in the order
-they are seen.
-
-1. Sort the references, if "sortRefs" of &lt;rfc&gt; is true.
+1. If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
+sort the &lt;reference&gt;s lexically by anchor, mixing in any &lt;referencegroup&gt;s.
 
 1. For each &lt;xref&gt; element, give an error if there is no "target" attribute, or if that attribute is not
 an anchor in another element.
 
 1. For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
-content.
+content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the "derivedContent" attribute already exists and has a different value than what
 was being filled in.
 
 1. For each &lt;xref&gt; element that does not have content, fill the "derivedContent" based on the
 "format" attribute.
-For format='counter', the "derivedContent" is the section, figure, table, or ordered list number.
+For format='counter', if the anchor is not a section, figure, table, or ordered list number, give an error.
+For format='counter', the "derivedContent" is the section, figure, table, or ordered list number
+of the element with anchor equal to the xref target.
 For format='default' and the "target" attribute points to a &lt;reference&gt; or
 &lt;referencegroup&gt; element, the "derivedContent" is the value of the "target" attribute.
 For format='default' and the "target" attribute points something else, the "derivedContent" is the
@@ -241,7 +241,7 @@ Issue a warning if the "derivedContent" attribute already exists and has a diffe
 was being filled in.
 
 1. For each &lt;relref&gt; element, give an error if there is no "target" attribute, or if that attribute is
-not an anchor in a &lt;reference&;gt; or &lt;referencegroup&;gt; element.
+not an anchor in a &lt;reference&gt; or &lt;referencegroup&gt; element.
 
 1. For each &lt;relref&gt; element, if the element has neither a "relative" nor a "section" attribute, give an error.
 
@@ -265,7 +265,7 @@ Issue a warning if the "derivedRemoteContent" attribute already exists and has a
 than what was being filled in.
 
 1. For each &lt;relref&gt; element that has content, fill the "derivedRemoteContent" with the
-element content.
+element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
 than what was being filled in.
 

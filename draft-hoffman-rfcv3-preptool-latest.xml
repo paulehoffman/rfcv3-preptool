@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="June" day="16"/>
+    <date year="2015" month="June" day="17"/>
 
     <area>Internet</area>
     
@@ -172,44 +172,46 @@ the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is 
 and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.</t>
   <t>If the &lt;workgroup&gt; content doesn’t end with “Group”, issue a warning.</t>
   <t>Sanity-check the value of the “obsoletes” and “updates” attributes in the
-&lt;rfc&gt; element and give a warning if the sanity check fails.  Ensure that each list is sorted numerically, ignoring leading zeros.  Sanity checks include:
+&lt;rfc&gt; element and give a warning if the sanity check fails.  Ensure that each list is sorted numerically, ignoring leading zeros.
+Sanity checks include:
   <list style="symbols">
       <t>ensure that the list is separated by a comma and a space</t>
       <t>ensure each element of the list consists solely of a string of digits</t>
       <t>ensure that each obsoleted or updated RFC appears in the references</t>
     </list></t>
-  <t>For each &lt;section&gt; element that has a “numbered” attribute set to
-“false”, verify that the section is either followed by a section at the
-top level, or is not followed by another section that does
-not contain the “numbered” attribute set to “false”; if both tests
-fail, it is an error.</t>
+  <t>For each &lt;section&gt; element that has a “numbered” attribute set to “false”,
+verify that this &lt;section&gt; element is a child of &lt;boilerplate&gt;, &lt;middle&gt;, or &lt;back&gt; element,
+and verify that this &lt;section&gt; element is followed only by zero or more &lt;section&gt; elements with numbered=”false”;
+if either test fails, it is an error.</t>
   <t>Add a “slugifiedName” attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with “n-“.</t>
   <t>Add “pn” attributes for all parts.  Parts are:
   <list style="symbols">
-      <t>&lt;section&gt;: pn=’s-1.4.2’</t>
+      <t>&lt;section&gt;: pn=’s-[dotted-section-or-appendix-number]’</t>
       <t>&lt;abstract&gt;: pn=’s-abstract’</t>
       <t>&lt;note&gt;: pn=’s-note-[counter]’</t>
-      <t>&lt;table&gt;: pn=’t-3’</t>
-      <t>&lt;figure&gt;: pn=’f-4’</t>
+      <t>&lt;boilerplate&gt;: pn=’s-boilerplate-[counter]’</t>
+      <t>&lt;table&gt;: pn=’t-[counter]’</t>
+      <t>&lt;figure&gt;: pn=’f-[counter]’</t>
       <t>&lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
  &lt;li&gt;, &lt;ol&gt;, &lt;references&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
  &lt;ul&gt;: pn=’p-[section]-[counter]’</t>
     </list></t>
   <t>Add a “start” attribute to every &lt;ol&gt; element containing a group that
 doesn’t already have a start.</t>
-  <t>Look for groups of &lt;postalLine&gt; elements; if found, emit them in the order
-they are seen.</t>
-  <t>Sort the references, if “sortRefs” of &lt;rfc&gt; is true.</t>
+  <t>If the “sortRefs” attribute of the &lt;rfc&gt; element is true,
+sort the &lt;reference&gt;s lexically by anchor, mixing in any &lt;referencegroup&gt;s.</t>
   <t>For each &lt;xref&gt; element, give an error if there is no “target” attribute, or if that attribute is not
 an anchor in another element.</t>
   <t>For each &lt;xref&gt; element that has content, fill the “derivedContent” with the element
-content.
+content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedContent” attribute already exists and has a different value than what
 was being filled in.</t>
   <t>For each &lt;xref&gt; element that does not have content, fill the “derivedContent” based on the
 “format” attribute.
-For format=’counter’, the “derivedContent” is the section, figure, table, or ordered list number.
+For format=’counter’, if the anchor is not a section, figure, table, or ordered list number, give an error.
+For format=’counter’, the “derivedContent” is the section, figure, table, or ordered list number
+of the element with anchor equal to the xref target.
 For format=’default’ and the “target” attribute points to a &lt;reference&gt; or
 &lt;referencegroup&gt; element, the “derivedContent” is the value of the “target” attribute.
 For format=’default’ and the “target” attribute points something else, the “derivedContent” is the
@@ -227,7 +229,7 @@ adornment.
 Issue a warning if the “derivedContent” attribute already exists and has a different value than what
 was being filled in.</t>
   <t>For each &lt;relref&gt; element, give an error if there is no “target” attribute, or if that attribute is
-not an anchor in a &lt;reference&amp;;gt; or &lt;referencegroup&amp;;gt; element.</t>
+not an anchor in a &lt;reference&gt; or &lt;referencegroup&gt; element.</t>
   <t>For each &lt;relref&gt; element, if the element has neither a “relative” nor a “section” attribute, give an error.</t>
   <t>For each &lt;relref&gt; element, if the element has both a “relative” nor a “section” attribute, give an error.</t>
   <t>For each &lt;relref&gt; element, fill in the “derivedLink” attribute.</t>
@@ -246,7 +248,7 @@ filled in.
 Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
 than what was being filled in.</t>
   <t>For each &lt;relref&gt; element that has content, fill the “derivedRemoteContent” with the
-element content.
+element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
 than what was being filled in.</t>
   <t>If an &lt;artwork&gt; element has both a “src” attribute and there is any
