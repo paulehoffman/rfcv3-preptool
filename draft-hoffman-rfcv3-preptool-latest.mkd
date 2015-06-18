@@ -177,7 +177,7 @@ the &lt;date&gt; element of the document's &lt;front&gt; element, if there is on
 and "keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
 
 1. For any &lt;reference&gt; element that does not already have a "target" attribute, fill that
-attribute in if the element has a &lt;seriesinfo&gt; child element. The particular URLs
+attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs
 for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different from before and after the v3 format is adopted.
 
