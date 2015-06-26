@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="June" day="18"/>
+    <date year="2015" month="June" day="25"/>
 
     <area>Internet</area>
     
@@ -168,28 +168,14 @@ which <xref target="RFC5741"/> boilerplate to include, as described in Appendix 
 attribute that has the value “true”, add a paragraph to the top of the &lt;note&gt; element that says
 “This note is to be removed before publishing as an RFC.”, if such a
 paragraph does not yet exist.  If in RFC mode, removeInRFC=”true” is an error.</t>
-  <t>If in I-D mode, if there is a &lt;date&gt; element in the document’s
-&lt;front&gt; element, and that date is earlier than today, it is an error.</t>
   <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on the
 the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</t>
   <t>Fill in any default values for attributes on elements, except “keepWithNext”
 and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.</t>
   <t>For any &lt;reference&gt; element that does not already have a “target” attribute, fill that
-attribute in if the element has a &lt;seriesinfo&gt; child element. The particular URLs
+attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs
 for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different from before and after the v3 format is adopted.</t>
-  <t>Sanity-check the value of the “obsoletes” and “updates” attributes in the
-&lt;rfc&gt; element and give a warning if the sanity check fails.  Ensure that each list is sorted numerically, ignoring leading zeros.
-Sanity checks include:
-  <list style="symbols">
-      <t>ensure that the list is separated by a comma and a space</t>
-      <t>ensure each element of the list consists solely of a string of digits</t>
-      <t>ensure that each obsoleted or updated RFC appears in the references</t>
-    </list></t>
-  <t>For each &lt;section&gt; element that has a “numbered” attribute set to “false”,
-verify that this &lt;section&gt; element is a child of &lt;boilerplate&gt;, &lt;middle&gt;, or &lt;back&gt; element,
-and verify that this &lt;section&gt; element is followed only by zero or more &lt;section&gt; elements with numbered=”false”;
-if either test fails, it is an error.</t>
   <t>Add a “slugifiedName” attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with “n-“.</t>
   <t>Add “pn” attributes for all parts.  Parts are:
@@ -209,8 +195,6 @@ doesn’t already have a start.</t>
   <t>If the “sortRefs” attribute of the &lt;rfc&gt; element is true,
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the “anchor” attribute,
 as modified by the “to” attribute of any &lt;displayreference&gt; element.</t>
-  <t>For each &lt;xref&gt; element, give an error if there is no “target” attribute, or if that attribute is not
-an anchor in another element.</t>
   <t>For each &lt;xref&gt; element that has content, fill the “derivedContent” with the element
 content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedContent” attribute already exists and has a different value than what
@@ -238,11 +222,6 @@ was being filled in.</t>
  Issue a warning if the “derivedContent” attribute already exists and has a different value than what
  was being filled in.</t>
     </list></t>
-  <t>For each &lt;relref&gt; element, give an error if there is no “target” attribute, or if that attribute is
-not an anchor in a &lt;reference&gt; element,
-or if the target reference of the &lt;relref&gt; element does not have a “target” attribute.</t>
-  <t>For each &lt;relref&gt; element, if the element has neither a “relative” nor a “section” attribute, give an error.</t>
-  <t>For each &lt;relref&gt; element, if the element has both a “relative” nor a “section” attribute, give an error.</t>
   <t>For each &lt;relref&gt; element, fill in the “derivedLink” attribute.</t>
   <t>For each &lt;relref&gt; element that does not have content, fill the”derivedRemoteContent”
 based on the content of the target reference.
@@ -262,8 +241,6 @@ based on the content of the target reference.
 element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
 than what was being filled in.</t>
-  <t>If an &lt;artwork&gt; element has both a “src” attribute and there is any
-existing content, give an error.</t>
   <t>If an &lt;artwork&gt; element has a “src” attribute with no scheme is
 specified, treat the scheme as “file:” in a path relative to the file being
 processed.  This will likely be one of the most common authoring approaches.</t>
@@ -285,9 +262,6 @@ the data needs to be moved into the content of the &lt;artwork&gt; element.
  “src” attribute. Add an “originalSrc” attribute with the value of the URI and
  remove the “src” attribute.</t>
     </list></t>
-  <t>If an &lt;artwork&gt; element has type=’svg’, check the SVG schema of the
-resulting content against the profile in <xref target="I-D.brownlee-svg-rfc"/>.
-If it does not pass the check, give an error (?) or strip the offending content (?).</t>
   <t>If an &lt;artwork&gt; element has type=’binary-art’, the data needs to be in
 a “src” attribute with a URI scheme of “data:”.
   <list style="symbols">
@@ -325,7 +299,7 @@ processed.</t>
   <t>If a &lt;sourcecode&gt; element has a “src” attribute with a “file:” scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
-an error.  This rule attempts to prevent &lt;artwork
+an error.  This rule attempts to prevent &lt;sourcecode
 src=’file:///etc/passwd’&gt; and similar security issues.</t>
   <t>If a &lt;sourcecode&gt; element has a “src” attribute URI scheme that is not
 “data:”, “file:”, “http:”, or “https:”, give an error.</t>
@@ -340,20 +314,10 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
  text from the URI in the “src” attribute. Add an “originalSrc” attribute with
  the value of the URI and remove the “src” attribute.</t>
     </list></t>
-  <t>If an &lt;sourcecode&gt; element has a “type” attribute that matches one of
-the known types, and that type has code that can validate the code, do the
-validation (noting that elements that have the same “name” attribute should be
-collected) and give a warning if the validation fails.</t>
   <t>Determine all the characters used in the document, and fill in “scripts”
 attribute for &lt;rfc&gt;.</t>
   <t>Ensure that the output has the “version” attribute of &lt;rfc&gt;, and that
 it is set to “3”.</t>
-  <t>Prepare the index, if one is called for in the document. The steps for doing
-that is out of scope for this document.</t>
-  <t>If in I-D mode, check if there is a &lt;link&gt; element with
-an ISSN for the RFC series; if so, delete it.</t>
-  <t>If in I-D mode, check if there is a &lt;link&gt; element with
-a DOI for this draft; if so, delete it.</t>
   <t>If in RFC production mode, remove all &lt;link&gt; elements whose “rel” attribute
 has the value “alternate”.</t>
   <t>If in RFC production mode, check if there is a &lt;link&gt; element with
@@ -478,27 +442,6 @@ development of this document.</t>
 <seriesInfo name='Internet-Draft' value='draft-hoffman-xml2rfc-20' />
 <format type='TXT'
         target='http://www.ietf.org/internet-drafts/draft-hoffman-xml2rfc-20.txt' />
-</reference>
-
-
-
-<reference anchor='I-D.brownlee-svg-rfc'>
-<front>
-<title>SVG Drawings for RFCs: SVG 1.2 RFC</title>
-
-<author initials='N' surname='Brownlee' fullname='Nevil Brownlee'>
-    <organization />
-</author>
-
-<date month='March' day='30' year='2015' />
-
-<abstract><t>This document specifies SVG 1.2 RFC - an SVG profile for use in diagrams that may appear in RFCs - and considers some of the issues concerning the creation and use of such diagrams.</t></abstract>
-
-</front>
-
-<seriesInfo name='Internet-Draft' value='draft-brownlee-svg-rfc-09' />
-<format type='TXT'
-        target='http://www.ietf.org/internet-drafts/draft-brownlee-svg-rfc-09.txt' />
 </reference>
 
 
