@@ -33,7 +33,6 @@ informative:
   RFC5741:
   RFC6949:
   I-D.hoffman-xml2rfc:
-  I-D.brownlee-svg-rfc:
 
 --- abstract
 
@@ -171,9 +170,6 @@ attribute that has the value "true", add a paragraph to the top of the &lt;note&
 "This note is to be removed before publishing as an RFC.", if such a
 paragraph does not yet exist.  If in RFC mode, removeInRFC="true" is an error.
 
-1. If in I-D mode, if there is a &lt;date&gt; element in the document's
-&lt;front&gt; element, and that date is earlier than today, it is an error.
-
 1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on the
 the &lt;date&gt; element of the document's &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.
 
@@ -184,18 +180,6 @@ and "keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
 attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs
 for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different from before and after the v3 format is adopted.
-
-1. Sanity-check the value of the "obsoletes" and "updates" attributes in the
-&lt;rfc&gt; element and give a warning if the sanity check fails.  Ensure that each list is sorted numerically, ignoring leading zeros.
-Sanity checks include:
-  * ensure that the list is separated by a comma and a space
-  * ensure each element of the list consists solely of a string of digits
-  * ensure that each obsoleted or updated RFC appears in the references
-
-1. For each &lt;section&gt; element that has a "numbered" attribute set to "false",
-verify that this &lt;section&gt; element is a child of &lt;boilerplate&gt;, &lt;middle&gt;, or &lt;back&gt; element,
-and verify that this &lt;section&gt; element is followed only by zero or more &lt;section&gt; elements with numbered="false";
-if either test fails, it is an error.
 
 1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
@@ -217,9 +201,6 @@ doesn't already have a start.
 1. If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
 as modified by the "to" attribute of any &lt;displayreference&gt; element.
-
-1. For each &lt;xref&gt; element, give an error if there is no "target" attribute, or if that attribute is not
-an anchor in another element.
 
 1. For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
 content, having first trimmed the whitespace from ends of content text.
@@ -248,14 +229,6 @@ was being filled in.
     Issue a warning if the "derivedContent" attribute already exists and has a different value than what
     was being filled in.
 
-1. For each &lt;relref&gt; element, give an error if there is no "target" attribute, or if that attribute is
-not an anchor in a &lt;reference&gt; element,
-or if the target reference of the &lt;relref&gt; element does not have a "target" attribute.
-
-1. For each &lt;relref&gt; element, if the element has neither a "relative" nor a "section" attribute, give an error.
-
-1. For each &lt;relref&gt; element, if the element has both a "relative" nor a "section" attribute, give an error.
-
 1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
 1. For each &lt;relref&gt; element that does not have content, fill the"derivedRemoteContent"
@@ -275,9 +248,6 @@ based on the content of the target reference.
 element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
 than what was being filled in.
-
-1. If an &lt;artwork&gt; element has both a "src" attribute and there is any
-existing content, give an error.
 
 1. If an &lt;artwork&gt; element has a "src" attribute with no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
@@ -301,10 +271,6 @@ the data needs to be moved into the content of the &lt;artwork&gt; element.
     of the &lt;artwork&gt; element with the resolved XML from the URI in the
     "src" attribute. Add an "originalSrc" attribute with the value of the URI and
     remove the "src" attribute.
-
-1. If an &lt;artwork&gt; element has type='svg', check the SVG schema of the
-resulting content against the profile in {{I-D.brownlee-svg-rfc}}.
-If it does not pass the check, give an error (?) or strip the offending content (?).
 
 1. If an &lt;artwork&gt; element has type='binary-art', the data needs to be in
 a "src" attribute with a URI scheme of "data:".
@@ -343,7 +309,7 @@ processed.
 1. If a &lt;sourcecode&gt; element has a "src" attribute with a "file:" scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
-an error.  This rule attempts to prevent &lt;artwork
+an error.  This rule attempts to prevent &lt;sourcecode
 src='file:///etc/passwd'&gt; and similar security issues.
 
 1. If a &lt;sourcecode&gt; element has a "src" attribute URI scheme that is not
@@ -359,25 +325,11 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     text from the URI in the "src" attribute. Add an "originalSrc" attribute with
     the value of the URI and remove the "src" attribute.
 
-1. If an &lt;sourcecode&gt; element has a "type" attribute that matches one of
-the known types, and that type has code that can validate the code, do the
-validation (noting that elements that have the same "name" attribute should be
-collected) and give a warning if the validation fails.
-
 1. Determine all the characters used in the document, and fill in "scripts"
 attribute for &lt;rfc&gt;.
 
 1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
 it is set to "3".
-
-1. Prepare the index, if one is called for in the document. The steps for doing
-that is out of scope for this document.
-
-1. If in I-D mode, check if there is a &lt;link&gt; element with
-an ISSN for the RFC series; if so, delete it.
-
-1. If in I-D mode, check if there is a &lt;link&gt; element with
-a DOI for this draft; if so, delete it.
 
 1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel" attribute
 has the value "alternate".
