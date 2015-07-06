@@ -19,8 +19,8 @@ author:
   -
     ins: P. Hoffman
     name: Paul Hoffman
-    org: VPN Consortium
-    email: paul.hoffman@vpnc.org
+    org: ICANN
+    email: paul.hoffman@icann.org
   -
     ins: J. Hildebrand
     name: Joe Hildebrand

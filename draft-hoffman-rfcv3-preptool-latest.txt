@@ -3,10 +3,10 @@
 
 
 Network Working Group                                         P. Hoffman
-Internet-Draft                                            VPN Consortium
+Internet-Draft                                                     ICANN
 Intended status: Informational                             J. Hildebrand
-Expires: December 28, 2015                                         Cisco
-                                                           June 26, 2015
+Expires: January 3, 2016                                           Cisco
+                                                           July 02, 2015
 
 
                       RFC v3 Prep Tool Description
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 28, 2015.
+   This Internet-Draft will expire on January 3, 2016.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 1]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 1]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 2]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 2]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
    Note that this only describes what the IETF-sponsored prep tool does.
@@ -165,9 +165,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 3]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 3]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
    This document assumes that the prep tool will be used in the
@@ -221,9 +221,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 4]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 4]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
         paragraph to the top of the <note> element that says "This note
@@ -277,9 +277,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 5]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 5]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
         the "anchor" attribute, as modified by the "to" attribute of any
@@ -333,9 +333,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 6]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 6]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
         *  If the target reference is a RFC or Internet-Draft in the v3
@@ -389,9 +389,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 7]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 7]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
         "src" URI scheme is "file:", "http:", or "https:", resolve the
@@ -445,9 +445,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 8]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 8]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
            attribute.  Add an "originalSrc" attribute with the value of
@@ -501,9 +501,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015               [Page 9]
+Hoffman & Hildebrand     Expires January 3, 2016                [Page 9]
 
-Internet-Draft        RFC v3 Prep Tool Description             June 2015
+Internet-Draft        RFC v3 Prep Tool Description             July 2015
 
 
    would allow a user who has a v3 RFC or Internet-Draft to dump all of
@@ -543,9 +543,9 @@ Internet-Draft        RFC v3 Prep Tool Description             June 2015
 Authors' Addresses
 
    Paul Hoffman
-   VPN Consortium
+   ICANN
 
-   Email: paul.hoffman@vpnc.org
+   Email: paul.hoffman@icann.org
 
 
    Joe Hildebrand
@@ -557,4 +557,4 @@ Authors' Addresses
 
 
 
-Hoffman & Hildebrand    Expires December 28, 2015              [Page 10]
+Hoffman & Hildebrand     Expires January 3, 2016               [Page 10]

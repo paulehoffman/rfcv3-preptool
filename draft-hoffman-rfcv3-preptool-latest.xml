@@ -16,9 +16,9 @@
     <title>RFC v3 Prep Tool Description</title>
 
     <author initials="P." surname="Hoffman" fullname="Paul Hoffman">
-      <organization>VPN Consortium</organization>
+      <organization>ICANN</organization>
       <address>
-        <email>paul.hoffman@vpnc.org</email>
+        <email>paul.hoffman@icann.org</email>
       </address>
     </author>
     <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="June" day="26"/>
+    <date year="2015" month="July" day="02"/>
 
     <area>Internet</area>
     
