@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="July" day="02"/>
+    <date year="2015" month="July" day="06"/>
 
     <area>Internet</area>
     
@@ -167,6 +167,8 @@ condition as an error. The application will use the “ipr”, “category”,
 which <xref target="RFC5741"/> boilerplate to include, as described in Appendix A of
 <xref target="I-D.hoffman-xml2rfc"/>.</t>
   <t>Fill in the “prepTime” attribute of &lt;rfc&gt; with the current datetime.</t>
+  <t>Fill in the “mode” attribute of &lt;rfc&gt; with a string (to be determined later)
+indicating the type of prepping that was done (RFC production or I-D mode).</t>
   <t>If in I-D mode, if there is a &lt;note&gt; element with a “removeInRFC”
 attribute that has the value “true”, add a paragraph to the top of the &lt;note&gt; element that says
 “This note is to be removed before publishing as an RFC.”, if such a

@@ -392,7 +392,7 @@
 
   <meta name="dct.creator" content="Hoffman, P. and J. Hildebrand" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-hoffman-rfcv3-preptool" />
-  <meta name="dct.issued" scheme="ISO8601" content="2015-7-02" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-7-06" />
   <meta name="dct.abstract" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.  This draft is just a way to keep track of the ideas; it is not (currently) expected to be published as an RFC." />
   <meta name="description" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed.  This draft is just a way to keep track of the ideas; it is not (currently) expected to be published as an RFC." />
 
@@ -416,12 +416,12 @@
   <td class="right">J. Hildebrand</td>
 </tr>
 <tr>
-  <td class="left">Expires: January 3, 2016</td>
+  <td class="left">Expires: January 7, 2016</td>
   <td class="right">Cisco</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">July 02, 2015</td>
+  <td class="right">July 06, 2015</td>
 </tr>
 
     	
@@ -441,7 +441,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on January 3, 2016.</p>
+<p>This Internet-Draft will expire on January 7, 2016.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -504,6 +504,7 @@
   <li>If in RFC production mode, remove comments.</li>
   <li>Add the <a href="#RFC5741">[RFC5741]</a> boilerplate text with current values. However, if different boilerplate text already exists in the input, produce a warning that says that other tools, specifically the draft submission tool, will treat that condition as an error. The application will use the &#8220;ipr&#8221;, &#8220;category&#8221;, &#8220;submission&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element to determine which <a href="#RFC5741">[RFC5741]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.hoffman-xml2rfc">[I-D.hoffman-xml2rfc]</a>.</li>
   <li>Fill in the &#8220;prepTime&#8221; attribute of &lt;rfc&gt; with the current datetime.</li>
+  <li>Fill in the &#8220;mode&#8221; attribute of &lt;rfc&gt; with a string (to be determined later) indicating the type of prepping that was done (RFC production or I-D mode).</li>
   <li>If in I-D mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, add a paragraph to the top of the &lt;note&gt; element that says &#8220;This note is to be removed before publishing as an RFC.&#8221;, if such a paragraph does not yet exist.</li>
   <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</li>
   <li>Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.</li>
