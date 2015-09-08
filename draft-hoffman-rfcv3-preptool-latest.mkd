@@ -65,6 +65,11 @@ the xml2rfc process.
 This draft specifies the steps that the prep tool will have to take.
 As changes to {{I-D.hoffman-xml2rfc}} are made, this document will be updated.
 
+The details (particularly any vocabularies) described in this document are expected to change based
+on experience gained in implementing the RFC production center's toolset. Revised documents will be
+published capturing those changes as the toolset is completed. Other implementers must not expect
+those changes to remain backwards-compatible with the details described in this document.
+
 
 v3 Prep Tool Usage Scenarios
 =====
