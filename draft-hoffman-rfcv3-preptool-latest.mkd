@@ -164,13 +164,18 @@ displays all the warnings and errors, and stops if there was an error.
 
 1. If in RFC production mode, remove comments.
 
-1. Add the {{RFC5741}} boilerplate text with current values. However, if
+1. Add the "Status of this Memo" text with current values. However, if
 different boilerplate text already exists in the input, produce a warning that
 says that other tools, specifically the draft submission tool, will treat that
-condition as an error. The application will use the "ipr", "category",
+condition as an error. The application will use the "category",
 "submission", and "consensus" attributes of the &lt;rfc&gt; element to determine
 which {{RFC5741}} boilerplate to include, as described in Appendix A of
 {{I-D.hoffman-xml2rfc}}.
+
+1. Add the "Copyright Notice" text. The application will use the
+"ipr" and "submissionType" attributes of the &lt;rfc&gt; element and
+the &lt;date&gt; element to determine which portions and which
+version of the TLP to use, as described in A.1 of {{I-D.hoffman-xml2rfc}}.
 
 1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
