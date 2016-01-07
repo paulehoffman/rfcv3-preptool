@@ -198,6 +198,10 @@ attribute in if the element has one or more &lt;seriesinfo&gt; child element(s).
 for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different from before and after the v3 format is adopted.
 
+1. For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
+replace the value of the "anchor" attribute with the 
+value of the "to" attribute of the associated &lt;displayreference&gt;.
+
 1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
 
@@ -218,6 +222,10 @@ does not already have a start.
 1. If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
 as modified by the "to" attribute of any &lt;displayreference&gt; element.
+
+1. For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
+that has an associated &lt;displayreference&gt;, modify the "target" 
+attribute of the &lt;xref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
 
 1. For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
 content, having first trimmed the whitespace from ends of content text.
@@ -245,6 +253,10 @@ was being filled in.
     Issue a warning if the "derivedContent" attribute already exists and has a different value than what
     was being filled in.
 
+1. For each &lt;relref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
+that has an associated &lt;displayreference&gt;, modify the "target" 
+attribute of the &lt;relref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
+
 1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
 1. For each &lt;relref&gt; element that does not have content, fill the"derivedRemoteContent"
@@ -261,6 +273,8 @@ based on the content of the target reference.
 element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
 than what was being filled in.
+
+1. Remove every &lt;displayreference&gt; element.
 
 1. If an &lt;artwork&gt; element has a "src" attribute with no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
