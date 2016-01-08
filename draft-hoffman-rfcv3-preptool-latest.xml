@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2015" month="September" day="08"/>
+    <date year="2016" month="January" day="07"/>
 
     <area>Internet</area>
     
@@ -164,13 +164,17 @@ text with all of the warnings and errors in a human-readable form. The prep tool
 displays all the warnings and errors, and stops if there was an error.</t>
   <t>Remove processing instructions.</t>
   <t>If in RFC production mode, remove comments.</t>
-  <t>Add the <xref target="RFC5741"/> boilerplate text with current values. However, if
+  <t>Add the “Status of this Memo” text with current values. However, if
 different boilerplate text already exists in the input, produce a warning that
 says that other tools, specifically the draft submission tool, will treat that
-condition as an error. The application will use the “ipr”, “category”,
+condition as an error. The application will use the “category”,
 “submission”, and “consensus” attributes of the &lt;rfc&gt; element to determine
 which <xref target="RFC5741"/> boilerplate to include, as described in Appendix A of
 <xref target="I-D.hoffman-xml2rfc"/>.</t>
+  <t>Add the “Copyright Notice” text. The application will use the
+“ipr” and “submissionType” attributes of the &lt;rfc&gt; element and
+the &lt;date&gt; element to determine which portions and which
+version of the TLP to use, as described in A.1 of <xref target="I-D.hoffman-xml2rfc"/>.</t>
   <t>Fill in the “prepTime” attribute of &lt;rfc&gt; with the current datetime.</t>
   <t>Fill in the “mode” attribute of &lt;rfc&gt; with a string (to be determined later)
 indicating the type of prepping that was done (RFC production or I-D mode).</t>
@@ -186,6 +190,9 @@ and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.</t>
 attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs
 for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different from before and after the v3 format is adopted.</t>
+  <t>For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
+replace the value of the “anchor” attribute with the 
+value of the “to” attribute of the associated &lt;displayreference&gt;.</t>
   <t>Add a “slugifiedName” attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with “n-“.</t>
   <t>Add “pn” attributes for all parts.  Parts are:
@@ -205,6 +212,9 @@ does not already have a start.</t>
   <t>If the “sortRefs” attribute of the &lt;rfc&gt; element is true,
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the “anchor” attribute,
 as modified by the “to” attribute of any &lt;displayreference&gt; element.</t>
+  <t>For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
+that has an associated &lt;displayreference&gt;, modify the “target” 
+attribute of the &lt;xref&gt; to match the “to” attribute of the associated &lt;displayreference&gt;.</t>
   <t>For each &lt;xref&gt; element that has content, fill the “derivedContent” with the element
 content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedContent” attribute already exists and has a different value than what
@@ -231,6 +241,9 @@ was being filled in.</t>
  Issue a warning if the “derivedContent” attribute already exists and has a different value than what
  was being filled in.</t>
     </list></t>
+  <t>For each &lt;relref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
+that has an associated &lt;displayreference&gt;, modify the “target” 
+attribute of the &lt;relref&gt; to match the “to” attribute of the associated &lt;displayreference&gt;.</t>
   <t>For each &lt;relref&gt; element, fill in the “derivedLink” attribute.</t>
   <t>For each &lt;relref&gt; element that does not have content, fill the”derivedRemoteContent”
 based on the content of the target reference.
@@ -247,6 +260,7 @@ based on the content of the target reference.
 element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the “derivedRemoteContent” attribute already exists and has a different value
 than what was being filled in.</t>
+  <t>Remove every &lt;displayreference&gt; element.</t>
   <t>If an &lt;artwork&gt; element has a “src” attribute with no scheme is
 specified, treat the scheme as “file:” in a path relative to the file being
 processed.  This will likely be one of the most common authoring approaches.</t>
