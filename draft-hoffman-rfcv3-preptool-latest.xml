@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="January" day="07"/>
+    <date year="2016" month="January" day="08"/>
 
     <area>Internet</area>
     
@@ -167,8 +167,10 @@ displays all the warnings and errors, and stops if there was an error.</t>
   <t>Add the “Status of this Memo” text with current values. However, if
 different boilerplate text already exists in the input, produce a warning that
 says that other tools, specifically the draft submission tool, will treat that
-condition as an error. The application will use the “category”,
-“submission”, and “consensus” attributes of the &lt;rfc&gt; element to determine
+condition as an error. The application will use the
+“submissionType”, and “consensus” attributes of the &lt;rfc&gt; element,
+and the “status” and “stream” attributes of the &lt;seriesInfo&gt; element,
+to determine
 which <xref target="RFC5741"/> boilerplate to include, as described in Appendix A of
 <xref target="I-D.hoffman-xml2rfc"/>.</t>
   <t>Add the “Copyright Notice” text. The application will use the

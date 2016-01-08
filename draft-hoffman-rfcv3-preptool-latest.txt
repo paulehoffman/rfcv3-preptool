@@ -5,8 +5,8 @@
 Network Working Group                                         P. Hoffman
 Internet-Draft                                                     ICANN
 Intended status: Informational                             J. Hildebrand
-Expires: July 10, 2016                                             Cisco
-                                                        January 07, 2016
+Expires: July 11, 2016                                             Cisco
+                                                        January 08, 2016
 
 
                       RFC v3 Prep Tool Description
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 10, 2016.
+   This Internet-Draft will expire on July 11, 2016.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 1]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 1]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 2]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 2]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -165,7 +165,7 @@ Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 3]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 3]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -221,17 +221,18 @@ Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 4]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 4]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
         input, produce a warning that says that other tools,
         specifically the draft submission tool, will treat that
-        condition as an error.  The application will use the "category",
-        "submission", and "consensus" attributes of the <rfc> element to
-        determine which [RFC5741] boilerplate to include, as described
-        in Appendix A of [I-D.hoffman-xml2rfc].
+        condition as an error.  The application will use the
+        "submissionType", and "consensus" attributes of the <rfc>
+        element, and the "status" and "stream" attributes of the
+        <seriesInfo> element, to determine which [RFC5741] boilerplate
+        to include, as described in Appendix A of [I-D.hoffman-xml2rfc].
 
    7.   Add the "Copyright Notice" text.  The application will use the
         "ipr" and "submissionType" attributes of the <rfc> element and
@@ -276,8 +277,7 @@ Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
 
-
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 5]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 5]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -333,7 +333,7 @@ Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 6]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 6]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -389,7 +389,7 @@ Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 7]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 7]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -445,7 +445,7 @@ Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 8]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -501,7 +501,7 @@ Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                 [Page 9]
+Hoffman & Hildebrand      Expires July 11, 2016                 [Page 9]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -557,7 +557,7 @@ Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                [Page 10]
+Hoffman & Hildebrand      Expires July 11, 2016                [Page 10]
 
 Internet-Draft        RFC v3 Prep Tool Description          January 2016
 
@@ -613,4 +613,4 @@ Authors' Addresses
 
 
 
-Hoffman & Hildebrand      Expires July 10, 2016                [Page 11]
+Hoffman & Hildebrand      Expires July 11, 2016                [Page 11]
