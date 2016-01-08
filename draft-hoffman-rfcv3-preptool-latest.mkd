@@ -167,8 +167,10 @@ displays all the warnings and errors, and stops if there was an error.
 1. Add the "Status of this Memo" text with current values. However, if
 different boilerplate text already exists in the input, produce a warning that
 says that other tools, specifically the draft submission tool, will treat that
-condition as an error. The application will use the "category",
-"submission", and "consensus" attributes of the &lt;rfc&gt; element to determine
+condition as an error. The application will use the
+"submissionType", and "consensus" attributes of the &lt;rfc&gt; element,
+and the "status" and "stream" attributes of the &lt;seriesInfo&gt; element,
+to determine
 which {{RFC5741}} boilerplate to include, as described in Appendix A of
 {{I-D.hoffman-xml2rfc}}.
 
