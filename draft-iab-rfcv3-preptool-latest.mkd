@@ -38,8 +38,6 @@ informative:
 
 This document describes some aspects of the "prep tool" that is expected
 to be created when the new RFC v3 specification is deployed.
-This draft is just a way to keep track of the ideas; it is not (currently)
-expected to be published as an RFC.
 
 --- middle
 
@@ -54,9 +52,9 @@ that it is the data that is blessed by the process as the actual RFC. See
 {{RFC6949}} for more detail on this.
 
 Most people will read other formats, such as HTML, PDF, ASCII text, or other
-formats of the future, however.  In order to ensure each of these format is as
+formats of the future, however.  In order to ensure each of these formats is as
 similar as possible to one another as well as the canonical XML, there is a
-desire for the translation from XML into the other formats will be
+desire that the translation from XML into the other formats will be
 straightforward syntactic translation. To make that happen, a good amount of
 data will need to be in the XML format that is not there today. That data will
 be added by a program called the "prep tool", which will often run as a part of
@@ -80,14 +78,17 @@ The prep tool will have several settings:
 
 * Canonical RFC preparation
 
-There are only a few difference between the two settings. For example, the
+There are only a few differences between the two settings. For example, the
 boilerplate output will be different, as will the date output on the front page.
 
 Note that this only describes what the IETF-sponsored prep tool does. Others
 might create their own work-alike prep tools for their own formatting needs.
-However, an output format developer does not not need to change the prep tool in
+However, an output format developer does not need to change the prep tool in
 order to create their own formatter: they only need to be able to consume
 prepared text.
+The IETF-sponsored prep tool runs in two different modes: "I-D" mode when the
+tool is run during Internet-Draft submission and processing, and "RFC production
+mode" when the tool is run by the RFC Production Center (RPC) while producing an RFC.
 
 This tool is described as if it is a separate tool so that we can reason about
 its architectural properties. In actual implementation, it might be a part of a
@@ -98,7 +99,9 @@ Internet-Draft Submission
 =====
 
 When the IETF draft submission tool accepts v3 XML as an input format, the
-submission tool runs the submitted file through the prep tool. If the tool finds
+submission tool runs the submitted file through the prep tool.
+This is called "I-D mode" in this document.
+If the tool finds
 no errors, it keeps two XML files: the submitted file and the prepped file.
 
 The prepped file provides a record of what a submitter was attesting to at the
@@ -189,7 +192,7 @@ attribute that has the value "true", add a paragraph to the top of the &lt;note&
 "This note is to be removed before publishing as an RFC.", if such a
 paragraph does not yet exist. 
 
-1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on the
+1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on
 the &lt;date&gt; element of the document's &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.
 
 1. Fill in any default values for attributes on elements, except "keepWithNext"
@@ -198,7 +201,7 @@ and "keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
 1. For any &lt;reference&gt; element that does not already have a "target" attribute, fill that
 attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs
 for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
-the IESG. These URLs might also be different from before and after the v3 format is adopted.
+the IESG. These URLs might also be different before and after the v3 format is adopted.
 
 1. For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
 replace the value of the "anchor" attribute with the 
@@ -231,7 +234,7 @@ attribute of the &lt;xref&gt; to match the "to" attribute of the associated &lt;
 
 1. For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
 content, having first trimmed the whitespace from ends of content text.
-Issue a warning if the "derivedContent" attribute already exists and has a different value than what
+Issue a warning if the "derivedContent" attribute already exists and has a different value from what
 was being filled in.
 
 1. For each &lt;xref&gt; element that does not have content, fill the "derivedContent" based on the
@@ -251,8 +254,8 @@ was being filled in.
     each descendant node of &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
     text).  
   * For format='title', if the target element does not contain a &lt;name&gt; child element, the
-    "derivedContent" attribute is value of the "target" attribute with no other adornment.
-    Issue a warning if the "derivedContent" attribute already exists and has a different value than what
+    "derivedContent" attribute is the value of the "target" attribute with no other adornment.
+    Issue a warning if the "derivedContent" attribute already exists and has a different value from what
     was being filled in.
 
 1. For each &lt;relref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
@@ -261,24 +264,24 @@ attribute of the &lt;relref&gt; to match the "to" attribute of the associated &l
 
 1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
-1. For each &lt;relref&gt; element that does not have content, fill the"derivedRemoteContent"
+1. For each &lt;relref&gt; element that does not have content, fill the "derivedRemoteContent"
 based on the content of the target reference.
-  * If the target reference is a RFC or Internet-Draft in the v3 format, find the anchor given in the
+  * If the target reference is an RFC or Internet-Draft in the v3 format, find the anchor given in the
     "relative" attribute or derived from the "section" attribute, and use the identifier of that element
     (such as "Section 2.3" or "Table 4") for the "derivedRemoteContent".
   * If the target reference is not a RFC or Internet-Draft in the v3 format, use the value of the
     "relative" or "section" attribute for the "derivedRemoteContent".
   * Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
-    than what was being filled in.
+    from what was being filled in.
 
 1. For each &lt;relref&gt; element that has content, fill the "derivedRemoteContent" with the
 element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
-than what was being filled in.
+from what was being filled in.
 
 1. Remove every &lt;displayreference&gt; element.
 
-1. If an &lt;artwork&gt; element has a "src" attribute with no scheme is
+1. If an &lt;artwork&gt; element has a "src" attribute where no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
 processed.  This will likely be one of the most common authoring approaches.
 
@@ -322,7 +325,7 @@ preferred types other than "binary-art" are text.
     resolved text from the URI in the "src" attribute. Add an "originalSrc"
     attribute with the value of the URI and remove the "src" attribute.
 
-1. If a &lt;sourcecode&gt; element has a "src" attribute with no scheme is
+1. If a &lt;sourcecode&gt; element has a "src" attribute where no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
 processed.
 
@@ -342,7 +345,7 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     text from the URI in the "src" attribute. Add an "originalSrc" attribute with
     the value of the URI and remove the "src" attribute.
 
-1. Determine all the characters used in the document, and fill in "scripts"
+1. Determine all the characters used in the document, and fill in the "scripts"
 attribute for &lt;rfc&gt;.
 
 1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
@@ -402,7 +405,9 @@ None.
 Security Considerations {#securitycons}
 =====
 
-None.
+Steps in this document attempt to prevent the &lt;artwork&gt; and &lt;sourcecode&gt; entities from exposing
+the contents of files outside the directory in which the document being processed
+resides.
 
 
 Acknowledgements
