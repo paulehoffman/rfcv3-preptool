@@ -184,7 +184,7 @@ version of the TLP to use, as described in A.1 of {{I-D.iab-xml2rfc}}.
 
 1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
-1. Fill in the "mode" attribute of &lt;rfc&gt; with a string (to be determined later)
+1. Fill in the "mode" attribute of the &lt;seriesInfo&gt; in the &lt;rfc&gt; with a string
 indicating the type of prepping that was done (RFC production or I-D mode).
 
 1. If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
