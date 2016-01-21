@@ -184,7 +184,7 @@ version of the TLP to use, as described in A.1 of {{I-D.iab-xml2rfc}}.
 
 1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
-1. Fill in the "mode" attribute of the &lt;seriesInfo&gt; in the &lt;rfc&gt; with a string
+1. Fill in the "name" attribute of the &lt;seriesInfo&gt; in the &lt;rfc&gt; with a string
 indicating the type of prepping that was done (RFC production or I-D mode).
 
 1. If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
@@ -288,8 +288,8 @@ processed.  This will likely be one of the most common authoring approaches.
 1. If an &lt;artwork&gt; element has a "src" attribute with a "file:" scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
-an error.  This rule attempts to prevent &lt;artwork
-src='file:///etc/passwd'&gt; and similar security issues.
+an error.  This rule attempts to prevent
+&lt;artwork src='file:///etc/passwd'&gt; and similar security issues.
 
 1. If an &lt;artwork&gt; element has type='svg' and there is a "src" attribute,
 the data needs to be moved into the content of the &lt;artwork&gt; element.
@@ -332,8 +332,8 @@ processed.
 1. If a &lt;sourcecode&gt; element has a "src" attribute with a "file:" scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
-an error.  This rule attempts to prevent &lt;sourcecode
-src='file:///etc/passwd'&gt; and similar security issues.
+an error.  This rule attempts to prevent
+&lt;sourcecode src='file:///etc/passwd'&gt; and similar security issues.
 
 1. If a &lt;sourcecode&gt; element has a "src" attribute,
 the data needs to be moved into the content of the &lt;sourcecode&gt; element.
