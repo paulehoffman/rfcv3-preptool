@@ -500,6 +500,7 @@
 <ol>
   <li>Fully process any DTDs in the input document, then remove the DTD.  At a minimum, this entails processing the entityrefs and includes for external files.</li>
   <li>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The tool may be configurable with a limit on the depth of recursion.</li>
+  <li>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The tool may be configurable with a limit on the depth of recursion.</li>
   <li>Run idnits. idnits will indicate if it encountered any errors, and will also provide text with all of the warnings and errors in a human-readable form. The prep tool displays all the warnings and errors, and stops if there was an error.</li>
   <li>Remove processing instructions.</li>
   <li>If in RFC production mode, remove comments.</li>
