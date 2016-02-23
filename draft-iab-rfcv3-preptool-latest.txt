@@ -5,8 +5,8 @@
 Network Working Group                                         P. Hoffman
 Internet-Draft                                                     ICANN
 Intended status: Informational                             J. Hildebrand
-Expires: August 19, 2016                                           Cisco
-                                                       February 16, 2016
+Expires: August 26, 2016                                           Cisco
+                                                       February 23, 2016
 
 
                       RFC v3 Prep Tool Description
@@ -32,7 +32,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 19, 2016.
+   This Internet-Draft will expire on August 26, 2016.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 1]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 1]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 2]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 2]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -165,7 +165,7 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 3]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 3]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -221,7 +221,7 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 4]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 4]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -277,7 +277,7 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 5]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 5]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -333,7 +333,7 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 6]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 6]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -389,7 +389,7 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 7]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 7]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -445,7 +445,7 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 8]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -501,7 +501,7 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016                [Page 9]
+Hoffman & Hildebrand     Expires August 26, 2016                [Page 9]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -557,7 +557,7 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016               [Page 10]
+Hoffman & Hildebrand     Expires August 26, 2016               [Page 10]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -590,13 +590,13 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
               iab-xml2rfc-03 (work in progress), February 2016.
 
    [RFC5741]  Daigle, L., Ed., Kolkman, O., Ed., and IAB, "RFC Streams,
-              Headers, and Boilerplates", RFC 5741, DOI 10.17487/
-              RFC5741, December 2009,
+              Headers, and Boilerplates", RFC 5741,
+              DOI 10.17487/RFC5741, December 2009,
               <http://www.rfc-editor.org/info/rfc5741>.
 
    [RFC6949]  Flanagan, H. and N. Brownlee, "RFC Series Format
-              Requirements and Future Development", RFC 6949, DOI
-              10.17487/RFC6949, May 2013,
+              Requirements and Future Development", RFC 6949,
+              DOI 10.17487/RFC6949, May 2013,
               <http://www.rfc-editor.org/info/rfc6949>.
 
 Authors' Addresses
@@ -613,7 +613,7 @@ Authors' Addresses
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016               [Page 11]
+Hoffman & Hildebrand     Expires August 26, 2016               [Page 11]
 
 Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
@@ -669,4 +669,4 @@ Internet-Draft        RFC v3 Prep Tool Description         February 2016
 
 
 
-Hoffman & Hildebrand     Expires August 19, 2016               [Page 12]
+Hoffman & Hildebrand     Expires August 26, 2016               [Page 12]

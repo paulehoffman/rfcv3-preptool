@@ -41,6 +41,11 @@ to be created when the new RFC v3 specification is deployed.
 
 --- middle
 
+<!--
+########################################## LOOK AT ME ##################################
+Somewhat related: some authors might add "ascii" attributes reflexively even where they are not needed. Would anyone object if we added a step to draft-iab-rfcv3-preptool that checks if the ASCII attribute and the content are identical and, if so, remove the ASCII attribute?
+########################################## LOOK AT ME ##################################
+-->
 
 Introduction
 =====
