@@ -162,6 +162,9 @@ files.</t>
   <t>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.</t>
+  <t>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
+include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
+tool may be configurable with a limit on the depth of recursion.</t>
   <t>Run idnits. idnits will indicate if it encountered any errors, and will also provide
 text with all of the warnings and errors in a human-readable form. The prep tool
 displays all the warnings and errors, and stops if there was an error.</t>
