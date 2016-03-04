@@ -6,7 +6,6 @@ docname: draft-iab-rfcv3-preptool
 stand_alone: true
 
 ipr: trust200902
-area: Internet
 kw: Internet-Draft
 
 pi:
@@ -164,17 +163,13 @@ files.
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.
 
-1. Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
-include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
-tool may be configurable with a limit on the depth of recursion.
-
 1. Run idnits. idnits will indicate if it encountered any errors, and will also provide
 text with all of the warnings and errors in a human-readable form. The prep tool
 displays all the warnings and errors, and stops if there was an error.
 
 1. Remove processing instructions.
 
-1. If in RFC production mode, remove comments.
+1. If in RFC production mode, remove XML comments.
 
 1. Add the "Status of this Memo" text with current values. However, if
 different boilerplate text already exists in the input, produce a warning that
@@ -193,12 +188,14 @@ version of the TLP to use, as described in A.1 of {{I-D.iab-xml2rfc}}.
 
 1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
+1. Insert a &lt;seriesInfo&gt; element in &lt;rfc&gt; element if it is not already there.
+
 1. Fill in the "name" attribute of the &lt;seriesInfo&gt; in the &lt;rfc&gt; with a string
 indicating the type of prepping that was done (RFC production or I-D mode).
 
 1. If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
-attribute that has the value "true", add a paragraph to the top of the &lt;note&gt; element that says
-"This note is to be removed before publishing as an RFC.", if such a
+attribute that has the value "true", add a paragraph to the top of the &lt;note&gt; element saying
+that the note is to be removed before publishing as an RFC, if such a
 paragraph does not yet exist. 
 
 1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on
@@ -215,6 +212,9 @@ the IESG. These URLs might also be different before and after the v3 format is a
 1. For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
 replace the value of the "anchor" attribute with the 
 value of the "to" attribute of the associated &lt;displayreference&gt;.
+
+1. For every &lt;section&gt; element that has a (deprecated) "title" attribute, remove the
+"title" attribute and insert a &lt;name&gt; element in that section with the title from the attribute.
 
 1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
@@ -236,6 +236,8 @@ does not already have a start.
 1. If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
 as modified by the "to" attribute of any &lt;displayreference&gt; element.
+The RFC Editor needs to determine what the rules for lexical sorting are.
+The authors of this document acknowledge that this is a difficult task on which to get consensus.
 
 1. For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
 that has an associated &lt;displayreference&gt;, modify the "target" 
