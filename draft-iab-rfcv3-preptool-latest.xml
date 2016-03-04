@@ -28,9 +28,9 @@
       </address>
     </author>
 
-    <date year="2016" month="February" day="23"/>
+    <date year="2016" month="March" day="04"/>
 
-    <area>Internet</area>
+    
     
     <keyword>Internet-Draft</keyword>
 
@@ -168,14 +168,11 @@ files.</t>
   <t>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.</t>
-  <t>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
-include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
-tool may be configurable with a limit on the depth of recursion.</t>
   <t>Run idnits. idnits will indicate if it encountered any errors, and will also provide
 text with all of the warnings and errors in a human-readable form. The prep tool
 displays all the warnings and errors, and stops if there was an error.</t>
   <t>Remove processing instructions.</t>
-  <t>If in RFC production mode, remove comments.</t>
+  <t>If in RFC production mode, remove XML comments.</t>
   <t>Add the “Status of this Memo” text with current values. However, if
 different boilerplate text already exists in the input, produce a warning that
 says that other tools, specifically the draft submission tool, will treat that
@@ -190,11 +187,12 @@ which <xref target="RFC5741"/> boilerplate to include, as described in Appendix 
 the &lt;date&gt; element to determine which portions and which
 version of the TLP to use, as described in A.1 of <xref target="I-D.iab-xml2rfc"/>.</t>
   <t>Fill in the “prepTime” attribute of &lt;rfc&gt; with the current datetime.</t>
+  <t>Insert a &lt;seriesInfo&gt; element in &lt;rfc&gt; element if it is not already there.</t>
   <t>Fill in the “name” attribute of the &lt;seriesInfo&gt; in the &lt;rfc&gt; with a string
 indicating the type of prepping that was done (RFC production or I-D mode).</t>
   <t>If in I-D mode, if there is a &lt;note&gt; element with a “removeInRFC”
-attribute that has the value “true”, add a paragraph to the top of the &lt;note&gt; element that says
-“This note is to be removed before publishing as an RFC.”, if such a
+attribute that has the value “true”, add a paragraph to the top of the &lt;note&gt; element saying
+that the note is to be removed before publishing as an RFC, if such a
 paragraph does not yet exist.</t>
   <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on
 the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</t>
@@ -207,6 +205,8 @@ the IESG. These URLs might also be different before and after the v3 format is a
   <t>For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
 replace the value of the “anchor” attribute with the 
 value of the “to” attribute of the associated &lt;displayreference&gt;.</t>
+  <t>For every &lt;section&gt; element that has a (deprecated) “title” attribute, remove the
+“title” attribute and insert a &lt;name&gt; element in that section with the title from the attribute.</t>
   <t>Add a “slugifiedName” attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with “n-“.</t>
   <t>Add “pn” attributes for all parts.  Parts are:
@@ -225,7 +225,9 @@ contain one; replace the attribute if it contains a value that begins with “n-
 does not already have a start.</t>
   <t>If the “sortRefs” attribute of the &lt;rfc&gt; element is true,
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the “anchor” attribute,
-as modified by the “to” attribute of any &lt;displayreference&gt; element.</t>
+as modified by the “to” attribute of any &lt;displayreference&gt; element.
+The RFC Editor needs to determine what the rules for lexical sorting are.
+The authors of this document acknowledge that getting consensus on this will be a difficult task.</t>
   <t>For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
 that has an associated &lt;displayreference&gt;, modify the “target” 
 attribute of the &lt;xref&gt; to match the “to” attribute of the associated &lt;displayreference&gt;.</t>
@@ -277,12 +279,15 @@ from what was being filled in.</t>
   <t>Remove every &lt;displayreference&gt; element.</t>
   <t>If an &lt;artwork&gt; element has a “src” attribute where no scheme is
 specified, treat the scheme as “file:” in a path relative to the file being
-processed.  This will likely be one of the most common authoring approaches.</t>
+processed. 
+See <xref target="securitycons"/> for warnings about this step.
+This will likely be one of the most common authoring approaches.</t>
   <t>If an &lt;artwork&gt; element has a “src” attribute with a “file:” scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
 an error.  This rule attempts to prevent
-&lt;artwork src=’file:///etc/passwd’&gt; and similar security issues.</t>
+&lt;artwork src=’file:///etc/passwd’&gt; and similar security issues.
+See <xref target="securitycons"/> for warnings about this step.</t>
   <t>If an &lt;artwork&gt; element has type=’svg’ and there is a “src” attribute,
 the data needs to be moved into the content of the &lt;artwork&gt; element.
   <list style="symbols">
@@ -303,12 +308,13 @@ the mediatype of the “data:” URI will be the Content-Type of the HTTP respon
 For the “file:” URI scheme,
 the mediatype of the “data:” URI needs to be guessed with heuristics
 (this is possibly a bad idea).
+This also fails for content that includes binary images but uses a type other than “binary-art”.
 Note: since this feature can’t be used for RFCs at the moment, this entire
 feature might be de-prioritized.</t>
   <t>If an &lt;artwork&gt; element does not have type=’svg’ or type=’binary-art’
 and there is a “src” attribute, the data needs to be moved into the content of
 the &lt;artwork&gt; element. Note that this step assumes that all of the
-preferred types other than “binary-art” are text.
+preferred types other than “binary-art” are text, which is possibly wrong.
   <list style="symbols">
       <t>If the “src” URI scheme is “data:”, fill the content of the &lt;artwork&gt;
  element with the correctly-escaped form of that data and remove the “src”
@@ -344,11 +350,14 @@ it is set to “3”.</t>
   <t>If in RFC production mode, remove all &lt;link&gt; elements whose “rel” attribute
 has the value “alternate”.</t>
   <t>If in RFC production mode, check if there is a &lt;link&gt; element with
-an ISSN for the RFC series; if not, add one.</t>
+an ISSN for the RFC series; if not, add one
+of the form &lt;link rel=”item” href=”urn:issn:dddd”&gt;.</t>
   <t>If in RFC production mode, check if there is a &lt;link&gt; element with
-a DOI for this RFC; if not, add one.</t>
+a DOI for this RFC; if not, add one
+of the form &lt;link rel=”describedBy” href=”https://dx.doi.org/10.17487/rfcdddd”&gt;.</t>
   <t>If in RFC production mode, check if there is a &lt;link&gt; element with
-the file name of the Internet-Draft that became this RFC; if not, add one.</t>
+the file name of the Internet-Draft that became this RFC; if not, add one
+of the form &lt;link rel=”convertedFrom” href=”https://datatracker.ietf.org/doc/draft-tttttttttt/”&gt;.</t>
   <t>If in RFC production mode, remove all “xml:base” or “originalSrc” attributes from
 all elements.</t>
   <t>Pretty-format the XML output.  (Note: tools like <eref target="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</eref> do an adequate job.)</t>
@@ -389,7 +398,7 @@ starting with “n-“) in order to make the resulting file easier to edit.</t>
 
 <t>Steps in this document attempt to prevent the &lt;artwork&gt; and &lt;sourcecode&gt; entities from exposing
 the contents of files outside the directory in which the document being processed
-resides.</t>
+resides. For example, values starting with “/”, “./”, or “../” should generate errors.</t>
 
 </section>
 <section anchor="acknowledgements" title="Acknowledgements">

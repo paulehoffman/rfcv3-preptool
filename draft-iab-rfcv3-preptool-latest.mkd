@@ -237,7 +237,7 @@ does not already have a start.
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
 as modified by the "to" attribute of any &lt;displayreference&gt; element.
 The RFC Editor needs to determine what the rules for lexical sorting are.
-The authors of this document acknowledge that this is a difficult task on which to get consensus.
+The authors of this document acknowledge that getting consensus on this will be a difficult task.
 
 1. For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
 that has an associated &lt;displayreference&gt;, modify the "target" 
@@ -294,13 +294,16 @@ from what was being filled in.
 
 1. If an &lt;artwork&gt; element has a "src" attribute where no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
-processed.  This will likely be one of the most common authoring approaches.
+processed. 
+See {{securitycons}} for warnings about this step.
+This will likely be one of the most common authoring approaches.
 
 1. If an &lt;artwork&gt; element has a "src" attribute with a "file:" scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
 an error.  This rule attempts to prevent
 &lt;artwork src='file:///etc/passwd'&gt; and similar security issues.
+See {{securitycons}} for warnings about this step.
 
 1. If an &lt;artwork&gt; element has type='svg' and there is a "src" attribute,
 the data needs to be moved into the content of the &lt;artwork&gt; element.
@@ -321,13 +324,14 @@ the mediatype of the "data:" URI will be the Content-Type of the HTTP response.
 For the "file:" URI scheme,
 the mediatype of the "data:" URI needs to be guessed with heuristics
 (this is possibly a bad idea).
+This also fails for content that includes binary images but uses a type other than "binary-art".
 Note: since this feature can't be used for RFCs at the moment, this entire
 feature might be de-prioritized.
 
 1. If an &lt;artwork&gt; element does not have type='svg' or type='binary-art'
 and there is a "src" attribute, the data needs to be moved into the content of
 the &lt;artwork&gt; element. Note that this step assumes that all of the
-preferred types other than "binary-art" are text.
+preferred types other than "binary-art" are text, which is possibly wrong.
   * If the "src" URI scheme is "data:", fill the content of the &lt;artwork&gt;
     element with the correctly-escaped form of that data and remove the "src"
     attribute.
@@ -366,13 +370,16 @@ it is set to "3".
 has the value "alternate".
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
-an ISSN for the RFC series; if not, add one.
+an ISSN for the RFC series; if not, add one
+of the form &lt;link rel="item" href="urn:issn:dddd"&gt;.
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
-a DOI for this RFC; if not, add one.
+a DOI for this RFC; if not, add one
+of the form &lt;link rel="describedBy" href="https://dx.doi.org/10.17487/rfcdddd"&gt;.
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
-the file name of the Internet-Draft that became this RFC; if not, add one.
+the file name of the Internet-Draft that became this RFC; if not, add one
+of the form &lt;link rel="convertedFrom" href="https://datatracker.ietf.org/doc/draft-tttttttttt/"&gt;.
 
 1. If in RFC production mode, remove all "xml:base" or "originalSrc" attributes from
 all elements.
@@ -418,7 +425,7 @@ Security Considerations {#securitycons}
 
 Steps in this document attempt to prevent the &lt;artwork&gt; and &lt;sourcecode&gt; entities from exposing
 the contents of files outside the directory in which the document being processed
-resides.
+resides. For example, values starting with "/", "./", or "../" should generate errors.
 
 
 Acknowledgements
