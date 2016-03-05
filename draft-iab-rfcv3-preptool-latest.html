@@ -500,7 +500,7 @@
 <ol>
   <li>Fully process any DTDs in the input document, then remove the DTD.  At a minimum, this entails processing the entityrefs and includes for external files.</li>
   <li>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The tool may be configurable with a limit on the depth of recursion.</li>
-  <li>Run idnits. idnits will indicate if it encountered any errors, and will also provide text with all of the warnings and errors in a human-readable form. The prep tool displays all the warnings and errors, and stops if there was an error.</li>
+  <li>Run idnits. idnits will indicate if it encountered any errors, and will also provide text with all of the warnings and errors in a human-readable form. The prep tool displays all the warnings and errors, and stops if there was an error.  Note that, with the development of a prep tool, it might no longer be necessary for there to be a separate idnits tool: incorporating all the tests that are currently there could be part of the prep tool.</li>
   <li>Remove processing instructions.</li>
   <li>If in RFC production mode, remove XML comments.</li>
   <li>Add the &#8220;Status of this Memo&#8221; text with current values. However, if different boilerplate text already exists in the input, produce a warning that says that other tools, specifically the draft submission tool, will treat that condition as an error. The application will use the &#8220;submissionType&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element, and the &#8220;status&#8221; and &#8220;stream&#8221; attributes of the &lt;seriesInfo&gt; element, to determine which <a href="#RFC5741">[RFC5741]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</li>
@@ -509,8 +509,11 @@
   <li>Insert a &lt;seriesInfo&gt; element in &lt;rfc&gt; element if it is not already there.</li>
   <li>Fill in the &#8220;name&#8221; attribute of the &lt;seriesInfo&gt; in the &lt;rfc&gt; with a string indicating the type of prepping that was done (RFC production or I-D mode).</li>
   <li>If in I-D mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, add a paragraph to the top of the &lt;note&gt; element saying that the note is to be removed before publishing as an RFC, if such a paragraph does not yet exist.</li>
+  <li>If in RFC production mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, remove the &lt;note&gt; element.</li>
   <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</li>
   <li>Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.</li>
+  <li>In every &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt; element, if there is an &#8220;ascii&#8221; attribute and the value of tha attribute is the same as the content of the element, remove the &#8220;ascii&#8221; element.</li>
+  <li>In every &lt;author&gt; element, if there is an &#8220;asciiFullname&#8221;, &#8220;asciiInitials&#8221;, or &#8220;asciiSurname&#8221; attribute, check the content of that element against its matching &#8220;fullname&#8221;, &#8220;initials&#8221;, or &#8220;surname&#8221; element (respectively).  If the two are the same, remove the &#8220;ascii*&#8221; elelement.</li>
   <li>For any &lt;reference&gt; element that does not already have a &#8220;target&#8221; attribute, fill that attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and the IESG. These URLs might also be different before and after the v3 format is adopted.</li>
   <li>For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, replace the value of the &#8220;anchor&#8221; attribute with the value of the &#8220;to&#8221; attribute of the associated &lt;displayreference&gt;.</li>
   <li>For every &lt;section&gt; element that has a (deprecated) &#8220;title&#8221; attribute, remove the &#8220;title&#8221; attribute and insert a &lt;name&gt; element in that section with the title from the attribute.</li>
@@ -551,6 +554,7 @@
 <p id="rfc.section.7.p.1">None.</p>
 <h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#securitycons" id="securitycons">Security Considerations</a></h1>
 <p id="rfc.section.8.p.1">Steps in this document attempt to prevent the &lt;artwork&gt; and &lt;sourcecode&gt; entities from exposing the contents of files outside the directory in which the document being processed resides. For example, values starting with &#8220;/&#8221;, &#8220;./&#8221;, or &#8220;../&#8221; should generate errors.</p>
+<p id="rfc.section.8.p.2">The security considerations in <a href="#RFC3470">[RFC3470]</a> apply here. In specific, processing XML external references can expose a prep tool implementation to various threats by causing the implementation to access external resources automatically.  It is important to disallow arbitrary access to such external references within XML data from untrusted sources.</p>
 <h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a></h1>
 <p id="rfc.section.9.p.1">Many people contributed valuable ideas to this document. Special thanks go to Robert Sparks for his in-depth review and contributions early in the development of this document.</p>
 <h1 id="rfc.references"><a href="#rfc.references">10.</a> Informative References</h1>
@@ -561,6 +565,12 @@
         <b id="I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</b>
       </td>
       <td class="top"><a>Hoffman, P.</a>, "<a href="http://tools.ietf.org/html/draft-iab-xml2rfc-03">The "xml2rfc" version 3 Vocabulary</a>", Internet-Draft draft-iab-xml2rfc-03, February 2016.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC3470">[RFC3470]</b>
+      </td>
+      <td class="top"><a>Hollenbeck, S.</a>, <a>Rose, M.</a> and <a>L. Masinter</a>, "<a href="http://tools.ietf.org/html/rfc3470">Guidelines for the Use of Extensible Markup Language (XML) within IETF Protocols</a>", BCP 70, RFC 3470, DOI 10.17487/RFC3470, January 2003.</td>
     </tr>
     <tr>
       <td class="reference">

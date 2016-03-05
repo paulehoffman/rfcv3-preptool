@@ -51,9 +51,9 @@ to be created when the new RFC v3 specification is deployed.</t>
 
 
 <!--
-########################################## LOOK AT ME ##################################
-Somewhat related: some authors might add "ascii" attributes reflexively even where they are not needed. Would anyone object if we added a step to draft-iab-rfcv3-preptool that checks if the ASCII attribute and the content are identical and, if so, remove the ASCII attribute?
-########################################## LOOK AT ME ##################################
+
+NOTES FOR THE AUTHORS GO HERE
+
 -->
 
 <section anchor="introduction" title="Introduction">
@@ -170,7 +170,10 @@ include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.</t>
   <t>Run idnits. idnits will indicate if it encountered any errors, and will also provide
 text with all of the warnings and errors in a human-readable form. The prep tool
-displays all the warnings and errors, and stops if there was an error.</t>
+displays all the warnings and errors, and stops if there was an error.
+Note that, with the development of a prep tool, it might no longer be necessary
+for there to be a separate idnits tool: incorporating all the tests that are
+currently there could be part of the prep tool.</t>
   <t>Remove processing instructions.</t>
   <t>If in RFC production mode, remove XML comments.</t>
   <t>Add the “Status of this Memo” text with current values. However, if
@@ -194,10 +197,21 @@ indicating the type of prepping that was done (RFC production or I-D mode).</t>
 attribute that has the value “true”, add a paragraph to the top of the &lt;note&gt; element saying
 that the note is to be removed before publishing as an RFC, if such a
 paragraph does not yet exist.</t>
+  <t>If in RFC production mode, if there is a &lt;note&gt; element with a “removeInRFC”
+attribute that has the value “true”, remove the &lt;note&gt; element.</t>
   <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on
 the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</t>
   <t>Fill in any default values for attributes on elements, except “keepWithNext”
 and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.</t>
+  <t>In every 
+&lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt;
+element, if there is an “ascii” attribute and the value of tha attribute is
+the same as the content of the element, remove the “ascii” element.</t>
+  <t>In every &lt;author&gt; element, if there is an 
+“asciiFullname”, “asciiInitials”, or “asciiSurname” attribute, 
+check the content of that element against its matching
+“fullname”, “initials”, or “surname” element (respectively).
+If the two are the same, remove the “ascii*” elelement.</t>
   <t>For any &lt;reference&gt; element that does not already have a “target” attribute, fill that
 attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs
 for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
@@ -400,6 +414,11 @@ starting with “n-“) in order to make the resulting file easier to edit.</t>
 the contents of files outside the directory in which the document being processed
 resides. For example, values starting with “/”, “./”, or “../” should generate errors.</t>
 
+<t>The security considerations in <xref target="RFC3470"/> apply here. In specific,
+processing XML external references can expose a prep tool implementation to various threats
+by causing the implementation to access external resources automatically.
+It is important to disallow arbitrary access to such external references within XML data from untrusted sources.</t>
+
 </section>
 <section anchor="acknowledgements" title="Acknowledgements">
 
@@ -418,6 +437,22 @@ development of this document.</t>
     <references title='Informative References'>
 
 
+
+
+
+<reference  anchor='RFC3470' target='http://www.rfc-editor.org/info/rfc3470'>
+<front>
+<title>Guidelines for the Use of Extensible Markup Language (XML) within IETF Protocols</title>
+<author initials='S.' surname='Hollenbeck' fullname='S. Hollenbeck'><organization /></author>
+<author initials='M.' surname='Rose' fullname='M. Rose'><organization /></author>
+<author initials='L.' surname='Masinter' fullname='L. Masinter'><organization /></author>
+<date year='2003' month='January' />
+<abstract><t>The Extensible Markup Language (XML) is a framework for structuring data.  While it evolved from Standard Generalized Markup Language (SGML) -- a markup language primarily focused on structuring documents -- XML has evolved to be a widely-used mechanism for representing structured data. There are a wide variety of Internet protocols being developed; many have need for a representation for structured data relevant to their application.  There has been much interest in the use of XML as a representation method.  This document describes basic XML concepts, analyzes various alternatives in the use of XML, and provides guidelines for the use of XML within IETF standards-track protocols.  This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</t></abstract>
+</front>
+<seriesInfo name='BCP' value='70'/>
+<seriesInfo name='RFC' value='3470'/>
+<seriesInfo name='DOI' value='10.17487/RFC3470'/>
+</reference>
 
 
 
