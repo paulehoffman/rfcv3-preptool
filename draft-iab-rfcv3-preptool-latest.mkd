@@ -223,8 +223,11 @@ check the content of that element against its matching
 If the two are the same, remove the "ascii*" elelement.
 
 1. For any &lt;reference&gt; element that does not already have a "target" attribute, fill that
-attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs
-for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
+attribute in if the element has one or more &lt;seriesinfo&gt; child element(s)
+and the "name" attribute of the  &lt;seriesinfo&gt; element is
+"RFC", "Internet-Draft", or "DOI".
+The particular URLs
+for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different before and after the v3 format is adopted.
 
 1. For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
