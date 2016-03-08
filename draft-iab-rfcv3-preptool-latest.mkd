@@ -156,6 +156,15 @@ exists, the prep tool will check that the attribute or element is correct. If
 the value is incorrect, the prep tool will warn with the old and new values,
 then replace the incorrect value with the new value.
 
+Currently, the IETF uses a tool called "idnits" to check text input to the
+Internet-Drafts publishing process. idnits indicates if it encountered any
+errors, and also provide text with all of the warnings and errors in a
+human-readable form. The prep tool should probably check for as many of these
+errors and warnings as possible when it is processing the XML input. The list
+below contains some of those errors and warnings, but the deployed version of
+the prep tool may contain additional steps to include more or the checks from
+idnits.
+
 1. Fully process any DTDs in the input document, then remove the DTD.
 At a minimum, this entails processing the entityrefs and includes for external
 files.
@@ -163,13 +172,6 @@ files.
 1. Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.
-
-1. Run idnits. idnits will indicate if it encountered any errors, and will also provide
-text with all of the warnings and errors in a human-readable form. The prep tool
-displays all the warnings and errors, and stops if there was an error.
-Note that, with the development of a prep tool, it might no longer be necessary
-for there to be a separate idnits tool: incorporating all the tests that are
-currently there could be part of the prep tool.
 
 1. Remove processing instructions.
 
