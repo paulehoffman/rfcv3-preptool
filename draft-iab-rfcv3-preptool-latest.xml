@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="March" day="04"/>
+    <date year="2016" month="March" day="08"/>
 
     
     
@@ -161,6 +161,15 @@ exists, the prep tool will check that the attribute or element is correct. If
 the value is incorrect, the prep tool will warn with the old and new values,
 then replace the incorrect value with the new value.</t>
 
+<t>Currently, the IETF uses a tool called “idnits” to check text input to the
+Internet-Drafts publishing process. idnits indicates if it encountered any
+errors, and also provide text with all of the warnings and errors in a
+human-readable form. The prep tool should probably check for as many of these
+errors and warnings as possible when it is processing the XML input. The list
+below contains some of those errors and warnings, but the deployed version of
+the prep tool may contain additional steps to include more or the checks from
+idnits.</t>
+
 <t><list style="numbers">
   <t>Fully process any DTDs in the input document, then remove the DTD.
 At a minimum, this entails processing the entityrefs and includes for external
@@ -168,12 +177,6 @@ files.</t>
   <t>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.</t>
-  <t>Run idnits. idnits will indicate if it encountered any errors, and will also provide
-text with all of the warnings and errors in a human-readable form. The prep tool
-displays all the warnings and errors, and stops if there was an error.
-Note that, with the development of a prep tool, it might no longer be necessary
-for there to be a separate idnits tool: incorporating all the tests that are
-currently there could be part of the prep tool.</t>
   <t>Remove processing instructions.</t>
   <t>If in RFC production mode, remove XML comments.</t>
   <t>Add the “Status of this Memo” text with current values. However, if
@@ -213,8 +216,11 @@ check the content of that element against its matching
 “fullname”, “initials”, or “surname” element (respectively).
 If the two are the same, remove the “ascii*” elelement.</t>
   <t>For any &lt;reference&gt; element that does not already have a “target” attribute, fill that
-attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs
-for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and
+attribute in if the element has one or more &lt;seriesinfo&gt; child element(s)
+and the “name” attribute of the  &lt;seriesinfo&gt; element is
+“RFC”, “Internet-Draft”, or “DOI”.
+The particular URLs
+for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different before and after the v3 format is adopted.</t>
   <t>For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
 replace the value of the “anchor” attribute with the 

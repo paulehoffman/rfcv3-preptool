@@ -392,7 +392,7 @@
 
   <meta name="dct.creator" content="Hoffman, P. and J. Hildebrand" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-iab-rfcv3-preptool" />
-  <meta name="dct.issued" scheme="ISO8601" content="2016-3-04" />
+  <meta name="dct.issued" scheme="ISO8601" content="2016-3-08" />
   <meta name="dct.abstract" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed." />
   <meta name="description" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed." />
 
@@ -416,12 +416,12 @@
   <td class="right">J. Hildebrand</td>
 </tr>
 <tr>
-  <td class="left">Expires: September 5, 2016</td>
+  <td class="left">Expires: September 9, 2016</td>
   <td class="right">Cisco</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">March 04, 2016</td>
+  <td class="right">March 08, 2016</td>
 </tr>
 
     	
@@ -441,7 +441,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 5, 2016.</p>
+<p>This Internet-Draft will expire on September 9, 2016.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -495,12 +495,12 @@
 <p id="rfc.section.4.p.3">Similarly to I-D&#8217;s, the prepped XML can be used later to re-render the output formats, or to generate new formats.</p>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#steps" id="steps">What the v3 Prep Tool Does</a></h1>
 <p id="rfc.section.5.p.1">The steps listed here are in order of processing. In all cases where the prep tool would &#8220;add&#8221; an attribute or element, if that attribute or element already exists, the prep tool will check that the attribute or element is correct. If the value is incorrect, the prep tool will warn with the old and new values, then replace the incorrect value with the new value.</p>
+<p id="rfc.section.5.p.2">Currently, the IETF uses a tool called &#8220;idnits&#8221; to check text input to the Internet-Drafts publishing process. idnits indicates if it encountered any errors, and also provide text with all of the warnings and errors in a human-readable form. The prep tool should probably check for as many of these errors and warnings as possible when it is processing the XML input. The list below contains some of those errors and warnings, but the deployed version of the prep tool may contain additional steps to include more or the checks from idnits.</p>
 <p/>
 
 <ol>
   <li>Fully process any DTDs in the input document, then remove the DTD.  At a minimum, this entails processing the entityrefs and includes for external files.</li>
   <li>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The tool may be configurable with a limit on the depth of recursion.</li>
-  <li>Run idnits. idnits will indicate if it encountered any errors, and will also provide text with all of the warnings and errors in a human-readable form. The prep tool displays all the warnings and errors, and stops if there was an error.  Note that, with the development of a prep tool, it might no longer be necessary for there to be a separate idnits tool: incorporating all the tests that are currently there could be part of the prep tool.</li>
   <li>Remove processing instructions.</li>
   <li>If in RFC production mode, remove XML comments.</li>
   <li>Add the &#8220;Status of this Memo&#8221; text with current values. However, if different boilerplate text already exists in the input, produce a warning that says that other tools, specifically the draft submission tool, will treat that condition as an error. The application will use the &#8220;submissionType&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element, and the &#8220;status&#8221; and &#8220;stream&#8221; attributes of the &lt;seriesInfo&gt; element, to determine which <a href="#RFC5741">[RFC5741]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</li>
@@ -514,7 +514,7 @@
   <li>Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.</li>
   <li>In every &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt; element, if there is an &#8220;ascii&#8221; attribute and the value of tha attribute is the same as the content of the element, remove the &#8220;ascii&#8221; element.</li>
   <li>In every &lt;author&gt; element, if there is an &#8220;asciiFullname&#8221;, &#8220;asciiInitials&#8221;, or &#8220;asciiSurname&#8221; attribute, check the content of that element against its matching &#8220;fullname&#8221;, &#8220;initials&#8221;, or &#8220;surname&#8221; element (respectively).  If the two are the same, remove the &#8220;ascii*&#8221; elelement.</li>
-  <li>For any &lt;reference&gt; element that does not already have a &#8220;target&#8221; attribute, fill that attribute in if the element has one or more &lt;seriesinfo&gt; child element(s). The particular URLs for RFCs and Internet-Drafts for this step will be specified later by the RFC Editor and the IESG. These URLs might also be different before and after the v3 format is adopted.</li>
+  <li>For any &lt;reference&gt; element that does not already have a &#8220;target&#8221; attribute, fill that attribute in if the element has one or more &lt;seriesinfo&gt; child element(s) and the &#8220;name&#8221; attribute of the  &lt;seriesinfo&gt; element is &#8220;RFC&#8221;, &#8220;Internet-Draft&#8221;, or &#8220;DOI&#8221;.  The particular URLs for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and the IESG. These URLs might also be different before and after the v3 format is adopted.</li>
   <li>For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, replace the value of the &#8220;anchor&#8221; attribute with the value of the &#8220;to&#8221; attribute of the associated &lt;displayreference&gt;.</li>
   <li>For every &lt;section&gt; element that has a (deprecated) &#8220;title&#8221; attribute, remove the &#8220;title&#8221; attribute and insert a &lt;name&gt; element in that section with the title from the attribute.</li>
   <li>Add a &#8220;slugifiedName&#8221; attribute to each &lt;name&gt; element that does not contain one; replace the attribute if it contains a value that begins with &#8220;n-&#8220;.</li>
