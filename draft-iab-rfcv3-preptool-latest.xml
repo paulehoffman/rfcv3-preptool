@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="March" day="10"/>
+    <date year="2016" month="March" day="11"/>
 
     
     
@@ -49,12 +49,6 @@ to be created when the new RFC v3 specification is deployed.</t>
 
   <middle>
 
-
-<!--
-
-NOTES FOR THE AUTHORS GO HERE
-
--->
 
 <section anchor="introduction" title="Introduction">
 
@@ -165,7 +159,9 @@ then replace the incorrect value with the new value.</t>
 Internet-Drafts publishing process. idnits indicates if it encountered any
 errors, and also provide text with all of the warnings and errors in a
 human-readable form. The prep tool should probably check for as many of these
-errors and warnings as possible when it is processing the XML input. The list
+errors and warnings as possible when it is processing the XML input.
+For the moment, tooling might run idnts on the text output from the prepared XML.
+The list
 below contains some of those errors and warnings, but the deployed version of
 the prep tool may contain additional steps to include more or the checks from
 idnits.</t>
@@ -178,50 +174,61 @@ files.</t>
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.</t>
   <t>Remove processing instructions.</t>
+  <t>Check the input against the RNG in <xref target="I-D.iab-xml2rfc"/>. If the input is not
+valid, give an error.</t>
+  <t>Insert a &lt;seriesInfo&gt; element in the &lt;front&gt; element of the &lt;rfc&gt; element if it is not already there.
+For this new element, the “name” attribute is “RFC” for RFC production or “Internet-Draft” for I-D mode,
+For this new element, the “value” is the input filename minus any extension for Internet-Drafts,
+and is a number specified by the RFC Editor for RFCs.</t>
+  <t>If there is no &lt;seriesInfo&gt; in the &lt;front&gt; element of the &lt;rfc&gt; element with
+a “name” whose value is “RFC” or “Internet-Draft”, add a new &lt;seriesInfo&gt; in the &lt;front&gt; element of the &lt;rfc&gt; element
+with one of those two values.</t>
+  <t>If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt;
+element, add it using the current year, month, and day.</t>
+  <t>Fill in the “prepTime” attribute of &lt;rfc&gt; with the current datetime.</t>
+  <t>Normalize the values of “month” attributes in all &lt;date&gt; elements to numeric values.</t>
+  <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on
+the &lt;date&gt; element of the document’s &lt;front&gt; element.</t>
   <t>Fill in any default values for attributes on elements, except “keepWithNext”
 and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.
 Some default values can be found in the Relax NG schema, while others can be
 found in the prose describing the elements in <xref target="I-D.iab-xml2rfc"/>).</t>
   <t>If in RFC production mode, remove XML comments.</t>
   <t>Add the “Status of this Memo” text with current values. However, if
-different boilerplate text already exists in the input, produce a warning that
-says that other tools, specifically the draft submission tool, will treat that
-condition as an error. The application will use the
+any boilerplate text already exists in the input, produce a warning that
+says “Other tools, specifically the draft submission tool, will treat that
+condition as an error”. The application will use the
 “submissionType”, and “consensus” attributes of the &lt;rfc&gt; element,
 the &lt;workgroup&gt; element,
 and the “status” and “stream” attributes of the &lt;seriesInfo&gt; element,
 to determine
-which <xref target="RFC5741"/> boilerplate to include, as described in Appendix A of
+which <xref target="I-D.iab-rfc5741bis"/> boilerplate to include, as described in Appendix A of
 <xref target="I-D.iab-xml2rfc"/>.</t>
   <t>Add the “Copyright Notice” text. The application will use the
 “ipr” and “submissionType” attributes of the &lt;rfc&gt; element and
 the &lt;date&gt; element to determine which portions and which
 version of the TLP to use, as described in A.1 of <xref target="I-D.iab-xml2rfc"/>.</t>
-  <t>Fill in the “prepTime” attribute of &lt;rfc&gt; with the current datetime.</t>
-  <t>Insert a &lt;seriesInfo&gt; element in &lt;rfc&gt; element if it is not already there.</t>
-  <t>Fill in the “name” attribute of the &lt;seriesInfo&gt; in the &lt;rfc&gt; with a string
-indicating the type of prepping that was done (RFC production or I-D mode).</t>
   <t>If in I-D mode, if there is a &lt;note&gt; element with a “removeInRFC”
-attribute that has the value “true”, add a paragraph to the top of the &lt;note&gt; element saying
-that the note is to be removed before publishing as an RFC, if such a
-paragraph does not yet exist.</t>
+attribute that has the value “true”, add a paragraph to the top of the &lt;note&gt; element
+with the text “This note is to be removed before publishing as an RFC.”
+unless a paragraph consisting of that exact text already exists.</t>
   <t>If in RFC production mode, if there is a &lt;note&gt; element with a “removeInRFC”
 attribute that has the value “true”, remove the &lt;note&gt; element.</t>
-  <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on
-the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</t>
   <t>In every 
 &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt;
 element, if there is an “ascii” attribute and the value of tha attribute is
-the same as the content of the element, remove the “ascii” element.</t>
+the same as the content of the element, remove the “ascii” element
+and issue a warning about the removal.</t>
   <t>In every &lt;author&gt; element, if there is an 
 “asciiFullname”, “asciiInitials”, or “asciiSurname” attribute, 
 check the content of that element against its matching
 “fullname”, “initials”, or “surname” element (respectively).
-If the two are the same, remove the “ascii*” elelement.</t>
-  <t>For any &lt;reference&gt; element that does not already have a “target” attribute, fill that
+If the two are the same, remove the “ascii*” elelement
+and issue a warning about the removal.</t>
+  <t>For any &lt;reference&gt; element that does not already have a “target” attribute, fill the target
 attribute in if the element has one or more &lt;seriesinfo&gt; child element(s)
 and the “name” attribute of the  &lt;seriesinfo&gt; element is
-“RFC”, “Internet-Draft”, or “DOI”.
+“RFC”, “Internet-Draft”, or “DOI” or other value for which it is clear what the “target” should be.
 The particular URLs
 for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different before and after the v3 format is adopted.</t>
@@ -465,21 +472,6 @@ development of this document.</t>
 
 
 
-<reference  anchor='RFC5741' target='http://www.rfc-editor.org/info/rfc5741'>
-<front>
-<title>RFC Streams, Headers, and Boilerplates</title>
-<author initials='L.' surname='Daigle' fullname='L. Daigle' role='editor'><organization /></author>
-<author initials='O.' surname='Kolkman' fullname='O. Kolkman' role='editor'><organization /></author>
-<author><organization>IAB</organization></author>
-<date year='2009' month='December' />
-<abstract><t>RFC documents contain a number of fixed elements such as the title page header, standard boilerplates, and copyright/IPR statements. This document describes them and introduces some updates to reflect current usage and requirements of RFC publication.  In particular, this updated structure is intended to communicate clearly the source of RFC creation and review.  This document is not an Internet Standards  Track specification; it is published for informational purposes.</t></abstract>
-</front>
-<seriesInfo name='RFC' value='5741'/>
-<seriesInfo name='DOI' value='10.17487/RFC5741'/>
-</reference>
-
-
-
 <reference  anchor='RFC6949' target='http://www.rfc-editor.org/info/rfc6949'>
 <front>
 <title>RFC Series Format Requirements and Future Development</title>
@@ -490,6 +482,35 @@ development of this document.</t>
 </front>
 <seriesInfo name='RFC' value='6949'/>
 <seriesInfo name='DOI' value='10.17487/RFC6949'/>
+</reference>
+
+
+
+<reference anchor='I-D.iab-rfc5741bis'>
+<front>
+<title>On RFC Streams, Headers, and Boilerplates</title>
+
+<author initials='J' surname='Halpern' fullname='Joel Halpern'>
+    <organization />
+</author>
+
+<author initials='L' surname='Daigle' fullname='Leslie Daigle'>
+    <organization />
+</author>
+
+<author initials='O' surname='Kolkman' fullname='Olaf Kolkman'>
+    <organization />
+</author>
+
+<date month='February' day='2' year='2016' />
+
+<abstract><t>RFC documents contain a number of fixed elements such as the title page header, standard boilerplates and copyright/IPR statements. This document describes them and introduces some updates to reflect current usage and requirements of RFC publication.  In particular, this updated structure is intended to communicate clearly the source of RFC creation and review.  This document obsoletes RFC 5741, moving detailed content to an IAB web page and preparing for more flexible output formats.</t></abstract>
+
+</front>
+
+<seriesInfo name='Internet-Draft' value='draft-iab-rfc5741bis-02' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-iab-rfc5741bis-02.txt' />
 </reference>
 
 
