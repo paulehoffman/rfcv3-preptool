@@ -5,8 +5,8 @@
 Network Working Group                                         P. Hoffman
 Internet-Draft                                                     ICANN
 Intended status: Informational                             J. Hildebrand
-Expires: September 9, 2016                                         Cisco
-                                                          March 08, 2016
+Expires: September 11, 2016                                        Cisco
+                                                          March 10, 2016
 
 
                       RFC v3 Prep Tool Description
@@ -32,7 +32,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 9, 2016.
+   This Internet-Draft will expire on September 11, 2016.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 1]
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 1]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
@@ -67,7 +67,7 @@ Table of Contents
    5.  What the v3 Prep Tool Does  . . . . . . . . . . . . . . . . .   4
    6.  Additional Uses for the Prep Tool . . . . . . . . . . . . . .  11
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
    9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
    10. Informative References  . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 2]
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 2]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
@@ -165,7 +165,7 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
 
 
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 3]
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 3]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
@@ -221,67 +221,69 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
 
 
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 4]
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 4]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
 
-   4.   If in RFC production mode, remove XML comments.
+   4.   Fill in any default values for attributes on elements, except
+        "keepWithNext" and "keepWithPrevious" of <t>, and "toc" of
+        <section>.  Some default values can be found in the Relax NG
+        schema, while others can be found in the prose describing the
+        elements in [I-D.iab-xml2rfc]).
 
-   5.   Add the "Status of this Memo" text with current values.
+   5.   If in RFC production mode, remove XML comments.
+
+   6.   Add the "Status of this Memo" text with current values.
         However, if different boilerplate text already exists in the
         input, produce a warning that says that other tools,
         specifically the draft submission tool, will treat that
         condition as an error.  The application will use the
         "submissionType", and "consensus" attributes of the <rfc>
-        element, and the "status" and "stream" attributes of the
-        <seriesInfo> element, to determine which [RFC5741] boilerplate
-        to include, as described in Appendix A of [I-D.iab-xml2rfc].
+        element, the <workgroup> element, and the "status" and "stream"
+        attributes of the <seriesInfo> element, to determine which
+        [RFC5741] boilerplate to include, as described in Appendix A of
+        [I-D.iab-xml2rfc].
 
-   6.   Add the "Copyright Notice" text.  The application will use the
+   7.   Add the "Copyright Notice" text.  The application will use the
         "ipr" and "submissionType" attributes of the <rfc> element and
         the <date> element to determine which portions and which version
         of the TLP to use, as described in A.1 of [I-D.iab-xml2rfc].
 
-   7.   Fill in the "prepTime" attribute of <rfc> with the current
+   8.   Fill in the "prepTime" attribute of <rfc> with the current
         datetime.
 
-   8.   Insert a <seriesInfo> element in <rfc> element if it is not
+   9.   Insert a <seriesInfo> element in <rfc> element if it is not
         already there.
 
-   9.   Fill in the "name" attribute of the <seriesInfo> in the <rfc>
+   10.  Fill in the "name" attribute of the <seriesInfo> in the <rfc>
         with a string indicating the type of prepping that was done (RFC
         production or I-D mode).
 
-   10.  If in I-D mode, if there is a <note> element with a
+   11.  If in I-D mode, if there is a <note> element with a
         "removeInRFC" attribute that has the value "true", add a
         paragraph to the top of the <note> element saying that the note
         is to be removed before publishing as an RFC, if such a
         paragraph does not yet exist.
 
-   11.  If in RFC production mode, if there is a <note> element with a
+   12.  If in RFC production mode, if there is a <note> element with a
         "removeInRFC" attribute that has the value "true", remove the
         <note> element.
 
-   12.  If in I-D mode, fill in "expiresDate" attribute of <rfc> based
+   13.  If in I-D mode, fill in "expiresDate" attribute of <rfc> based
         on the <date> element of the document's <front> element, if
         there is one.  Use the same expiry date (if needed) in the
         boilerplate.
 
-   13.  Fill in any default values for attributes on elements, except
-        "keepWithNext" and "keepWithPrevious" of <t>, and "toc" of
-        <section>.
-
-   14.  In every <email>, <organization>, <street>, <city>, <region>,
-        <country>, and <code> element, if there is an "ascii" attribute
 
 
-
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 5]
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 5]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
 
+   14.  In every <email>, <organization>, <street>, <city>, <region>,
+        <country>, and <code> element, if there is an "ascii" attribute
         and the value of tha attribute is the same as the content of the
         element, remove the "ascii" element.
 
@@ -327,16 +329,18 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
         *  <figure>: pn='f-4'
 
-        *  <artwork>, <aside>, <blockquote>, <dl>, <dt>, <li>, <ol>,
-           <references>, <sourcecode>, <t>, <ul>:
-           pn='p-[section]-[counter]'
 
 
 
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 6]
+
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 6]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
+
+        *  <artwork>, <aside>, <blockquote>, <dl>, <dt>, <li>, <ol>,
+           <references>, <sourcecode>, <t>, <ul>:
+           pn='p-[section]-[counter]'
 
    21.  Add a "start" attribute to every <ol> element containing a group
         that does not already have a start.
@@ -382,18 +386,17 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
            extracted from the <title> child of the <front> child of the
            reference.
 
-        *  For format='title', if the target element has a <name> child
-           element, the "derivedContent" attribute is the text content
-           of that <name> element concatenated with the text content of
 
 
 
-
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 7]
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 7]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
 
+        *  For format='title', if the target element has a <name> child
+           element, the "derivedContent" attribute is the text content
+           of that <name> element concatenated with the text content of
            each descendant node of <name> (that is, stripping out all of
            the XML markup, leaving only the text).
 
@@ -439,16 +442,17 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
    31.  If an <artwork> element has a "src" attribute where no scheme is
         specified, treat the scheme as "file:" in a path relative to the
-        file being processed.  See Section 8 for warnings about this
-        step.  This will likely be one of the most common authoring
-        approaches.
 
 
 
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 8]
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
+
+        file being processed.  See Section 8 for warnings about this
+        step.  This will likely be one of the most common authoring
+        approaches.
 
    32.  If an <artwork> element has a "src" attribute with a "file:"
         scheme, and if processing the URL would cause the processor to
@@ -492,20 +496,22 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
         that this step assumes that all of the preferred types other
         than "binary-art" are text, which is possibly wrong.
 
+
+
+
+
+
+Hoffman & Hildebrand   Expires September 11, 2016               [Page 9]
+
+Internet-Draft        RFC v3 Prep Tool Description            March 2016
+
+
         *  If the "src" URI scheme is "data:", fill the content of the
            <artwork> element with the correctly-escaped form of that
            data and remove the "src" attribute.
 
         *  If the "src" URI scheme is "file:", "http:", or "https:",
            fill the content of the <artwork> element with the correctly-
-
-
-
-Hoffman & Hildebrand    Expires September 9, 2016               [Page 9]
-
-Internet-Draft        RFC v3 Prep Tool Description            March 2016
-
-
            escaped form of the resolved text from the URI in the "src"
            attribute.  Add an "originalSrc" attribute with the value of
            the URI and remove the "src" attribute.
@@ -547,21 +553,21 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
         with an ISSN for the RFC series; if not, add one of the form
         <link rel="item" href="urn:issn:dddd">.
 
+
+
+
+
+Hoffman & Hildebrand   Expires September 11, 2016              [Page 10]
+
+Internet-Draft        RFC v3 Prep Tool Description            March 2016
+
+
    43.  If in RFC production mode, check if there is a <link> element
         with a DOI for this RFC; if not, add one of the form <link
         rel="describedBy" href="https://dx.doi.org/10.17487/rfcdddd">.
 
    44.  If in RFC production mode, check if there is a <link> element
         with the file name of the Internet-Draft that became this RFC;
-
-
-
-
-Hoffman & Hildebrand    Expires September 9, 2016              [Page 10]
-
-Internet-Draft        RFC v3 Prep Tool Description            March 2016
-
-
         if not, add one of the form <link rel="convertedFrom"
         href="https://datatracker.ietf.org/doc/draft-tttttttttt/">.
 
@@ -603,6 +609,15 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
    None.
 
+
+
+
+
+Hoffman & Hildebrand   Expires September 11, 2016              [Page 11]
+
+Internet-Draft        RFC v3 Prep Tool Description            March 2016
+
+
 8.  Security Considerations
 
    Steps in this document attempt to prevent the <artwork> and
@@ -610,13 +625,6 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
    directory in which the document being processed resides.  For
    example, values starting with "/", "./", or "../" should generate
    errors.
-
-
-
-Hoffman & Hildebrand    Expires September 9, 2016              [Page 11]
-
-Internet-Draft        RFC v3 Prep Tool Description            March 2016
-
 
    The security considerations in [RFC3470] apply here.  In specific,
    processing XML external references can expose a prep tool
@@ -660,6 +668,12 @@ Authors' Addresses
    Email: paul.hoffman@icann.org
 
 
+
+Hoffman & Hildebrand   Expires September 11, 2016              [Page 12]
+
+Internet-Draft        RFC v3 Prep Tool Description            March 2016
+
+
    Joe Hildebrand
    Cisco
 
@@ -669,4 +683,46 @@ Authors' Addresses
 
 
 
-Hoffman & Hildebrand    Expires September 9, 2016              [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hoffman & Hildebrand   Expires September 11, 2016              [Page 13]

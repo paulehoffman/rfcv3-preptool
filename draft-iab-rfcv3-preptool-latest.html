@@ -392,7 +392,7 @@
 
   <meta name="dct.creator" content="Hoffman, P. and J. Hildebrand" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-iab-rfcv3-preptool" />
-  <meta name="dct.issued" scheme="ISO8601" content="2016-3-08" />
+  <meta name="dct.issued" scheme="ISO8601" content="2016-3-10" />
   <meta name="dct.abstract" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed." />
   <meta name="description" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed." />
 
@@ -416,12 +416,12 @@
   <td class="right">J. Hildebrand</td>
 </tr>
 <tr>
-  <td class="left">Expires: September 9, 2016</td>
+  <td class="left">Expires: September 11, 2016</td>
   <td class="right">Cisco</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">March 08, 2016</td>
+  <td class="right">March 10, 2016</td>
 </tr>
 
     	
@@ -441,7 +441,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 9, 2016.</p>
+<p>This Internet-Draft will expire on September 11, 2016.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -502,8 +502,9 @@
   <li>Fully process any DTDs in the input document, then remove the DTD.  At a minimum, this entails processing the entityrefs and includes for external files.</li>
   <li>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The tool may be configurable with a limit on the depth of recursion.</li>
   <li>Remove processing instructions.</li>
+  <li>Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.  Some default values can be found in the Relax NG schema, while others can be found in the prose describing the elements in <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>).</li>
   <li>If in RFC production mode, remove XML comments.</li>
-  <li>Add the &#8220;Status of this Memo&#8221; text with current values. However, if different boilerplate text already exists in the input, produce a warning that says that other tools, specifically the draft submission tool, will treat that condition as an error. The application will use the &#8220;submissionType&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element, and the &#8220;status&#8221; and &#8220;stream&#8221; attributes of the &lt;seriesInfo&gt; element, to determine which <a href="#RFC5741">[RFC5741]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</li>
+  <li>Add the &#8220;Status of this Memo&#8221; text with current values. However, if different boilerplate text already exists in the input, produce a warning that says that other tools, specifically the draft submission tool, will treat that condition as an error. The application will use the &#8220;submissionType&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element, the &lt;workgroup&gt; element, and the &#8220;status&#8221; and &#8220;stream&#8221; attributes of the &lt;seriesInfo&gt; element, to determine which <a href="#RFC5741">[RFC5741]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</li>
   <li>Add the &#8220;Copyright Notice&#8221; text. The application will use the &#8220;ipr&#8221; and &#8220;submissionType&#8221; attributes of the &lt;rfc&gt; element and the &lt;date&gt; element to determine which portions and which version of the TLP to use, as described in A.1 of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</li>
   <li>Fill in the &#8220;prepTime&#8221; attribute of &lt;rfc&gt; with the current datetime.</li>
   <li>Insert a &lt;seriesInfo&gt; element in &lt;rfc&gt; element if it is not already there.</li>
@@ -511,7 +512,6 @@
   <li>If in I-D mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, add a paragraph to the top of the &lt;note&gt; element saying that the note is to be removed before publishing as an RFC, if such a paragraph does not yet exist.</li>
   <li>If in RFC production mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, remove the &lt;note&gt; element.</li>
   <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</li>
-  <li>Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.</li>
   <li>In every &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt; element, if there is an &#8220;ascii&#8221; attribute and the value of tha attribute is the same as the content of the element, remove the &#8220;ascii&#8221; element.</li>
   <li>In every &lt;author&gt; element, if there is an &#8220;asciiFullname&#8221;, &#8220;asciiInitials&#8221;, or &#8220;asciiSurname&#8221; attribute, check the content of that element against its matching &#8220;fullname&#8221;, &#8220;initials&#8221;, or &#8220;surname&#8221; element (respectively).  If the two are the same, remove the &#8220;ascii*&#8221; elelement.</li>
   <li>For any &lt;reference&gt; element that does not already have a &#8220;target&#8221; attribute, fill that attribute in if the element has one or more &lt;seriesinfo&gt; child element(s) and the &#8220;name&#8221; attribute of the  &lt;seriesinfo&gt; element is &#8220;RFC&#8221;, &#8220;Internet-Draft&#8221;, or &#8220;DOI&#8221;.  The particular URLs for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and the IESG. These URLs might also be different before and after the v3 format is adopted.</li>

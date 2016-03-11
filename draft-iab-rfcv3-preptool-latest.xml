@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="March" day="08"/>
+    <date year="2016" month="March" day="10"/>
 
     
     
@@ -178,12 +178,17 @@ files.</t>
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.</t>
   <t>Remove processing instructions.</t>
+  <t>Fill in any default values for attributes on elements, except “keepWithNext”
+and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.
+Some default values can be found in the Relax NG schema, while others can be
+found in the prose describing the elements in <xref target="I-D.iab-xml2rfc"/>).</t>
   <t>If in RFC production mode, remove XML comments.</t>
   <t>Add the “Status of this Memo” text with current values. However, if
 different boilerplate text already exists in the input, produce a warning that
 says that other tools, specifically the draft submission tool, will treat that
 condition as an error. The application will use the
 “submissionType”, and “consensus” attributes of the &lt;rfc&gt; element,
+the &lt;workgroup&gt; element,
 and the “status” and “stream” attributes of the &lt;seriesInfo&gt; element,
 to determine
 which <xref target="RFC5741"/> boilerplate to include, as described in Appendix A of
@@ -204,8 +209,6 @@ paragraph does not yet exist.</t>
 attribute that has the value “true”, remove the &lt;note&gt; element.</t>
   <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on
 the &lt;date&gt; element of the document’s &lt;front&gt; element, if there is one.  Use the same expiry date (if needed) in the boilerplate.</t>
-  <t>Fill in any default values for attributes on elements, except “keepWithNext”
-and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.</t>
   <t>In every 
 &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt;
 element, if there is an “ascii” attribute and the value of tha attribute is
