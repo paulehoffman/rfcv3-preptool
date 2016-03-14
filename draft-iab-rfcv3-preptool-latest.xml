@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="March" day="11"/>
+    <date year="2016" month="March" day="14"/>
 
     
     
@@ -176,15 +176,22 @@ tool may be configurable with a limit on the depth of recursion.</t>
   <t>Remove processing instructions.</t>
   <t>Check the input against the RNG in <xref target="I-D.iab-xml2rfc"/>. If the input is not
 valid, give an error.</t>
-  <t>Insert a &lt;seriesInfo&gt; element in the &lt;front&gt; element of the &lt;rfc&gt; element if it is not already there.
-For this new element, the “name” attribute is “RFC” for RFC production or “Internet-Draft” for I-D mode,
-For this new element, the “value” is the input filename minus any extension for Internet-Drafts,
-and is a number specified by the RFC Editor for RFCs.</t>
-  <t>If there is no &lt;seriesInfo&gt; in the &lt;front&gt; element of the &lt;rfc&gt; element with
-a “name” whose value is “RFC” or “Internet-Draft”, add a new &lt;seriesInfo&gt; in the &lt;front&gt; element of the &lt;rfc&gt; element
-with one of those two values.</t>
+  <t>If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have
+a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name
+attribute based on the mode in which the preptool is running (“Internet-Draft”
+for Draft mode and “RFC” for RFC mode”) and a value that is the input filename
+minus any extension for Internet-Drafts, and is a number specified by the RFC
+Editor for RFCs.</t>
   <t>If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt;
-element, add it using the current year, month, and day.</t>
+element, add it and fill in the “day”, “month”, and “year” attibutes from the
+current date. 
+If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt;
+element with “day”, “month”, and “year” attibutes, but the date indicated is
+more than three days in the past or is in the future, 
+give a warning.
+If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt;
+element with some but not all of the “day”, “month”, and “year” attibutes,
+give an error.</t>
   <t>Fill in the “prepTime” attribute of &lt;rfc&gt; with the current datetime.</t>
   <t>Normalize the values of “month” attributes in all &lt;date&gt; elements to numeric values.</t>
   <t>If in I-D mode, fill in “expiresDate” attribute of &lt;rfc&gt; based on

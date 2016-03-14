@@ -392,7 +392,7 @@
 
   <meta name="dct.creator" content="Hoffman, P. and J. Hildebrand" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-iab-rfcv3-preptool" />
-  <meta name="dct.issued" scheme="ISO8601" content="2016-3-11" />
+  <meta name="dct.issued" scheme="ISO8601" content="2016-3-14" />
   <meta name="dct.abstract" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed." />
   <meta name="description" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed." />
 
@@ -416,12 +416,12 @@
   <td class="right">J. Hildebrand</td>
 </tr>
 <tr>
-  <td class="left">Expires: September 12, 2016</td>
+  <td class="left">Expires: September 15, 2016</td>
   <td class="right">Cisco</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">March 11, 2016</td>
+  <td class="right">March 14, 2016</td>
 </tr>
 
     	
@@ -441,7 +441,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 12, 2016.</p>
+<p>This Internet-Draft will expire on September 15, 2016.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -503,9 +503,8 @@
   <li>Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The tool may be configurable with a limit on the depth of recursion.</li>
   <li>Remove processing instructions.</li>
   <li>Check the input against the RNG in <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>. If the input is not valid, give an error.</li>
-  <li>Insert a &lt;seriesInfo&gt; element in the &lt;front&gt; element of the &lt;rfc&gt; element if it is not already there.  For this new element, the &#8220;name&#8221; attribute is &#8220;RFC&#8221; for RFC production or &#8220;Internet-Draft&#8221; for I-D mode, For this new element, the &#8220;value&#8221; is the input filename minus any extension for Internet-Drafts, and is a number specified by the RFC Editor for RFCs.</li>
-  <li>If there is no &lt;seriesInfo&gt; in the &lt;front&gt; element of the &lt;rfc&gt; element with a &#8220;name&#8221; whose value is &#8220;RFC&#8221; or &#8220;Internet-Draft&#8221;, add a new &lt;seriesInfo&gt; in the &lt;front&gt; element of the &lt;rfc&gt; element with one of those two values.</li>
-  <li>If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt; element, add it using the current year, month, and day.</li>
+  <li>If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name attribute based on the mode in which the preptool is running (&#8220;Internet-Draft&#8221; for Draft mode and &#8220;RFC&#8221; for RFC mode&#8221;) and a value that is the input filename minus any extension for Internet-Drafts, and is a number specified by the RFC Editor for RFCs.</li>
+  <li>If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt; element, add it and fill in the &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes from the current date.  If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt; element with &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes, but the date indicated is more than three days in the past or is in the future, give a warning.  If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt; element with some but not all of the &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes, give an error.</li>
   <li>Fill in the &#8220;prepTime&#8221; attribute of &lt;rfc&gt; with the current datetime.</li>
   <li>Normalize the values of &#8220;month&#8221; attributes in all &lt;date&gt; elements to numeric values.</li>
   <li>If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element.</li>
