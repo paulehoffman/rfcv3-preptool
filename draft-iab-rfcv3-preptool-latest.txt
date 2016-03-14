@@ -232,12 +232,11 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
         input is not valid, give an error.
 
    5.   If the <front> element of the <rfc> element does not already
-        have a <seriesInfo> element, add a <seriesInfo> element with the
-        name attribute based on the mode in which the preptool is
-        running ("Internet-Draft" for Draft mode and "RFC" for RFC
-        mode") and a value that is the input filename minus any
-        extension for Internet-Drafts, and is a number specified by the
-        RFC Editor for RFCs.
+        have a <seriesInfo> element whose name attribute has the value
+        "Internet-Draft" or "RFC", add a <seriesInfo> element with the
+        name attribute of "Internet-Draft" and a value attribute that is
+        the input filename with any path or file extension removed.  If
+        the filename cannot be determined, give an error.
 
    6.   If the <front> element in the <rfc> element does not contain a
         <date> element, add it and fill in the "day", "month", and
@@ -273,7 +272,8 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
         application will use the "submissionType", and "consensus"
         attributes of the <rfc> element, the <workgroup> element, and
         the "status" and "stream" attributes of the <seriesInfo>
-
+        element, to determine which [I-D.iab-rfc5741bis] boilerplate to
+        include, as described in Appendix A of [I-D.iab-xml2rfc].
 
 
 
@@ -281,9 +281,6 @@ Hoffman & Hildebrand   Expires September 15, 2016               [Page 5]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
-
-        element, to determine which [I-D.iab-rfc5741bis] boilerplate to
-        include, as described in Appendix A of [I-D.iab-xml2rfc].
 
    13.  Add the "Copyright Notice" text.  The application will use the
         "ipr" and "submissionType" attributes of the <rfc> element and
@@ -328,6 +325,9 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
         with the value of the "to" attribute of the associated
         <displayreference>.
 
+   20.  For every <section> element that has a (deprecated) "title"
+        attribute, remove the "title" attribute and insert a <name>
+        element in that section with the title from the attribute.
 
 
 
@@ -337,10 +337,6 @@ Hoffman & Hildebrand   Expires September 15, 2016               [Page 6]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
-
-   20.  For every <section> element that has a (deprecated) "title"
-        attribute, remove the "title" attribute and insert a <name>
-        element in that section with the title from the attribute.
 
    21.  Add a "slugifiedName" attribute to each <name> element that does
         not contain one; replace the attribute if it contains a value
@@ -386,6 +382,10 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
         the "derivedContent" attribute already exists and has a
         different value from what was being filled in.
 
+   27.  For each <xref> element that does not have content, fill the
+        "derivedContent" based on the "format" attribute.
+
+
 
 
 
@@ -393,9 +393,6 @@ Hoffman & Hildebrand   Expires September 15, 2016               [Page 7]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
-
-   27.  For each <xref> element that does not have content, fill the
-        "derivedContent" based on the "format" attribute.
 
         *  For format='counter', the "derivedContent" is the section,
            figure, table, or ordered list number of the element with
@@ -442,6 +439,9 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
         *  If the target reference is an RFC or Internet-Draft in the v3
            format, find the anchor given in the "relative" attribute or
+           derived from the "section" attribute, and use the identifier
+           of that element (such as "Section 2.3" or "Table 4") for the
+           "derivedRemoteContent".
 
 
 
@@ -449,10 +449,6 @@ Hoffman & Hildebrand   Expires September 15, 2016               [Page 8]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
-
-           derived from the "section" attribute, and use the identifier
-           of that element (such as "Section 2.3" or "Table 4") for the
-           "derivedRemoteContent".
 
         *  If the target reference is not a RFC or Internet-Draft in the
            v3 format, use the value of the "relative" or "section"
@@ -498,6 +494,10 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
            "originalSrc" attribute with the value of the URI and remove
            the "src" attribute.
 
+   36.  If an <artwork> element has type='binary-art', the data needs to
+        be in a "src" attribute with a URI scheme of "data:".  If the
+        "src" URI scheme is "file:", "http:", or "https:", resolve the
+        URL.  Replace the "src" attribute with a "data:" URI, add an
 
 
 
@@ -506,10 +506,6 @@ Hoffman & Hildebrand   Expires September 15, 2016               [Page 9]
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
 
-   36.  If an <artwork> element has type='binary-art', the data needs to
-        be in a "src" attribute with a URI scheme of "data:".  If the
-        "src" URI scheme is "file:", "http:", or "https:", resolve the
-        URL.  Replace the "src" attribute with a "data:" URI, add an
         "originalSrc" attribute with the value of the URI, and remove
         the "src" attribute.  For the "http:" and "https:" URI schemes,
         the mediatype of the "data:" URI will be the Content-Type of the
@@ -554,6 +550,10 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
            <sourcecode> element with the appropriately-escaped data and
            remove the "src" attribute.
 
+        *  If the "src" URI scheme is "file:", "http:", or "https:",
+           fill the content of the <sourcecode> element with the
+           appropriately-escaped resolved text from the URI in the "src"
+
 
 
 
@@ -562,9 +562,6 @@ Hoffman & Hildebrand   Expires September 15, 2016              [Page 10]
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
 
-        *  If the "src" URI scheme is "file:", "http:", or "https:",
-           fill the content of the <sourcecode> element with the
-           appropriately-escaped resolved text from the URI in the "src"
            attribute.  Add an "originalSrc" attribute with the value of
            the URI and remove the "src" attribute.
 
@@ -610,6 +607,9 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
    and accompanying files to be submitted at the same time, but this
    seems troublesome from a security, portability, and complexity
    standpoint.)  For these users, having a local copy of the prep tool
+   that has an option to just inline all local files would be terribly
+   useful.  That option would be a proper subset of the steps given in
+   Section 5.
 
 
 
@@ -617,10 +617,6 @@ Hoffman & Hildebrand   Expires September 15, 2016              [Page 11]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
-
-   that has an option to just inline all local files would be terribly
-   useful.  That option would be a proper subset of the steps given in
-   Section 5.
 
    A feature that might be useful in a local prep tool would be the
    inverse of the "just inline" option would be "extract all".  This
@@ -664,6 +660,10 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
               Headers, and Boilerplates", draft-iab-rfc5741bis-02 (work
               in progress), February 2016.
 
+   [I-D.iab-xml2rfc]
+              Hoffman, P., "The "xml2rfc" version 3 Vocabulary", draft-
+              iab-xml2rfc-03 (work in progress), February 2016.
+
 
 
 
@@ -673,10 +673,6 @@ Hoffman & Hildebrand   Expires September 15, 2016              [Page 12]
 
 Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
-
-   [I-D.iab-xml2rfc]
-              Hoffman, P., "The "xml2rfc" version 3 Vocabulary", draft-
-              iab-xml2rfc-03 (work in progress), February 2016.
 
    [RFC3470]  Hollenbeck, S., Rose, M., and L. Masinter, "Guidelines for
               the Use of Extensible Markup Language (XML) within IETF
@@ -700,6 +696,10 @@ Authors' Addresses
    Cisco
 
    Email: jhildebr@cisco.com
+
+
+
+
 
 
 

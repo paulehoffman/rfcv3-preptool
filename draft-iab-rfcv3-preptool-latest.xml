@@ -177,11 +177,11 @@ tool may be configurable with a limit on the depth of recursion.</t>
   <t>Check the input against the RNG in <xref target="I-D.iab-xml2rfc"/>. If the input is not
 valid, give an error.</t>
   <t>If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have
-a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name
-attribute based on the mode in which the preptool is running (“Internet-Draft”
-for Draft mode and “RFC” for RFC mode”) and a value that is the input filename
-minus any extension for Internet-Drafts, and is a number specified by the RFC
-Editor for RFCs.</t>
+a &lt;seriesInfo&gt; element whose name attribute has the value "Internet-Draft" or "RFC", add a &lt;seriesInfo&gt; element with the name
+attribute of “Internet-Draft"
+and a value attribute that is the input filename
+with any path or file extension removed.  If the filename cannot be determined, give an error.
+</t>
   <t>If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt;
 element, add it and fill in the “day”, “month”, and “year” attibutes from the
 current date. 
