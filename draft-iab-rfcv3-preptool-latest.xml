@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="March" day="14"/>
+    <date year="2016" month="March" day="15"/>
 
     
     
@@ -177,11 +177,11 @@ tool may be configurable with a limit on the depth of recursion.</t>
   <t>Check the input against the RNG in <xref target="I-D.iab-xml2rfc"/>. If the input is not
 valid, give an error.</t>
   <t>If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have
-a &lt;seriesInfo&gt; element whose name attribute has the value "Internet-Draft" or "RFC", add a &lt;seriesInfo&gt; element with the name
-attribute of “Internet-Draft"
-and a value attribute that is the input filename
-with any path or file extension removed.  If the filename cannot be determined, give an error.
-</t>
+a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name
+attribute based on the mode in which the preptool is running (“Internet-Draft”
+for Draft mode and “RFC” for RFC mode”) and a value that is the input filename
+minus any extension for Internet-Drafts, and is a number specified by the RFC
+Editor for RFCs.</t>
   <t>If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt;
 element, add it and fill in the “day”, “month”, and “year” attibutes from the
 current date. 
@@ -201,17 +201,18 @@ and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.
 Some default values can be found in the Relax NG schema, while others can be
 found in the prose describing the elements in <xref target="I-D.iab-xml2rfc"/>).</t>
   <t>If in RFC production mode, remove XML comments.</t>
-  <t>Add the “Status of this Memo” text with current values. However, if
-any boilerplate text already exists in the input, produce a warning that
-says “Other tools, specifically the draft submission tool, will treat that
-condition as an error”. The application will use the
+  <t>If there are any children of the &lt;boilerplate&gt; element, produce a warning that says
+“Existing boilerplate being removed. Other tools, specifically the draft submission tool,
+will treat this condition as an error” and remove the existing children.</t>
+  <t>Add the “Status of this Memo” section to the &lt;boilerplate&gt; element with current values.
+The application will use the
 “submissionType”, and “consensus” attributes of the &lt;rfc&gt; element,
 the &lt;workgroup&gt; element,
 and the “status” and “stream” attributes of the &lt;seriesInfo&gt; element,
 to determine
 which <xref target="I-D.iab-rfc5741bis"/> boilerplate to include, as described in Appendix A of
 <xref target="I-D.iab-xml2rfc"/>.</t>
-  <t>Add the “Copyright Notice” text. The application will use the
+  <t>Add the “Copyright Notice” section to the &lt;boilerplate&gt; element. The application will use the
 “ipr” and “submissionType” attributes of the &lt;rfc&gt; element and
 the &lt;date&gt; element to determine which portions and which
 version of the TLP to use, as described in A.1 of <xref target="I-D.iab-xml2rfc"/>.</t>
@@ -246,25 +247,26 @@ value of the “to” attribute of the associated &lt;displayreference&gt;.</t>
 “title” attribute and insert a &lt;name&gt; element in that section with the title from the attribute.</t>
   <t>Add a “slugifiedName” attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with “n-“.</t>
+  <t>If the “sortRefs” attribute of the &lt;rfc&gt; element is true,
+sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the “anchor” attribute,
+as modified by the “to” attribute of any &lt;displayreference&gt; element.
+The RFC Editor needs to determine what the rules for lexical sorting are.
+The authors of this document acknowledge that getting consensus on this will be a difficult task.</t>
   <t>Add “pn” attributes for all parts.  Parts are:
   <list style="symbols">
       <t>&lt;section&gt;: pn=’s-1.4.2’</t>
+      <t>&lt;references&gt;: pn=’s-12’ or pn=’s-12.1’</t>
       <t>&lt;abstract&gt;: pn=’s-abstract’</t>
       <t>&lt;note&gt;: pn=’s-note-2’</t>
       <t>&lt;boilerplate&gt;: pn=’s-boilerplate’</t>
       <t>&lt;table&gt;: pn=’t-3’</t>
       <t>&lt;figure&gt;: pn=’f-4’</t>
       <t>&lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
- &lt;li&gt;, &lt;ol&gt;, &lt;references&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
+ &lt;li&gt;, &lt;ol&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
  &lt;ul&gt;: pn=’p-[section]-[counter]’</t>
     </list></t>
   <t>Add a “start” attribute to every &lt;ol&gt; element containing a group that
 does not already have a start.</t>
-  <t>If the “sortRefs” attribute of the &lt;rfc&gt; element is true,
-sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the “anchor” attribute,
-as modified by the “to” attribute of any &lt;displayreference&gt; element.
-The RFC Editor needs to determine what the rules for lexical sorting are.
-The authors of this document acknowledge that getting consensus on this will be a difficult task.</t>
   <t>For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
 that has an associated &lt;displayreference&gt;, modify the “target” 
 attribute of the &lt;xref&gt; to match the “to” attribute of the associated &lt;displayreference&gt;.</t>

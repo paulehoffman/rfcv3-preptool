@@ -207,10 +207,12 @@ found in the prose describing the elements in {{I-D.iab-xml2rfc}}).
 
 1. If in RFC production mode, remove XML comments.
 
-1. Add the "Status of this Memo" text with current values. However, if
-any boilerplate text already exists in the input, produce a warning that
-says "Other tools, specifically the draft submission tool, will treat that
-condition as an error". The application will use the
+1. If there are any children of the &lt;boilerplate&gt; element, produce a warning that says
+"Existing boilerplate being removed. Other tools, specifically the draft submission tool,
+will treat this condition as an error" and remove the existing children.
+
+1. Add the "Status of this Memo" section to the &lt;boilerplate&gt; element with current values.
+The application will use the
 "submissionType", and "consensus" attributes of the &lt;rfc&gt; element,
 the &lt;workgroup&gt; element,
 and the "status" and "stream" attributes of the &lt;seriesInfo&gt; element,
@@ -218,7 +220,7 @@ to determine
 which {{I-D.iab-rfc5741bis}} boilerplate to include, as described in Appendix A of
 {{I-D.iab-xml2rfc}}.
 
-1. Add the "Copyright Notice" text. The application will use the
+1. Add the "Copyright Notice" section to the &lt;boilerplate&gt; element. The application will use the
 "ipr" and "submissionType" attributes of the &lt;rfc&gt; element and
 the &lt;date&gt; element to determine which portions and which
 version of the TLP to use, as described in A.1 of {{I-D.iab-xml2rfc}}.
@@ -262,25 +264,26 @@ value of the "to" attribute of the associated &lt;displayreference&gt;.
 1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
 
+1. If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
+sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
+as modified by the "to" attribute of any &lt;displayreference&gt; element.
+The RFC Editor needs to determine what the rules for lexical sorting are.
+The authors of this document acknowledge that getting consensus on this will be a difficult task.
+
 1. Add "pn" attributes for all parts.  Parts are:
   * &lt;section&gt;: pn='s-1.4.2'
+  * &lt;references&gt;: pn='s-12' or pn='s-12.1'
   * &lt;abstract&gt;: pn='s-abstract'
   * &lt;note&gt;: pn='s-note-2'
   * &lt;boilerplate&gt;: pn='s-boilerplate'
   * &lt;table&gt;: pn='t-3'
   * &lt;figure&gt;: pn='f-4'
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
-    &lt;li&gt;, &lt;ol&gt;, &lt;references&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
+    &lt;li&gt;, &lt;ol&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
     &lt;ul&gt;: pn='p-\[section\]-\[counter\]'
 
 1. Add a "start" attribute to every &lt;ol&gt; element containing a group that
 does not already have a start.
-
-1. If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
-sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
-as modified by the "to" attribute of any &lt;displayreference&gt; element.
-The RFC Editor needs to determine what the rules for lexical sorting are.
-The authors of this document acknowledge that getting consensus on this will be a difficult task.
 
 1. For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
 that has an associated &lt;displayreference&gt;, modify the "target" 
