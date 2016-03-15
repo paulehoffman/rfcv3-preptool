@@ -201,7 +201,8 @@ and “keepWithPrevious” of &lt;t&gt;, and “toc” of &lt;section&gt;.
 Some default values can be found in the Relax NG schema, while others can be
 found in the prose describing the elements in <xref target="I-D.iab-xml2rfc"/>).</t>
   <t>If in RFC production mode, remove XML comments.</t>
-  <t>If there are any children of the &lt;boilerplate&gt; element, produce a warning that says
+  <t>Create a &lt;boilerplate&gt; element if it does not exist.
+If there are any children of the &lt;boilerplate&gt; element, produce a warning that says
 “Existing boilerplate being removed. Other tools, specifically the draft submission tool,
 will treat this condition as an error” and remove the existing children.</t>
   <t>Add the “Status of this Memo” section to the &lt;boilerplate&gt; element with current values.
