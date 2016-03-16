@@ -373,8 +373,8 @@ Internet-Draft        RFC v3 Prep Tool Description            March 2016
 
         *  <figure>: pn='f-4'
 
-        *  <artwork>, <aside>, <blockquote>, <dl>, <dt>, <li>, <ol>,
-           <sourcecode>, <t>, <ul>: pn='p-[section]-[counter]'
+        *  <artwork>, <aside>, <blockquote>, <dt>, <li>, <sourcecode>,
+           <t>: pn='p-[section]-[counter]'
 
    25.  Add a "start" attribute to every <ol> element containing a group
         that does not already have a start.
