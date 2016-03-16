@@ -272,11 +272,11 @@ The RFC Editor needs to determine what the rules for lexical sorting are.
 The authors of this document acknowledge that getting consensus on this will be a difficult task.
 
 1. Add "pn" attributes for all parts.  Parts are:
-  * &lt;section&gt;: pn='s-1.4.2'
+  * &lt;section&gt; in &lt;middle&gt;: pn='s-1.4.2'
   * &lt;references&gt;: pn='s-12' or pn='s-12.1'
   * &lt;abstract&gt;: pn='s-abstract'
   * &lt;note&gt;: pn='s-note-2'
-  * &lt;boilerplate&gt;: pn='s-boilerplate'
+  * &lt;section&gt; in &lt;boilerplate&gt;: pn='s-boilerplate-1'
   * &lt;table&gt;: pn='t-3'
   * &lt;figure&gt;: pn='f-4'
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,

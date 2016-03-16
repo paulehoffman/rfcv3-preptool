@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="March" day="15"/>
+    <date year="2016" month="March" day="16"/>
 
     
     
@@ -255,11 +255,11 @@ The RFC Editor needs to determine what the rules for lexical sorting are.
 The authors of this document acknowledge that getting consensus on this will be a difficult task.</t>
   <t>Add “pn” attributes for all parts.  Parts are:
   <list style="symbols">
-      <t>&lt;section&gt;: pn=’s-1.4.2’</t>
+      <t>&lt;section&gt; in &lt;middle&gt;: pn=’s-1.4.2’</t>
       <t>&lt;references&gt;: pn=’s-12’ or pn=’s-12.1’</t>
       <t>&lt;abstract&gt;: pn=’s-abstract’</t>
       <t>&lt;note&gt;: pn=’s-note-2’</t>
-      <t>&lt;boilerplate&gt;: pn=’s-boilerplate’</t>
+      <t>&lt;section&gt; in &lt;boilerplate&gt;: pn=’s-boilerplate-1’</t>
       <t>&lt;table&gt;: pn=’t-3’</t>
       <t>&lt;figure&gt;: pn=’f-4’</t>
       <t>&lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
