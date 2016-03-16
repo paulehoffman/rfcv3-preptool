@@ -279,9 +279,8 @@ The authors of this document acknowledge that getting consensus on this will be 
   * &lt;section&gt; in &lt;boilerplate&gt;: pn='s-boilerplate-1'
   * &lt;table&gt;: pn='t-3'
   * &lt;figure&gt;: pn='f-4'
-  * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dl&gt;, &lt;dt&gt;,
-    &lt;li&gt;, &lt;ol&gt;, &lt;sourcecode&gt;, &lt;t&gt;,
-    &lt;ul&gt;: pn='p-\[section\]-\[counter\]'
+  * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;,
+    &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn='p-\[section\]-\[counter\]'
 
 1. Add a "start" attribute to every &lt;ol&gt; element containing a group that
 does not already have a start.
