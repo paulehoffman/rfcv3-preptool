@@ -207,6 +207,10 @@ found in the prose describing the elements in {{I-D.iab-xml2rfc}}).
 
 1. If in RFC production mode, remove XML comments.
 
+<!-- NEW #####################
+1. If in RFC production mode, remove all &lt;cref&gt; elements.
+-->
+
 1. Create a &lt;boilerplate&gt; element if it does not exist.
 If there are any children of the &lt;boilerplate&gt; element, produce a warning that says
 "Existing boilerplate being removed. Other tools, specifically the draft submission tool,
@@ -315,12 +319,21 @@ was being filled in.
     Issue a warning if the "derivedContent" attribute already exists and has a different value from what
     was being filled in.
 
-1. For each &lt;relref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
+1. For each &lt;relref&gt; element referring to a &lt;reference&gt;
 that has an associated &lt;displayreference&gt;, modify the "target" 
 attribute of the &lt;relref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
 
+<!-- NEW #####################
+1. If any &lt;relref&gt; element refers to a &lt;referencegroup&gt; element, give an error.
+-->
+
+<!-- NEW #####################
+1. If any &lt;relref&gt; element refers to a &lt;referencegroup&gt; element, give an error.
+-->
+
 1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
+<!-- REMOVE THIS #######################################
 1. For each &lt;relref&gt; element that does not have content, fill the "derivedRemoteContent"
 based on the content of the target reference.
   * If the target reference is an RFC or Internet-Draft in the v3 format, find the anchor given in the
@@ -330,8 +343,10 @@ based on the content of the target reference.
     "relative" or "section" attribute for the "derivedRemoteContent".
   * Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
     from what was being filled in.
+REMOVE THIS ####################################### -->
 
-1. For each &lt;relref&gt; element that has content, fill the "derivedRemoteContent" with the
+1. For each &lt;relref&gt; element that has content, the "displayFormat" attribute is ignored.
+Fill the "derivedRemoteContent" with the
 element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
 from what was being filled in.
