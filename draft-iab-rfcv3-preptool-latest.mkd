@@ -195,7 +195,8 @@ give an error.
 
 1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
-1. Normalize the values of "month" attributes in all &lt;date&gt; elements to numeric values.
+1. Normalize the values of "month" attributes in all &lt;date&gt; elements
+in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.
 
 1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on
 the &lt;date&gt; element of the document's &lt;front&gt; element.
@@ -286,6 +287,13 @@ The authors of this document acknowledge that getting consensus on this will be 
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;,
     &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn='p-\[section\]-\[counter\]'
 
+<!-- NEW #####################
+1. In every &lt;iref&gt; element, create a document-unique "irefid" attribute.
+The value of the "irefid" attribute will start with 's-', and use the item attribute, the subitem
+attribute (if it exists), and a counter to ensure unqiqueness.
+For example, the first instance of "&lt;iref item='foo' subitem='bar'&gt;" will get the irefid 's-foo-bar-1'.
+-->
+
 1. Add a "start" attribute to every &lt;ol&gt; element containing a group that
 does not already have a start.
 
@@ -305,8 +313,9 @@ was being filled in.
   * For format='default' and the "target" attribute points to a &lt;reference&gt; or
     &lt;referencegroup&gt; element, the "derivedContent" is the value of the "target" attribute
     (or the "to" attribute of a &lt;displayreference&gt; element for the targeted &lt;reference&gt;).
-  * For format='default' and the "target" attribute points something else, the "derivedContent" is the
-    title of the thing pointed to, such as "Section 2.3" or "Table 4".
+  * For format='default' and the "target" attribute points to a &lt;section&gt;, &lt;figure&gt;, or &lt;table&gt;,
+    the "derivedContent" is the
+    name of the thing pointed to, such as "Section 2.3", "Figure 12", or "Table 4".
   * For format='title', if the target is a &lt;reference&gt; element, the "derivedContent" attribute is
     the name of the reference, extracted from the &lt;title&gt; child of the &lt;front&gt; child of the
     reference.
@@ -354,17 +363,26 @@ from what was being filled in.
 1. Remove every &lt;displayreference&gt; element.
 
 1. If an &lt;artwork&gt; element has a "src" attribute where no scheme is
-specified, treat the scheme as "file:" in a path relative to the file being
-processed. 
+specified, replace it with a URI that uses the "file:" scheme in a path relative to the file being
+processed. Do not include the full path in the "src" attribute.
 See {{securitycons}} for warnings about this step.
 This will likely be one of the most common authoring approaches.
 
 1. If an &lt;artwork&gt; element has a "src" attribute with a "file:" scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
-an error.  This rule attempts to prevent
+an error. 
+If the "src" has any shellmeta strings (such as "`", "$USER", and so on) that would be processed , give an error.
+Replace the "src" attribute with a URI that uses the "file:" scheme in a path relative to the file being
+processed.
+This rule attempts to prevent
 &lt;artwork src='file:///etc/passwd'&gt; and similar security issues.
 See {{securitycons}} for warnings about this step.
+
+<!-- NEW #####################
+1. If an &lt;artwork&gt; element has type='svg' and there is a "src" attribute,
+and the element has content, give an error.
+-->
 
 1. If an &lt;artwork&gt; element has type='svg' and there is a "src" attribute,
 the data needs to be moved into the content of the &lt;artwork&gt; element.
@@ -389,6 +407,11 @@ This also fails for content that includes binary images but uses a type other th
 Note: since this feature can't be used for RFCs at the moment, this entire
 feature might be de-prioritized.
 
+<!-- NEW #####################
+1. If an &lt;artwork&gt; element does not have type='svg' and there is a "src" attribute,
+and the element has content, give an error.
+-->
+
 1. If an &lt;artwork&gt; element does not have type='svg' or type='binary-art'
 and there is a "src" attribute, the data needs to be moved into the content of
 the &lt;artwork&gt; element. Note that this step assumes that all of the
@@ -403,13 +426,18 @@ preferred types other than "binary-art" are text, which is possibly wrong.
 
 1. If a &lt;sourcecode&gt; element has a "src" attribute where no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
-processed.
+processed and replace the "src" attribute with a "file:" URI.
 
 1. If a &lt;sourcecode&gt; element has a "src" attribute with a "file:" scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
 an error.  This rule attempts to prevent
 &lt;sourcecode src='file:///etc/passwd'&gt; and similar security issues.
+
+<!-- NEW #####################
+1. If a &lt;sourcecode&gt; element has a "src" attribute,
+and the element has content, give an error.
+-->
 
 1. If a &lt;sourcecode&gt; element has a "src" attribute,
 the data needs to be moved into the content of the &lt;sourcecode&gt; element.
@@ -424,32 +452,33 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
 1. Determine all the characters used in the document, and fill in the "scripts"
 attribute for &lt;rfc&gt;.
 
-1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
-it is set to "3".
-
 1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel" attribute
 has the value "alternate".
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
-an ISSN for the RFC series; if not, add one
-of the form &lt;link rel="item" href="urn:issn:dddd"&gt;.
+the current ISSN for the RFC series (2070-1721); if not, add it
+in the form &lt;link rel="item" href="urn:issn:2070-1721"&gt;.
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
 a DOI for this RFC; if not, add one
 of the form &lt;link rel="describedBy" href="https://dx.doi.org/10.17487/rfcdddd"&gt;.
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
-the file name of the Internet-Draft that became this RFC; if not, add one
-of the form &lt;link rel="convertedFrom" href="https://datatracker.ietf.org/doc/draft-tttttttttt/"&gt;.
+the file name of the Internet-Draft that became this RFC
+the form &lt;link rel="convertedFrom" href="https://datatracker.ietf.org/doc/draft-tttttttttt/"&gt;.
+If one does not exist, give an error.
 
 1. If in RFC production mode, remove all "xml:base" or "originalSrc" attributes from
 all elements.
 
-1. Pretty-format the XML output.  (Note: tools like <https://github.com/hildjj/dentin> do an adequate job.)
+1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
+it is set to "3". If there is already a different value, give an error.
 
 1. If in RFC production mode, ensure that the result is in full compliance to v3
 schema, without any deprecated elements or attributes, and give an error if any
 issues are found.
+
+1. Pretty-format the XML output.  (Note: tools like <https://github.com/hildjj/dentin> do an adequate job.)
 
 
 Additional Uses for the Prep Tool
