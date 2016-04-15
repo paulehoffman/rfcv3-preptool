@@ -286,11 +286,10 @@ The authors of this document acknowledge that getting consensus on this will be 
     &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn='p-\[section\]-\[counter\]'
 
 1. In every &lt;iref&gt; element, create a document-unique "irefid" attribute.
-The value of the "irefid" attribute will start with 's-', and use the item
+The value of the "irefid" attribute will start with 'i-', and use the item
 attribute, the subitem attribute (if it exists), and a counter to ensure
-uniqueness.
-For example, the first instance of "&lt;iref item='foo' subitem='bar'&gt;" will
-get the irefid 's-foo-bar-1'.
+uniqueness. For example, the first instance of "&lt;iref item='foo'
+subitem='bar'&gt;" will get the irefid 'i-foo-bar-1'.
 
 1. Add a "start" attribute to every &lt;ol&gt; element containing a group that
 does not already have a start.
@@ -427,9 +426,9 @@ attribute for &lt;rfc&gt;.
 1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel" attribute
 has the value "alternate".
 
-1. If in RFC production mode, check if there is a &lt;link&gt; element with
-the current ISSN for the RFC series (2070-1721); if not, add it
-in the form &lt;link rel="item" href="urn:issn:2070-1721"&gt;.
+1. If in RFC production mode, check if there is a &lt;link&gt; element with the
+current ISSN for the RFC series (2070-1721); if not, add
+&lt;link rel="item" href="urn:issn:2070-1721"&gt;.
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
 a DOI for this RFC; if not, add one

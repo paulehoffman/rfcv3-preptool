@@ -380,10 +380,10 @@ Internet-Draft        RFC v3 Prep Tool Description            April 2016
 
    26.  In every <iref> element, create a document-unique "irefid"
         attribute.  The value of the "irefid" attribute will start with
-        's-', and use the item attribute, the subitem attribute (if it
+        'i-', and use the item attribute, the subitem attribute (if it
         exists), and a counter to ensure uniqueness.  For example, the
         first instance of "<iref item='foo' subitem='bar'>" will get the
-        irefid 's-foo-bar-1'.
+        irefid 'i-foo-bar-1'.
 
 
 
@@ -590,7 +590,7 @@ Internet-Draft        RFC v3 Prep Tool Description            April 2016
 
    48.  If in RFC production mode, check if there is a <link> element
         with the current ISSN for the RFC series (2070-1721); if not,
-        add it in the form <link rel="item" href="urn:issn:2070-1721">.
+        add <link rel="item" href="urn:issn:2070-1721">.
 
    49.  If in RFC production mode, check if there is a <link> element
         with a DOI for this RFC; if not, add one of the form <link
