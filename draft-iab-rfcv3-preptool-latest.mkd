@@ -37,7 +37,7 @@ informative:
 --- abstract
 
 This document describes some aspects of the "prep tool" that is expected
-to be created when the new RFC v3 specification is deployed. 
+to be created when the new RFC v3 specification is deployed.
 
 --- middle
 
@@ -45,7 +45,7 @@ to be created when the new RFC v3 specification is deployed.
 Introduction
 =====
 
-For the future of the RFC format, the RFC Editor 
+For the future of the RFC format, the RFC Editor
 has decided that XML (using the XML2RFCv3 vocabulary {{I-D.iab-xml2rfc}}) is the canonical format,
 in the sense
 that it is the data that is blessed by the process as the actual RFC. See
@@ -184,10 +184,10 @@ Editor for RFCs.
 
 1. If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt;
 element, add it and fill in the "day", "month", and "year" attibutes from the
-current date. 
+current date.
 If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt;
 element with "day", "month", and "year" attibutes, but the date indicated is
-more than three days in the past or is in the future, 
+more than three days in the past or is in the future,
 give a warning.
 If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt;
 element with some but not all of the "day", "month", and "year" attibutes,
@@ -208,9 +208,7 @@ found in the prose describing the elements in {{I-D.iab-xml2rfc}}).
 
 1. If in RFC production mode, remove XML comments.
 
-<!-- NEW #####################
 1. If in RFC production mode, remove all &lt;cref&gt; elements.
--->
 
 1. Create a &lt;boilerplate&gt; element if it does not exist.
 If there are any children of the &lt;boilerplate&gt; element, produce a warning that says
@@ -237,16 +235,16 @@ with the text "This note is to be removed before publishing as an RFC."
 unless a paragraph consisting of that exact text already exists.
 
 1. If in RFC production mode, if there is a &lt;note&gt; element with a "removeInRFC"
-attribute that has the value "true", remove the &lt;note&gt; element. 
+attribute that has the value "true", remove the &lt;note&gt; element.
 
-1. In every 
+1. In every
 &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt;
 element, if there is an "ascii" attribute and the value of tha attribute is
 the same as the content of the element, remove the "ascii" element
 and issue a warning about the removal.
 
-1. In every &lt;author&gt; element, if there is an 
-"asciiFullname", "asciiInitials", or "asciiSurname" attribute, 
+1. In every &lt;author&gt; element, if there is an
+"asciiFullname", "asciiInitials", or "asciiSurname" attribute,
 check the content of that element against its matching
 "fullname", "initials", or "surname" element (respectively).
 If the two are the same, remove the "ascii*" elelement
@@ -261,7 +259,7 @@ for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the
 the IESG. These URLs might also be different before and after the v3 format is adopted.
 
 1. For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
-replace the value of the "anchor" attribute with the 
+replace the value of the "anchor" attribute with the
 value of the "to" attribute of the associated &lt;displayreference&gt;.
 
 1. For every &lt;section&gt; element that has a (deprecated) "title" attribute, remove the
@@ -287,18 +285,18 @@ The authors of this document acknowledge that getting consensus on this will be 
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;,
     &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn='p-\[section\]-\[counter\]'
 
-<!-- NEW #####################
 1. In every &lt;iref&gt; element, create a document-unique "irefid" attribute.
-The value of the "irefid" attribute will start with 's-', and use the item attribute, the subitem
-attribute (if it exists), and a counter to ensure unqiqueness.
-For example, the first instance of "&lt;iref item='foo' subitem='bar'&gt;" will get the irefid 's-foo-bar-1'.
--->
+The value of the "irefid" attribute will start with 's-', and use the item
+attribute, the subitem attribute (if it exists), and a counter to ensure
+uniqueness.
+For example, the first instance of "&lt;iref item='foo' subitem='bar'&gt;" will
+get the irefid 's-foo-bar-1'.
 
 1. Add a "start" attribute to every &lt;ol&gt; element containing a group that
 does not already have a start.
 
 1. For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
-that has an associated &lt;displayreference&gt;, modify the "target" 
+that has an associated &lt;displayreference&gt;, modify the "target"
 attribute of the &lt;xref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
 
 1. For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
@@ -329,30 +327,13 @@ was being filled in.
     was being filled in.
 
 1. For each &lt;relref&gt; element referring to a &lt;reference&gt;
-that has an associated &lt;displayreference&gt;, modify the "target" 
+that has an associated &lt;displayreference&gt;, modify the "target"
 attribute of the &lt;relref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
 
-<!-- NEW #####################
-1. If any &lt;relref&gt; element refers to a &lt;referencegroup&gt; element, give an error.
--->
-
-<!-- NEW #####################
-1. If any &lt;relref&gt; element refers to a &lt;referencegroup&gt; element, give an error.
--->
+1. If any &lt;relref&gt; element's "target" attribute refers to anything but a
+&lt;reference&gt; element, give an error.
 
 1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
-
-<!-- REMOVE THIS #######################################
-1. For each &lt;relref&gt; element that does not have content, fill the "derivedRemoteContent"
-based on the content of the target reference.
-  * If the target reference is an RFC or Internet-Draft in the v3 format, find the anchor given in the
-    "relative" attribute or derived from the "section" attribute, and use the identifier of that element
-    (such as "Section 2.3" or "Table 4") for the "derivedRemoteContent".
-  * If the target reference is not a RFC or Internet-Draft in the v3 format, use the value of the
-    "relative" or "section" attribute for the "derivedRemoteContent".
-  * Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
-    from what was being filled in.
-REMOVE THIS ####################################### -->
 
 1. For each &lt;relref&gt; element that has content, the "displayFormat" attribute is ignored.
 Fill the "derivedRemoteContent" with the
@@ -371,7 +352,7 @@ This will likely be one of the most common authoring approaches.
 1. If an &lt;artwork&gt; element has a "src" attribute with a "file:" scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
-an error. 
+an error.
 If the "src" has any shellmeta strings (such as "`", "$USER", and so on) that would be processed , give an error.
 Replace the "src" attribute with a URI that uses the "file:" scheme in a path relative to the file being
 processed.
@@ -379,10 +360,8 @@ This rule attempts to prevent
 &lt;artwork src='file:///etc/passwd'&gt; and similar security issues.
 See {{securitycons}} for warnings about this step.
 
-<!-- NEW #####################
-1. If an &lt;artwork&gt; element has type='svg' and there is a "src" attribute,
-and the element has content, give an error.
--->
+1. If an &lt;artwork&gt; element has a "src" attribute, and the element has
+content, give an error.
 
 1. If an &lt;artwork&gt; element has type='svg' and there is a "src" attribute,
 the data needs to be moved into the content of the &lt;artwork&gt; element.
@@ -407,11 +386,6 @@ This also fails for content that includes binary images but uses a type other th
 Note: since this feature can't be used for RFCs at the moment, this entire
 feature might be de-prioritized.
 
-<!-- NEW #####################
-1. If an &lt;artwork&gt; element does not have type='svg' and there is a "src" attribute,
-and the element has content, give an error.
--->
-
 1. If an &lt;artwork&gt; element does not have type='svg' or type='binary-art'
 and there is a "src" attribute, the data needs to be moved into the content of
 the &lt;artwork&gt; element. Note that this step assumes that all of the
@@ -434,10 +408,8 @@ not in the same directory, or a subdirectory, as the file being processed, give
 an error.  This rule attempts to prevent
 &lt;sourcecode src='file:///etc/passwd'&gt; and similar security issues.
 
-<!-- NEW #####################
 1. If a &lt;sourcecode&gt; element has a "src" attribute,
 and the element has content, give an error.
--->
 
 1. If a &lt;sourcecode&gt; element has a "src" attribute,
 the data needs to be moved into the content of the &lt;sourcecode&gt; element.
