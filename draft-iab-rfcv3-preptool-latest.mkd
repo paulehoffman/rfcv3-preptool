@@ -285,8 +285,8 @@ The authors of this document acknowledge that getting consensus on this will be 
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;,
     &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn='p-\[section\]-\[counter\]'
 
-1. In every &lt;iref&gt; element, create a document-unique "irefid" attribute.
-The value of the "irefid" attribute will start with 'i-', and use the item
+1. In every &lt;iref&gt; element, create a document-unique "pn" attribute.
+The value of the "pn" attribute will start with 'i-', and use the item
 attribute, the subitem attribute (if it exists), and a counter to ensure
 uniqueness. For example, the first instance of "&lt;iref item='foo'
 subitem='bar'&gt;" will get the irefid 'i-foo-bar-1'.
@@ -334,11 +334,8 @@ attribute of the &lt;relref&gt; to match the "to" attribute of the associated &l
 
 1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
-1. For each &lt;relref&gt; element that has content, the "displayFormat" attribute is ignored.
-Fill the "derivedRemoteContent" with the
-element content, having first trimmed the whitespace from ends of content text.
-Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
-from what was being filled in.
+1. For each &lt;relref&gt; element, if there is no "relative" attribute but the
+target is a v3 RFC or Internet-Draft, create the "relative" attribute from the "section" attribute.
 
 1. Remove every &lt;displayreference&gt; element.
 
