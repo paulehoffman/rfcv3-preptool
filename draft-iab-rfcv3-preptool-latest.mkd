@@ -347,7 +347,8 @@ target is a v3 RFC or Internet-Draft, create the "relative" attribute from the "
 1. Remove every &lt;displayreference&gt; element.
 
 1. If an &lt;artwork&gt; element has a "src" attribute where no scheme is
-specified, replace it with a URI that uses the "file:" scheme in a path relative to the file being
+specified, copy the "src" attribute value to the "originalSrc" attribute,
+and replace the "src" value with a URI that uses the "file:" scheme in a path relative to the file being
 processed. Do not include the full path in the "src" attribute.
 See {{securitycons}} for warnings about this step.
 This will likely be one of the most common authoring approaches.
@@ -372,15 +373,16 @@ the data needs to be moved into the content of the &lt;artwork&gt; element.
     element with that data and remove the "src" attribute.
   * If the "src" URI scheme is "file:", "http:", or "https:", fill the content
     of the &lt;artwork&gt; element with the resolved XML from the URI in the
-    "src" attribute. Add an "originalSrc" attribute with the value of the URI and
+    "src" attribute. If there is no "originalSrc" attribute,
+    add an "originalSrc" attribute with the value of the URI and
     remove the "src" attribute.
 
 1. If an &lt;artwork&gt; element has type='binary-art', the data needs to be in
 a "src" attribute with a URI scheme of "data:".
 If the "src" URI scheme is "file:", "http:", or "https:", resolve the URL.
 Replace the "src" attribute with a "data:" URI,
-add an "originalSrc" attribute with the value of the URI, and remove the "src"
-attribute.  For the "http:" and "https:" URI schemes,
+and add an "originalSrc" attribute with the value of the URI.
+For the "http:" and "https:" URI schemes,
 the mediatype of the "data:" URI will be the Content-Type of the HTTP response.
 For the "file:" URI scheme,
 the mediatype of the "data:" URI needs to be guessed with heuristics
@@ -398,7 +400,8 @@ preferred types other than "binary-art" are text, which is possibly wrong.
     attribute.
   * If the "src" URI scheme is "file:", "http:", or "https:", fill the content
     of the &lt;artwork&gt; element with the correctly-escaped form of the
-    resolved text from the URI in the "src" attribute. Add an "originalSrc"
+    resolved text from the URI in the "src" attribute.
+    If there is no "originalSrc" attribute, add an "originalSrc"
     attribute with the value of the URI and remove the "src" attribute.
 
 1. If a &lt;sourcecode&gt; element has a "src" attribute where no scheme is
@@ -421,7 +424,8 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     the "src" attribute.
   * If the "src" URI scheme is "file:", "http:", or "https:", fill the content
     of the &lt;sourcecode&gt; element with the appropriately-escaped resolved
-    text from the URI in the "src" attribute. Add an "originalSrc" attribute with
+    text from the URI in the "src" attribute.
+    If there is no "originalSrc" attribute, add an "originalSrc" attribute with
     the value of the URI and remove the "src" attribute.
 
 1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel" attribute
