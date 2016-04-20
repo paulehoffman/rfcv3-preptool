@@ -198,6 +198,9 @@ give an error.
 1. Normalize the values of "month" attributes in all &lt;date&gt; elements
 in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.
 
+1. Normalize the values of "year" attributes in all &lt;date&gt; elements
+in &lt;front&gt; elements in &lt;rfc&gt; elements to be four-digit values.
+
 1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on
 the &lt;date&gt; element of the document's &lt;front&gt; element.
 
