@@ -262,8 +262,9 @@ the IESG. These URLs might also be different before and after the v3 format is a
 replace the value of the "anchor" attribute with the
 value of the "to" attribute of the associated &lt;displayreference&gt;.
 
-1. For every &lt;section&gt; element that has a (deprecated) "title" attribute, remove the
-"title" attribute and insert a &lt;name&gt; element in that section with the title from the attribute.
+1. For every &lt;section&gt;, &lt;note&gt;, &lt;figure&gt;, &lt;references&gt;, and &lt;texttable&gt;
+element that has a (deprecated) "title" attribute, remove the
+"title" attribute and insert a &lt;name&gt; element with the title from the attribute.
 
 1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
@@ -273,6 +274,9 @@ sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value o
 as modified by the "to" attribute of any &lt;displayreference&gt; element.
 The RFC Editor needs to determine what the rules for lexical sorting are.
 The authors of this document acknowledge that getting consensus on this will be a difficult task.
+
+1. Check all elements for "anchor" attributes. If any "anchor" attribute
+begins with "s-", "f-", "t-", or "i-", give an error.
 
 1. Add "pn" attributes for all parts.  Parts are:
   * &lt;section&gt; in &lt;middle&gt;: pn='s-1.4.2'
@@ -417,9 +421,6 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     text from the URI in the "src" attribute. Add an "originalSrc" attribute with
     the value of the URI and remove the "src" attribute.
 
-1. Determine all the characters used in the document, and fill in the "scripts"
-attribute for &lt;rfc&gt;.
-
 1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel" attribute
 has the value "alternate".
 
@@ -438,6 +439,9 @@ If one does not exist, give an error.
 
 1. If in RFC production mode, remove all "xml:base" or "originalSrc" attributes from
 all elements.
+
+1. Determine all the characters used in the document, and fill in the "scripts"
+attribute for &lt;rfc&gt;.
 
 1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
 it is set to "3". If there is already a different value, give an error.
