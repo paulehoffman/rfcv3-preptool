@@ -94,7 +94,7 @@ Table of Contents
        5.4.4.  <displayreference> Processing . . . . . . . . . . . .  10
        5.4.5.  <name> Slugification  . . . . . . . . . . . . . . . .  10
        5.4.6.  <reference> Sorting . . . . . . . . . . . . . . . . .  10
-       5.4.7.  Part Numbering  . . . . . . . . . . . . . . . . . . .  10
+       5.4.7.  "pn" Numbering  . . . . . . . . . . . . . . . . . . .  10
        5.4.8.  <iref> Numbering  . . . . . . . . . . . . . . . . . .  10
        5.4.9.  <xref> processing . . . . . . . . . . . . . . . . . .  10
          5.4.9.1.  "target" Rewriting  . . . . . . . . . . . . . . .  10
@@ -105,7 +105,7 @@ Table of Contents
      5.5.  Inclusion . . . . . . . . . . . . . . . . . . . . . . . .  12
        5.5.1.  <artwork> Processing  . . . . . . . . . . . . . . . .  12
        5.5.2.  <sourcecode> Processing . . . . . . . . . . . . . . .  14
-     5.6.  RFC-mode cleanup  . . . . . . . . . . . . . . . . . . . .  14
+     5.6.  RFC Production Mode Cleanup . . . . . . . . . . . . . . .  14
 
 
 
@@ -119,10 +119,10 @@ Internet-Draft        RFC v3 Prep Tool Description            April 2016
        5.6.3.  <link> Processing . . . . . . . . . . . . . . . . . .  15
        5.6.4.  XML Comment Removal . . . . . . . . . . . . . . . . .  15
        5.6.5.  "xml:base" and "originalSrc" Removal  . . . . . . . .  15
+       5.6.6.  Compliance Check  . . . . . . . . . . . . . . . . . .  15
      5.7.  Finalization  . . . . . . . . . . . . . . . . . . . . . .  15
        5.7.1.  "scripts" Insertion . . . . . . . . . . . . . . . . .  15
-       5.7.2.  Deprecation Check . . . . . . . . . . . . . . . . . .  15
-       5.7.3.  Pretty-Format . . . . . . . . . . . . . . . . . . . .  15
+       5.7.2.  Pretty-Format . . . . . . . . . . . . . . . . . . . .  15
    6.  Additional Uses for the Prep Tool . . . . . . . . . . . . . .  16
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
@@ -530,7 +530,7 @@ Internet-Draft        RFC v3 Prep Tool Description            April 2016
    the rules for lexical sorting are.  The authors of this document
    acknowledge that getting consensus on this will be a difficult task.
 
-5.4.7.  Part Numbering
+5.4.7.  "pn" Numbering
 
    Add "pn" attributes for all parts.  Parts are: * <section> in
    <middle>: pn='s-1.4.2' * <references>: pn='s-12' or pn='s-12.1' *
@@ -761,7 +761,7 @@ Internet-Draft        RFC v3 Prep Tool Description            April 2016
           "originalSrc" attribute with the value of the URI and remove
           the "src" attribute.
 
-5.6.  RFC-mode cleanup
+5.6.  RFC Production Mode Cleanup
 
    These steps provide extra cleanup of the output document in RFC
    production mode.
@@ -814,6 +814,12 @@ Internet-Draft        RFC v3 Prep Tool Description            April 2016
    If in RFC production mode, remove all "xml:base" or "originalSrc"
    attributes from all elements.
 
+5.6.6.  Compliance Check
+
+   If in RFC production mode, ensure that the result is in full
+   compliance to v3 schema, without any deprecated elements or
+   attributes, and give an error if any issues are found.
+
 5.7.  Finalization
 
    These steps provide the finishing touches on the output document.
@@ -823,13 +829,7 @@ Internet-Draft        RFC v3 Prep Tool Description            April 2016
    Determine all the characters used in the document, and fill in the
    "scripts" attribute for <rfc>.
 
-5.7.2.  Deprecation Check
-
-   If in RFC production mode, ensure that the result is in full
-   compliance to v3 schema, without any deprecated elements or
-   attributes, and give an error if any issues are found.
-
-5.7.3.  Pretty-Format
+5.7.2.  Pretty-Format
 
    Pretty-format the XML output.  (Note: tools like
    https://github.com/hildjj/dentin do an adequate job.)

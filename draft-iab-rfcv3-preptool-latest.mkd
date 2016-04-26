@@ -356,7 +356,7 @@ If the "sortRefs" attribute of the &lt;rfc&gt; element is true, sort the
 rules for lexical sorting are. The authors of this document acknowledge that
 getting consensus on this will be a difficult task.
 
-### Part Numbering {#part-numbering}
+### "pn" Numbering {#part-numbering}
 
 Add "pn" attributes for all parts.  Parts are:
   * &lt;section&gt; in &lt;middle&gt;: pn='s-1.4.2'
@@ -526,7 +526,7 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     If there is no "originalSrc" attribute, add an "originalSrc" attribute with
     the value of the URI and remove the "src" attribute.
 
-## RFC-mode cleanup {#rfc-mode-cleanup}
+## RFC Production Mode Cleanup {#rfc-production-mode-cleanup}
 
 These steps provide extra cleanup of the output document in RFC
 production mode.
@@ -568,6 +568,12 @@ If in RFC production mode, remove XML comments.
 If in RFC production mode, remove all "xml:base" or "originalSrc" attributes
 from all elements.
 
+### Compliance Check {#compliance-check}
+
+If in RFC production mode, ensure that the result is in full compliance to v3
+schema, without any deprecated elements or attributes, and give an error if any
+issues are found.
+
 ## Finalization {#finalization}
 
 These steps provide the finishing touches on the output document.
@@ -576,12 +582,6 @@ These steps provide the finishing touches on the output document.
 
 Determine all the characters used in the document, and fill in the "scripts"
 attribute for &lt;rfc&gt;.
-
-### Deprecation Check {#deprecation-check}
-
-If in RFC production mode, ensure that the result is in full compliance to v3
-schema, without any deprecated elements or attributes, and give an error if any
-issues are found.
 
 ### Pretty-Format {#pretty}
 
