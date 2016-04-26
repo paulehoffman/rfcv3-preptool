@@ -629,7 +629,8 @@ data from untrusted sources.
 # Acknowledgements
 
 Many people contributed valuable ideas to this document. Special thanks go to
-Robert Sparks for his in-depth review and contributions early in the
-development of this document.
+Robert Sparks for his in-depth review and contributions early in the development
+of this document, and to Julian Reschke for his help getting the document
+structured more clearly.
 
 --- back
