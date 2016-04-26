@@ -400,7 +400,7 @@ rules for lexical sorting are. The authors of this document acknowledge that
 getting consensus on this will be a difficult task.</t>
 
 </section>
-<section anchor="part-numbering" title="Part Numbering">
+<section anchor="part-numbering" title="“pn” Numbering">
 
 <t>Add “pn” attributes for all parts.  Parts are:
   * &lt;section&gt; in &lt;middle&gt;: pn=’s-1.4.2’
@@ -585,7 +585,7 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.  
 
 </section>
 </section>
-<section anchor="rfc-mode-cleanup" title="RFC-mode cleanup">
+<section anchor="rfc-production-mode-cleanup" title="RFC Production Mode Cleanup">
 
 <t>These steps provide extra cleanup of the output document in RFC
 production mode.</t>
@@ -631,6 +631,13 @@ If one does not exist, give an error.</t>
 from all elements.</t>
 
 </section>
+<section anchor="compliance-check" title="Compliance Check">
+
+<t>If in RFC production mode, ensure that the result is in full compliance to v3
+schema, without any deprecated elements or attributes, and give an error if any
+issues are found.</t>
+
+</section>
 </section>
 <section anchor="finalization" title="Finalization">
 
@@ -640,13 +647,6 @@ from all elements.</t>
 
 <t>Determine all the characters used in the document, and fill in the “scripts”
 attribute for &lt;rfc&gt;.</t>
-
-</section>
-<section anchor="deprecation-check" title="Deprecation Check">
-
-<t>If in RFC production mode, ensure that the result is in full compliance to v3
-schema, without any deprecated elements or attributes, and give an error if any
-issues are found.</t>
 
 </section>
 <section anchor="pretty" title="Pretty-Format">
