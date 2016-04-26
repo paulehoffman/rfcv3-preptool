@@ -162,27 +162,39 @@ below contains some of those errors and warnings, but the deployed version of
 the prep tool may contain additional steps to include more or the checks from
 idnits.
 
-1. Fully process any DTDs in the input document, then remove the DTD.
+## DTD Removal {#dtd-removal}
+
+Fully process any DTDs in the input document, then remove the DTD.
 At a minimum, this entails processing the entityrefs and includes for external
 files.
 
-1. Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
+## XInclude Processing {#xinclude-processing}
+
+Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.
 
-1. Remove processing instructions.
+## Processing Instruction Removal {#pi-removal}
 
-1. Check the input against the RNG in {{I-D.iab-xml2rfc}}. If the input is not
+Remove processing instructions.
+
+## Validity Check {#validity-check}
+
+Check the input against the RNG in {{I-D.iab-xml2rfc}}. If the input is not
 valid, give an error.
 
-1. If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have
+## SeriesInfo Insertion {#seriesinfo-insertion}
+
+If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have
 a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name
 attribute based on the mode in which the preptool is running ("Internet-Draft"
 for Draft mode and "RFC" for RFC mode") and a value that is the input filename
 minus any extension for Internet-Drafts, and is a number specified by the RFC
 Editor for RFCs.
 
-1. If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt;
+## Date Processing {#date-processing}
+
+If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt;
 element, add it and fill in the "day", "month", and "year" attibutes from the
 current date.
 If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt;
@@ -193,29 +205,45 @@ If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt;
 element with some but not all of the "day", "month", and "year" attibutes,
 give an error.
 
-1. Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
+## Preptime Insertion {#preptime-insertion}
 
-1. Normalize the values of "month" attributes in all &lt;date&gt; elements
+Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
+
+## Month Attribute Normalization {#month-attribute}
+
+Normalize the values of "month" attributes in all &lt;date&gt; elements
 in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.
 
-1. If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on
+## ExpiresDate Insertion {#expiresdate-insertion}
+
+If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on
 the &lt;date&gt; element of the document's &lt;front&gt; element.
 
-1. Fill in any default values for attributes on elements, except "keepWithNext"
+## Attribute Default Value Insertion {#attribute-default-value-insertion}
+
+Fill in any default values for attributes on elements, except "keepWithNext"
 and "keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
 Some default values can be found in the Relax NG schema, while others can be
 found in the prose describing the elements in {{I-D.iab-xml2rfc}}).
 
-1. If in RFC production mode, remove XML comments.
+## XML Comment Removal {#xml-comment-removal}
 
-1. If in RFC production mode, remove all &lt;cref&gt; elements.
+If in RFC production mode, remove XML comments.
 
-1. Create a &lt;boilerplate&gt; element if it does not exist.
+## Cref Element Removal {#cref-element-removal}
+
+If in RFC production mode, remove all &lt;cref&gt; elements.
+
+## Boilerplate Insertion {#boilerplate-insertion}
+
+Create a &lt;boilerplate&gt; element if it does not exist.
 If there are any children of the &lt;boilerplate&gt; element, produce a warning that says
 "Existing boilerplate being removed. Other tools, specifically the draft submission tool,
 will treat this condition as an error" and remove the existing children.
 
-1. Add the "Status of this Memo" section to the &lt;boilerplate&gt; element with current values.
+## 'Status of this Memo' Insertion {#status-of-this-memo-insertion}
+
+Add the "Status of this Memo" section to the &lt;boilerplate&gt; element with current values.
 The application will use the
 "submissionType", and "consensus" attributes of the &lt;rfc&gt; element,
 the &lt;workgroup&gt; element,
@@ -224,33 +252,41 @@ to determine
 which {{I-D.iab-rfc5741bis}} boilerplate to include, as described in Appendix A of
 {{I-D.iab-xml2rfc}}.
 
-1. Add the "Copyright Notice" section to the &lt;boilerplate&gt; element. The application will use the
+## Copyright Insertion {#copyright-insertion}
+
+Add the "Copyright Notice" section to the &lt;boilerplate&gt; element. The application will use the
 "ipr" and "submissionType" attributes of the &lt;rfc&gt; element and
 the &lt;date&gt; element to determine which portions and which
 version of the TLP to use, as described in A.1 of {{I-D.iab-xml2rfc}}.
 
-1. If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
+## RemoveInRFC Processing {#remove-in-rfc-processing}
+
+If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
 attribute that has the value "true", add a paragraph to the top of the &lt;note&gt; element
 with the text "This note is to be removed before publishing as an RFC."
 unless a paragraph consisting of that exact text already exists.
 
-1. If in RFC production mode, if there is a &lt;note&gt; element with a "removeInRFC"
+If in RFC production mode, if there is a &lt;note&gt; element with a "removeInRFC"
 attribute that has the value "true", remove the &lt;note&gt; element.
 
-1. In every
+## ASCII Attribute Processing {#ascii-atttribute-processing}
+
+In every
 &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt;
 element, if there is an "ascii" attribute and the value of tha attribute is
 the same as the content of the element, remove the "ascii" element
 and issue a warning about the removal.
 
-1. In every &lt;author&gt; element, if there is an
+In every &lt;author&gt; element, if there is an
 "asciiFullname", "asciiInitials", or "asciiSurname" attribute,
 check the content of that element against its matching
 "fullname", "initials", or "surname" element (respectively).
 If the two are the same, remove the "ascii*" elelement
 and issue a warning about the removal.
 
-1. For any &lt;reference&gt; element that does not already have a "target" attribute, fill the target
+## Reference Target Insertion {#reference-target-insertion}
+
+For any &lt;reference&gt; element that does not already have a "target" attribute, fill the target
 attribute in if the element has one or more &lt;seriesinfo&gt; child element(s)
 and the "name" attribute of the  &lt;seriesinfo&gt; element is
 "RFC", "Internet-Draft", or "DOI" or other value for which it is clear what the "target" should be.
@@ -258,23 +294,33 @@ The particular URLs
 for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and
 the IESG. These URLs might also be different before and after the v3 format is adopted.
 
-1. For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
+## Displayreference Processing {#displayreference-processing}
+
+For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
 replace the value of the "anchor" attribute with the
 value of the "to" attribute of the associated &lt;displayreference&gt;.
 
-1. For every &lt;section&gt; element that has a (deprecated) "title" attribute, remove the
+## Title Attribute Conversion {#title-attribute-conversion}
+
+For every &lt;section&gt; element that has a (deprecated) "title" attribute, remove the
 "title" attribute and insert a &lt;name&gt; element in that section with the title from the attribute.
 
-1. Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
+## Name Slugification {#name-slugification}
+
+Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
 
-1. If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
+## Reference Sorting {#reference.sorting}
+
+If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
 as modified by the "to" attribute of any &lt;displayreference&gt; element.
 The RFC Editor needs to determine what the rules for lexical sorting are.
 The authors of this document acknowledge that getting consensus on this will be a difficult task.
 
-1. Add "pn" attributes for all parts.  Parts are:
+## Part Numbering {#part.numbering}
+
+Add "pn" attributes for all parts.  Parts are:
   * &lt;section&gt; in &lt;middle&gt;: pn='s-1.4.2'
   * &lt;references&gt;: pn='s-12' or pn='s-12.1'
   * &lt;abstract&gt;: pn='s-abstract'
@@ -285,25 +331,35 @@ The authors of this document acknowledge that getting consensus on this will be 
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;,
     &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn='p-\[section\]-\[counter\]'
 
-1. In every &lt;iref&gt; element, create a document-unique "irefid" attribute.
+## Iref ID Generation {#iref-id-generation}
+
+In every &lt;iref&gt; element, create a document-unique "irefid" attribute.
 The value of the "irefid" attribute will start with 'i-', and use the item
 attribute, the subitem attribute (if it exists), and a counter to ensure
 uniqueness. For example, the first instance of "&lt;iref item='foo'
 subitem='bar'&gt;" will get the irefid 'i-foo-bar-1'.
 
-1. Add a "start" attribute to every &lt;ol&gt; element containing a group that
+## Group Start Handling (#group-start-handling}
+
+Add a "start" attribute to every &lt;ol&gt; element containing a group that
 does not already have a start.
 
-1. For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
+## Xref Target Rewriting {#xref-target-rewriting}
+
+For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
 that has an associated &lt;displayreference&gt;, modify the "target"
 attribute of the &lt;xref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
 
-1. For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
+## DerivedContent Insertion (With Content) {#derivedcontent-insertion-with-content}
+
+For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
 content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the "derivedContent" attribute already exists and has a different value from what
 was being filled in.
 
-1. For each &lt;xref&gt; element that does not have content, fill the "derivedContent" based on the
+## DerivedContent Insertion (Without Content) {#derivedcontent-insertion-without-content}
+
+For each &lt;xref&gt; element that does not have content, fill the "derivedContent" based on the
 "format" attribute.
   * For format='counter', the "derivedContent" is the section, figure, table, or ordered list number
     of the element with anchor equal to the xref target.
@@ -325,22 +381,28 @@ was being filled in.
     Issue a warning if the "derivedContent" attribute already exists and has a different value from what
     was being filled in.
 
-1. For each &lt;relref&gt; element referring to a &lt;reference&gt;
+## Relref Processing {#relref-processing}
+
+For each &lt;relref&gt; element referring to a &lt;reference&gt;
 that has an associated &lt;displayreference&gt;, modify the "target"
 attribute of the &lt;relref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
 
-1. If any &lt;relref&gt; element's "target" attribute refers to anything but a
+If any &lt;relref&gt; element's "target" attribute refers to anything but a
 &lt;reference&gt; element, give an error.
 
-1. For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
+For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
-1. For each &lt;relref&gt; element that has content, the "displayFormat" attribute is ignored.
+For each &lt;relref&gt; element that has content, the "displayFormat" attribute is ignored.
 Fill the "derivedRemoteContent" with the
 element content, having first trimmed the whitespace from ends of content text.
 Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
 from what was being filled in.
 
-1. Remove every &lt;displayreference&gt; element.
+## Displayreference Removal {#displayreference-removal}
+
+Remove every &lt;displayreference&gt; element.
+
+## Artwork Processing {#artwork-processing}
 
 1. If an &lt;artwork&gt; element has a "src" attribute where no scheme is
 specified, replace it with a URI that uses the "file:" scheme in a path relative to the file being
@@ -397,6 +459,8 @@ preferred types other than "binary-art" are text, which is possibly wrong.
     resolved text from the URI in the "src" attribute. Add an "originalSrc"
     attribute with the value of the URI and remove the "src" attribute.
 
+## Sourecode Processing {#sourcecode-processing}    
+    
 1. If a &lt;sourcecode&gt; element has a "src" attribute where no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
 processed and replace the "src" attribute with a "file:" URI.
@@ -420,8 +484,12 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     text from the URI in the "src" attribute. Add an "originalSrc" attribute with
     the value of the URI and remove the "src" attribute.
 
-1. Determine all the characters used in the document, and fill in the "scripts"
+## Scripts Insertion {#scripts-insertion}    
+    
+Determine all the characters used in the document, and fill in the "scripts"
 attribute for &lt;rfc&gt;.
+
+## Link Element Processing {#link-element-processing}
 
 1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel" attribute
 has the value "alternate".
@@ -439,17 +507,25 @@ the file name of the Internet-Draft that became this RFC
 the form &lt;link rel="convertedFrom" href="https://datatracker.ietf.org/doc/draft-tttttttttt/"&gt;.
 If one does not exist, give an error.
 
-1. If in RFC production mode, remove all "xml:base" or "originalSrc" attributes from
+## Base and OriginalSrc Removal {#base-originalsrc-removal}
+
+If in RFC production mode, remove all "xml:base" or "originalSrc" attributes from
 all elements.
 
-1. Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
+## Version Attribute Insertion {#version-attribute-insertion}
+
+Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
 it is set to "3". If there is already a different value, give an error.
 
-1. If in RFC production mode, ensure that the result is in full compliance to v3
+## Deprecation Check {#deprecation-check}
+
+If in RFC production mode, ensure that the result is in full compliance to v3
 schema, without any deprecated elements or attributes, and give an error if any
 issues are found.
 
-1. Pretty-format the XML output.  (Note: tools like <https://github.com/hildjj/dentin> do an adequate job.)
+## Pretty-Format {#pretty}
+
+Pretty-format the XML output.  (Note: tools like <https://github.com/hildjj/dentin> do an adequate job.)
 
 
 Additional Uses for the Prep Tool
