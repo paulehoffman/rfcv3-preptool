@@ -889,7 +889,7 @@ Internet-Draft        RFC v3 Prep Tool Description            April 2016
 
    Many people contributed valuable ideas to this document.  Special
    thanks go to Robert Sparks for his in-depth review and contributions
-   early in the development of this document.
+
 
 
 
@@ -897,6 +897,9 @@ Hoffman & Hildebrand    Expires October 28, 2016               [Page 16]
 
 Internet-Draft        RFC v3 Prep Tool Description            April 2016
 
+
+   early in the development of this document, and to Julian Reschke for
+   his help getting the document structured more clearly.
 
 10.  Informative References
 
@@ -931,9 +934,6 @@ Authors' Addresses
    Cisco
 
    Email: jhildebr@cisco.com
-
-
-
 
 
 
