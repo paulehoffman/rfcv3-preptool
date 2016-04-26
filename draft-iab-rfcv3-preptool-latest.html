@@ -379,46 +379,56 @@
 <link href="#rfc.section.3" rel="Chapter" title="3 Internet-Draft Submission"/>
 <link href="#rfc.section.4" rel="Chapter" title="4 Canonical RFC Preparation"/>
 <link href="#rfc.section.5" rel="Chapter" title="5 What the v3 Prep Tool Does"/>
-<link href="#rfc.section.5.1" rel="Chapter" title="5.1 DTD Removal"/>
-<link href="#rfc.section.5.2" rel="Chapter" title="5.2 XInclude Processing"/>
-<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Processing Instruction Removal"/>
-<link href="#rfc.section.5.4" rel="Chapter" title="5.4 Validity Check"/>
-<link href="#rfc.section.5.5" rel="Chapter" title="5.5 SeriesInfo Insertion"/>
-<link href="#rfc.section.5.6" rel="Chapter" title="5.6 Date Processing"/>
-<link href="#rfc.section.5.7" rel="Chapter" title="5.7 Preptime Insertion"/>
-<link href="#rfc.section.5.8" rel="Chapter" title="5.8 Month Attribute Normalization"/>
-<link href="#rfc.section.5.9" rel="Chapter" title="5.9 Normalize Document Date"/>
-<link href="#rfc.section.5.10" rel="Chapter" title="5.10 ExpiresDate Insertion"/>
-<link href="#rfc.section.5.11" rel="Chapter" title="5.11 Attribute Default Value Insertion"/>
-<link href="#rfc.section.5.12" rel="Chapter" title="5.12 XML Comment Removal"/>
-<link href="#rfc.section.5.13" rel="Chapter" title="5.13 Cref Element Removal"/>
-<link href="#rfc.section.5.14" rel="Chapter" title="5.14 Boilerplate Insertion"/>
-<link href="#rfc.section.5.15" rel="Chapter" title="5.15 &#x2018;Status of this Memo&#x2019; Insertion"/>
-<link href="#rfc.section.5.16" rel="Chapter" title="5.16 Copyright Insertion"/>
-<link href="#rfc.section.5.17" rel="Chapter" title="5.17 RemoveInRFC Processing"/>
-<link href="#rfc.section.5.18" rel="Chapter" title="5.18 ASCII Attribute Processing"/>
-<link href="#rfc.section.5.19" rel="Chapter" title="5.19 Reference Target Insertion"/>
-<link href="#rfc.section.5.20" rel="Chapter" title="5.20 Displayreference Processing"/>
-<link href="#rfc.section.5.21" rel="Chapter" title="5.21 Title Attribute Conversion"/>
-<link href="#rfc.section.5.22" rel="Chapter" title="5.22 Name Slugification"/>
-<link href="#rfc.section.5.23" rel="Chapter" title="5.23 Reference Sorting"/>
-<link href="#rfc.section.5.24" rel="Chapter" title="5.24 Check Anchors"/>
-<link href="#rfc.section.5.25" rel="Chapter" title="5.25 Part Numbering"/>
-<link href="#rfc.section.5.26" rel="Chapter" title="5.26 Iref ID Generation"/>
-<link href="#rfc.section.5.27" rel="Chapter" title="5.27 Group Start Handling"/>
-<link href="#rfc.section.5.28" rel="Chapter" title="5.28 Xref Target Rewriting"/>
-<link href="#rfc.section.5.29" rel="Chapter" title="5.29 DerivedContent Insertion (With Content)"/>
-<link href="#rfc.section.5.30" rel="Chapter" title="5.30 DerivedContent Insertion (Without Content)"/>
-<link href="#rfc.section.5.31" rel="Chapter" title="5.31 Relref Processing"/>
-<link href="#rfc.section.5.32" rel="Chapter" title="5.32 Displayreference Removal"/>
-<link href="#rfc.section.5.33" rel="Chapter" title="5.33 Artwork Processing"/>
-<link href="#rfc.section.5.34" rel="Chapter" title="5.34 Sourecode Processing"/>
-<link href="#rfc.section.5.35" rel="Chapter" title="5.35 Link Element Processing"/>
-<link href="#rfc.section.5.36" rel="Chapter" title="5.36 Base and OriginalSrc Removal"/>
-<link href="#rfc.section.5.37" rel="Chapter" title="5.37 Version Attribute Insertion"/>
-<link href="#rfc.section.5.38" rel="Chapter" title="5.38 Scripts Insertion"/>
-<link href="#rfc.section.5.39" rel="Chapter" title="5.39 Deprecation Check"/>
-<link href="#rfc.section.5.40" rel="Chapter" title="5.40 Pretty-Format"/>
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 XML Sanitization"/>
+<link href="#rfc.section.5.1.1" rel="Chapter" title="5.1.1 XInclude Processing"/>
+<link href="#rfc.section.5.1.2" rel="Chapter" title="5.1.2 DTD Removal"/>
+<link href="#rfc.section.5.1.3" rel="Chapter" title="5.1.3 Processing Instruction Removal"/>
+<link href="#rfc.section.5.1.4" rel="Chapter" title="5.1.4 Validity Check"/>
+<link href="#rfc.section.5.1.5" rel="Chapter" title="5.1.5 Check &#x201C;anchor&#x201D;"/>
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Defaults"/>
+<link href="#rfc.section.5.2.1" rel="Chapter" title="5.2.1 &#x201C;version&#x201D; Insertion"/>
+<link href="#rfc.section.5.2.2" rel="Chapter" title="5.2.2 &#x201C;seriesInfo&#x201D; Insertion"/>
+<link href="#rfc.section.5.2.3" rel="Chapter" title="5.2.3 &lt;date&gt; Insertion"/>
+<link href="#rfc.section.5.2.4" rel="Chapter" title="5.2.4 &#x201C;prepTime&#x201D; Insertion"/>
+<link href="#rfc.section.5.2.5" rel="Chapter" title="5.2.5 &lt;ol&gt; Group &#x201C;start&#x201D; Insertion"/>
+<link href="#rfc.section.5.2.6" rel="Chapter" title="5.2.6 Attribute Default Value Insertion"/>
+<link href="#rfc.section.5.2.7" rel="Chapter" title="5.2.7 Section &#x201C;toc&#x201D; attribute"/>
+<link href="#rfc.section.5.2.8" rel="Chapter" title="5.2.8 &#x201C;removeInRFC&#x201D; Warning Paragraph"/>
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Normalization"/>
+<link href="#rfc.section.5.3.1" rel="Chapter" title="5.3.1 &#x201C;month&#x201D; Attribute"/>
+<link href="#rfc.section.5.3.2" rel="Chapter" title="5.3.2 Document &lt;date&gt;"/>
+<link href="#rfc.section.5.3.3" rel="Chapter" title="5.3.3 ASCII Attribute Processing"/>
+<link href="#rfc.section.5.3.4" rel="Chapter" title="5.3.4 &#x201C;title&#x201D; Conversion"/>
+<link href="#rfc.section.5.4" rel="Chapter" title="5.4 Generation"/>
+<link href="#rfc.section.5.4.1" rel="Chapter" title="5.4.1 &#x201C;expiresDate&#x201D; Insertion"/>
+<link href="#rfc.section.5.4.2" rel="Chapter" title="5.4.2 &lt;boilerplate&gt; Insertion"/>
+<link href="#rfc.section.5.4.2.1" rel="Chapter" title="5.4.2.1 &#x2018;Status of this Memo&#x2019; Insertion"/>
+<link href="#rfc.section.5.4.2.2" rel="Chapter" title="5.4.2.2 Copyright Insertion"/>
+<link href="#rfc.section.5.4.3" rel="Chapter" title="5.4.3 &lt;reference&gt; &#x201C;target&#x201D; Insertion"/>
+<link href="#rfc.section.5.4.4" rel="Chapter" title="5.4.4 &lt;displayreference&gt; Processing"/>
+<link href="#rfc.section.5.4.5" rel="Chapter" title="5.4.5 &lt;name&gt; Slugification"/>
+<link href="#rfc.section.5.4.6" rel="Chapter" title="5.4.6 &lt;reference&gt; Sorting"/>
+<link href="#rfc.section.5.4.7" rel="Chapter" title="5.4.7 Part Numbering"/>
+<link href="#rfc.section.5.4.8" rel="Chapter" title="5.4.8 &lt;iref&gt; Numbering"/>
+<link href="#rfc.section.5.4.9" rel="Chapter" title="5.4.9 &lt;xref&gt; processing"/>
+<link href="#rfc.section.5.4.9.1" rel="Chapter" title="5.4.9.1 &#x201C;target&#x201D; Rewriting"/>
+<link href="#rfc.section.5.4.9.2" rel="Chapter" title="5.4.9.2 &#x201C;derivedContent&#x201D; Insertion (With Content)"/>
+<link href="#rfc.section.5.4.9.3" rel="Chapter" title="5.4.9.3 &#x201C;derivedContent&#x201D; Insertion (Without Content)"/>
+<link href="#rfc.section.5.4.10" rel="Chapter" title="5.4.10 &lt;relref&gt; Processing"/>
+<link href="#rfc.section.5.4.11" rel="Chapter" title="5.4.11 &lt;displayreference&gt; Removal"/>
+<link href="#rfc.section.5.5" rel="Chapter" title="5.5 Inclusion"/>
+<link href="#rfc.section.5.5.1" rel="Chapter" title="5.5.1 &lt;artwork&gt; Processing"/>
+<link href="#rfc.section.5.5.2" rel="Chapter" title="5.5.2 &lt;sourcecode&gt; Processing"/>
+<link href="#rfc.section.5.6" rel="Chapter" title="5.6 RFC-mode cleanup"/>
+<link href="#rfc.section.5.6.1" rel="Chapter" title="5.6.1 &lt;note&gt; Removal"/>
+<link href="#rfc.section.5.6.2" rel="Chapter" title="5.6.2 &lt;cref&gt; Removal"/>
+<link href="#rfc.section.5.6.3" rel="Chapter" title="5.6.3 &lt;link&gt; Processing"/>
+<link href="#rfc.section.5.6.4" rel="Chapter" title="5.6.4 XML Comment Removal"/>
+<link href="#rfc.section.5.6.5" rel="Chapter" title="5.6.5 &#x201C;xml:base&#x201D; and &#x201C;originalSrc&#x201D; Removal"/>
+<link href="#rfc.section.5.7" rel="Chapter" title="5.7 Finalization"/>
+<link href="#rfc.section.5.7.1" rel="Chapter" title="5.7.1 &#x201C;scripts&#x201D; Insertion"/>
+<link href="#rfc.section.5.7.2" rel="Chapter" title="5.7.2 Deprecation Check"/>
+<link href="#rfc.section.5.7.3" rel="Chapter" title="5.7.3 Pretty-Format"/>
 <link href="#rfc.section.6" rel="Chapter" title="6 Additional Uses for the Prep Tool"/>
 <link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations"/>
 <link href="#rfc.section.8" rel="Chapter" title="8 Security Considerations"/>
@@ -498,47 +508,57 @@
 <li>3.   <a href="#rfc.section.3">Internet-Draft Submission</a></li>
 <li>4.   <a href="#rfc.section.4">Canonical RFC Preparation</a></li>
 <li>5.   <a href="#rfc.section.5">What the v3 Prep Tool Does</a></li>
-<ul><li>5.1.   <a href="#rfc.section.5.1">DTD Removal</a></li>
-<li>5.2.   <a href="#rfc.section.5.2">XInclude Processing</a></li>
-<li>5.3.   <a href="#rfc.section.5.3">Processing Instruction Removal</a></li>
-<li>5.4.   <a href="#rfc.section.5.4">Validity Check</a></li>
-<li>5.5.   <a href="#rfc.section.5.5">SeriesInfo Insertion</a></li>
-<li>5.6.   <a href="#rfc.section.5.6">Date Processing</a></li>
-<li>5.7.   <a href="#rfc.section.5.7">Preptime Insertion</a></li>
-<li>5.8.   <a href="#rfc.section.5.8">Month Attribute Normalization</a></li>
-<li>5.9.   <a href="#rfc.section.5.9">Normalize Document Date</a></li>
-<li>5.10.   <a href="#rfc.section.5.10">ExpiresDate Insertion</a></li>
-<li>5.11.   <a href="#rfc.section.5.11">Attribute Default Value Insertion</a></li>
-<li>5.12.   <a href="#rfc.section.5.12">XML Comment Removal</a></li>
-<li>5.13.   <a href="#rfc.section.5.13">Cref Element Removal</a></li>
-<li>5.14.   <a href="#rfc.section.5.14">Boilerplate Insertion</a></li>
-<li>5.15.   <a href="#rfc.section.5.15">&#8216;Status of this Memo&#8217; Insertion</a></li>
-<li>5.16.   <a href="#rfc.section.5.16">Copyright Insertion</a></li>
-<li>5.17.   <a href="#rfc.section.5.17">RemoveInRFC Processing</a></li>
-<li>5.18.   <a href="#rfc.section.5.18">ASCII Attribute Processing</a></li>
-<li>5.19.   <a href="#rfc.section.5.19">Reference Target Insertion</a></li>
-<li>5.20.   <a href="#rfc.section.5.20">Displayreference Processing</a></li>
-<li>5.21.   <a href="#rfc.section.5.21">Title Attribute Conversion</a></li>
-<li>5.22.   <a href="#rfc.section.5.22">Name Slugification</a></li>
-<li>5.23.   <a href="#rfc.section.5.23">Reference Sorting</a></li>
-<li>5.24.   <a href="#rfc.section.5.24">Check Anchors</a></li>
-<li>5.25.   <a href="#rfc.section.5.25">Part Numbering</a></li>
-<li>5.26.   <a href="#rfc.section.5.26">Iref ID Generation</a></li>
-<li>5.27.   <a href="#rfc.section.5.27">Group Start Handling</a></li>
-<li>5.28.   <a href="#rfc.section.5.28">Xref Target Rewriting</a></li>
-<li>5.29.   <a href="#rfc.section.5.29">DerivedContent Insertion (With Content)</a></li>
-<li>5.30.   <a href="#rfc.section.5.30">DerivedContent Insertion (Without Content)</a></li>
-<li>5.31.   <a href="#rfc.section.5.31">Relref Processing</a></li>
-<li>5.32.   <a href="#rfc.section.5.32">Displayreference Removal</a></li>
-<li>5.33.   <a href="#rfc.section.5.33">Artwork Processing</a></li>
-<li>5.34.   <a href="#rfc.section.5.34">Sourecode Processing</a></li>
-<li>5.35.   <a href="#rfc.section.5.35">Link Element Processing</a></li>
-<li>5.36.   <a href="#rfc.section.5.36">Base and OriginalSrc Removal</a></li>
-<li>5.37.   <a href="#rfc.section.5.37">Version Attribute Insertion</a></li>
-<li>5.38.   <a href="#rfc.section.5.38">Scripts Insertion</a></li>
-<li>5.39.   <a href="#rfc.section.5.39">Deprecation Check</a></li>
-<li>5.40.   <a href="#rfc.section.5.40">Pretty-Format</a></li>
-</ul><li>6.   <a href="#rfc.section.6">Additional Uses for the Prep Tool</a></li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">XML Sanitization</a></li>
+<ul><li>5.1.1.   <a href="#rfc.section.5.1.1">XInclude Processing</a></li>
+<li>5.1.2.   <a href="#rfc.section.5.1.2">DTD Removal</a></li>
+<li>5.1.3.   <a href="#rfc.section.5.1.3">Processing Instruction Removal</a></li>
+<li>5.1.4.   <a href="#rfc.section.5.1.4">Validity Check</a></li>
+<li>5.1.5.   <a href="#rfc.section.5.1.5">Check &#8220;anchor&#8221;</a></li>
+</ul><li>5.2.   <a href="#rfc.section.5.2">Defaults</a></li>
+<ul><li>5.2.1.   <a href="#rfc.section.5.2.1">&#8220;version&#8221; Insertion</a></li>
+<li>5.2.2.   <a href="#rfc.section.5.2.2">&#8220;seriesInfo&#8221; Insertion</a></li>
+<li>5.2.3.   <a href="#rfc.section.5.2.3">&lt;date&gt; Insertion</a></li>
+<li>5.2.4.   <a href="#rfc.section.5.2.4">&#8220;prepTime&#8221; Insertion</a></li>
+<li>5.2.5.   <a href="#rfc.section.5.2.5">&lt;ol&gt; Group &#8220;start&#8221; Insertion</a></li>
+<li>5.2.6.   <a href="#rfc.section.5.2.6">Attribute Default Value Insertion</a></li>
+<li>5.2.7.   <a href="#rfc.section.5.2.7">Section &#8220;toc&#8221; attribute</a></li>
+<li>5.2.8.   <a href="#rfc.section.5.2.8">&#8220;removeInRFC&#8221; Warning Paragraph</a></li>
+</ul><li>5.3.   <a href="#rfc.section.5.3">Normalization</a></li>
+<ul><li>5.3.1.   <a href="#rfc.section.5.3.1">&#8220;month&#8221; Attribute</a></li>
+<li>5.3.2.   <a href="#rfc.section.5.3.2">Document &lt;date&gt;</a></li>
+<li>5.3.3.   <a href="#rfc.section.5.3.3">ASCII Attribute Processing</a></li>
+<li>5.3.4.   <a href="#rfc.section.5.3.4">&#8220;title&#8221; Conversion</a></li>
+</ul><li>5.4.   <a href="#rfc.section.5.4">Generation</a></li>
+<ul><li>5.4.1.   <a href="#rfc.section.5.4.1">&#8220;expiresDate&#8221; Insertion</a></li>
+<li>5.4.2.   <a href="#rfc.section.5.4.2">&lt;boilerplate&gt; Insertion</a></li>
+<ul><li>5.4.2.1.   <a href="#rfc.section.5.4.2.1">&#8216;Status of this Memo&#8217; Insertion</a></li>
+<li>5.4.2.2.   <a href="#rfc.section.5.4.2.2">Copyright Insertion</a></li>
+</ul><li>5.4.3.   <a href="#rfc.section.5.4.3">&lt;reference&gt; &#8220;target&#8221; Insertion</a></li>
+<li>5.4.4.   <a href="#rfc.section.5.4.4">&lt;displayreference&gt; Processing</a></li>
+<li>5.4.5.   <a href="#rfc.section.5.4.5">&lt;name&gt; Slugification</a></li>
+<li>5.4.6.   <a href="#rfc.section.5.4.6">&lt;reference&gt; Sorting</a></li>
+<li>5.4.7.   <a href="#rfc.section.5.4.7">Part Numbering</a></li>
+<li>5.4.8.   <a href="#rfc.section.5.4.8">&lt;iref&gt; Numbering</a></li>
+<li>5.4.9.   <a href="#rfc.section.5.4.9">&lt;xref&gt; processing</a></li>
+<ul><li>5.4.9.1.   <a href="#rfc.section.5.4.9.1">&#8220;target&#8221; Rewriting</a></li>
+<li>5.4.9.2.   <a href="#rfc.section.5.4.9.2">&#8220;derivedContent&#8221; Insertion (With Content)</a></li>
+<li>5.4.9.3.   <a href="#rfc.section.5.4.9.3">&#8220;derivedContent&#8221; Insertion (Without Content)</a></li>
+</ul><li>5.4.10.   <a href="#rfc.section.5.4.10">&lt;relref&gt; Processing</a></li>
+<li>5.4.11.   <a href="#rfc.section.5.4.11">&lt;displayreference&gt; Removal</a></li>
+</ul><li>5.5.   <a href="#rfc.section.5.5">Inclusion</a></li>
+<ul><li>5.5.1.   <a href="#rfc.section.5.5.1">&lt;artwork&gt; Processing</a></li>
+<li>5.5.2.   <a href="#rfc.section.5.5.2">&lt;sourcecode&gt; Processing</a></li>
+</ul><li>5.6.   <a href="#rfc.section.5.6">RFC-mode cleanup</a></li>
+<ul><li>5.6.1.   <a href="#rfc.section.5.6.1">&lt;note&gt; Removal</a></li>
+<li>5.6.2.   <a href="#rfc.section.5.6.2">&lt;cref&gt; Removal</a></li>
+<li>5.6.3.   <a href="#rfc.section.5.6.3">&lt;link&gt; Processing</a></li>
+<li>5.6.4.   <a href="#rfc.section.5.6.4">XML Comment Removal</a></li>
+<li>5.6.5.   <a href="#rfc.section.5.6.5">&#8220;xml:base&#8221; and &#8220;originalSrc&#8221; Removal</a></li>
+</ul><li>5.7.   <a href="#rfc.section.5.7">Finalization</a></li>
+<ul><li>5.7.1.   <a href="#rfc.section.5.7.1">&#8220;scripts&#8221; Insertion</a></li>
+<li>5.7.2.   <a href="#rfc.section.5.7.2">Deprecation Check</a></li>
+<li>5.7.3.   <a href="#rfc.section.5.7.3">Pretty-Format</a></li>
+</ul></ul><li>6.   <a href="#rfc.section.6">Additional Uses for the Prep Tool</a></li>
 <li>7.   <a href="#rfc.section.7">IANA Considerations</a></li>
 <li>8.   <a href="#rfc.section.8">Security Considerations</a></li>
 <li>9.   <a href="#rfc.section.9">Acknowledgements</a></li>
@@ -565,7 +585,7 @@
 <p id="rfc.section.2.p.4">Note that this only describes what the IETF-sponsored prep tool does. Others might create their own work-alike prep tools for their own formatting needs.  However, an output format developer does not need to change the prep tool in order to create their own formatter: they only need to be able to consume prepared text. The IETF-sponsored prep tool runs in two different modes: &#8220;I-D&#8221; mode when the tool is run during Internet-Draft submission and processing, and &#8220;RFC production mode&#8221; when the tool is run by the RFC Production Center (RPC) while producing an RFC.</p>
 <p id="rfc.section.2.p.5">This tool is described as if it is a separate tool so that we can reason about its architectural properties. In actual implementation, it might be a part of a larger suite of functionality.</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#internet-draft-submission" id="internet-draft-submission">Internet-Draft Submission</a></h1>
-<p id="rfc.section.3.p.1">When the IETF draft submission tool accepts v3 XML as an input format, the submission tool runs the submitted file through the prep tool.  This is called &#8220;I-D mode&#8221; in this document.  If the tool finds no errors, it keeps two XML files: the submitted file and the prepped file.</p>
+<p id="rfc.section.3.p.1">When the IETF draft submission tool accepts v3 XML as an input format, the submission tool runs the submitted file through the prep tool. This is called &#8220;I-D mode&#8221; in this document. If the tool finds no errors, it keeps two XML files: the submitted file and the prepped file.</p>
 <p id="rfc.section.3.p.2">The prepped file provides a record of what a submitter was attesting to at the time of submission. It represents a self-contained record of what any external references resolved to at the time of submission.</p>
 <p id="rfc.section.3.p.3">The prepped file is used by the IETF formatters to create outputs such as HTML, PDF, and text (or the tools act in a way indistinguishable from this). The message sent out by the draft submission tool includes a link to the original XML as well as the other outputs, including the prepped XML.</p>
 <p id="rfc.section.3.p.4">The prepped XML can be used by tools not yet developed to output new formats that have as similar output as possible to the current IETF formatters. For example, if the IETF creates a .mobi output renderer later, it can run that renderer on all of the prepped XML that has been saved, ensuring that the content of included external references and all of the part numbers and boilerplate will be the same as what was produced by the previous IETF formatters at the time the document was first uploaded.</p>
@@ -576,68 +596,86 @@
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#steps" id="steps">What the v3 Prep Tool Does</a></h1>
 <p id="rfc.section.5.p.1">The steps listed here are in order of processing. In all cases where the prep tool would &#8220;add&#8221; an attribute or element, if that attribute or element already exists, the prep tool will check that the attribute or element is correct. If the value is incorrect, the prep tool will warn with the old and new values, then replace the incorrect value with the new value.</p>
 <p id="rfc.section.5.p.2">Currently, the IETF uses a tool called &#8220;idnits&#8221; to check text input to the Internet-Drafts publishing process. idnits indicates if it encountered any errors, and also provide text with all of the warnings and errors in a human-readable form. The prep tool should probably check for as many of these errors and warnings as possible when it is processing the XML input. For the moment, tooling might run idnts on the text output from the prepared XML. The list below contains some of those errors and warnings, but the deployed version of the prep tool may contain additional steps to include more or the checks from idnits.</p>
-<h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#dtd-removal" id="dtd-removal">DTD Removal</a></h1>
-<p id="rfc.section.5.1.p.1">Fully process any DTDs in the input document, then remove the DTD.  At a minimum, this entails processing the entityrefs and includes for external files.</p>
-<h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#xinclude-processing" id="xinclude-processing">XInclude Processing</a></h1>
-<p id="rfc.section.5.2.p.1">Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The tool may be configurable with a limit on the depth of recursion.</p>
-<h1 id="rfc.section.5.3"><a href="#rfc.section.5.3">5.3.</a> <a href="#pi-removal" id="pi-removal">Processing Instruction Removal</a></h1>
-<p id="rfc.section.5.3.p.1">Remove processing instructions.</p>
-<h1 id="rfc.section.5.4"><a href="#rfc.section.5.4">5.4.</a> <a href="#validity-check" id="validity-check">Validity Check</a></h1>
-<p id="rfc.section.5.4.p.1">Check the input against the RNG in <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>. If the input is not valid, give an error.</p>
-<h1 id="rfc.section.5.5"><a href="#rfc.section.5.5">5.5.</a> <a href="#seriesinfo-insertion" id="seriesinfo-insertion">SeriesInfo Insertion</a></h1>
-<p id="rfc.section.5.5.p.1">If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name attribute based on the mode in which the preptool is running (&#8220;Internet-Draft&#8221; for Draft mode and &#8220;RFC&#8221; for RFC mode&#8221;) and a value that is the input filename minus any extension for Internet-Drafts, and is a number specified by the RFC Editor for RFCs.</p>
-<h1 id="rfc.section.5.6"><a href="#rfc.section.5.6">5.6.</a> <a href="#date-processing" id="date-processing">Date Processing</a></h1>
-<p id="rfc.section.5.6.p.1">If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt; element, add it and fill in the &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes from the current date. If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt; element with &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes, but the date indicated is more than three days in the past or is in the future, give a warning. If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt; element with some but not all of the &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes, give an error.</p>
-<h1 id="rfc.section.5.7"><a href="#rfc.section.5.7">5.7.</a> <a href="#preptime-insertion" id="preptime-insertion">Preptime Insertion</a></h1>
-<p id="rfc.section.5.7.p.1">Fill in the &#8220;prepTime&#8221; attribute of &lt;rfc&gt; with the current datetime.</p>
-<h1 id="rfc.section.5.8"><a href="#rfc.section.5.8">5.8.</a> <a href="#month-attribute" id="month-attribute">Month Attribute Normalization</a></h1>
-<p id="rfc.section.5.8.p.1">Normalize the values of &#8220;month&#8221; attributes in all &lt;date&gt; elements in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.</p>
-<h1 id="rfc.section.5.9"><a href="#rfc.section.5.9">5.9.</a> <a href="#normalize-date" id="normalize-date">Normalize Document Date</a></h1>
-<p id="rfc.section.5.9.p.1">Normalize the values of &#8220;year&#8221; attributes in all &lt;date&gt; elements in &lt;front&gt; elements in &lt;rfc&gt; elements to be four-digit values.</p>
-<h1 id="rfc.section.5.10"><a href="#rfc.section.5.10">5.10.</a> <a href="#expiresdate-insertion" id="expiresdate-insertion">ExpiresDate Insertion</a></h1>
-<p id="rfc.section.5.10.p.1">If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element.</p>
-<h1 id="rfc.section.5.11"><a href="#rfc.section.5.11">5.11.</a> <a href="#attribute-default-value-insertion" id="attribute-default-value-insertion">Attribute Default Value Insertion</a></h1>
-<p id="rfc.section.5.11.p.1">Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.  Some default values can be found in the Relax NG schema, while others can be found in the prose describing the elements in <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>).</p>
-<h1 id="rfc.section.5.12"><a href="#rfc.section.5.12">5.12.</a> <a href="#xml-comment-removal" id="xml-comment-removal">XML Comment Removal</a></h1>
-<p id="rfc.section.5.12.p.1">If in RFC production mode, remove XML comments.</p>
-<h1 id="rfc.section.5.13"><a href="#rfc.section.5.13">5.13.</a> <a href="#cref-element-removal" id="cref-element-removal">Cref Element Removal</a></h1>
-<p id="rfc.section.5.13.p.1">If in RFC production mode, remove all &lt;cref&gt; elements.</p>
-<h1 id="rfc.section.5.14"><a href="#rfc.section.5.14">5.14.</a> <a href="#boilerplate-insertion" id="boilerplate-insertion">Boilerplate Insertion</a></h1>
-<p id="rfc.section.5.14.p.1">Create a &lt;boilerplate&gt; element if it does not exist. If there are any children of the &lt;boilerplate&gt; element, produce a warning that says &#8220;Existing boilerplate being removed. Other tools, specifically the draft submission tool, will treat this condition as an error&#8221; and remove the existing children.</p>
-<h1 id="rfc.section.5.15"><a href="#rfc.section.5.15">5.15.</a> <a href="#status-of-this-memo-insertion" id="status-of-this-memo-insertion">&#8216;Status of this Memo&#8217; Insertion</a></h1>
-<p id="rfc.section.5.15.p.1">Add the &#8220;Status of this Memo&#8221; section to the &lt;boilerplate&gt; element with current values. The application will use the &#8220;submissionType&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element, the &lt;workgroup&gt; element, and the &#8220;status&#8221; and &#8220;stream&#8221; attributes of the &lt;seriesInfo&gt; element, to determine which <a href="#I-D.iab-rfc5741bis">[I-D.iab-rfc5741bis]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</p>
-<h1 id="rfc.section.5.16"><a href="#rfc.section.5.16">5.16.</a> <a href="#copyright-insertion" id="copyright-insertion">Copyright Insertion</a></h1>
-<p id="rfc.section.5.16.p.1">Add the &#8220;Copyright Notice&#8221; section to the &lt;boilerplate&gt; element. The application will use the &#8220;ipr&#8221; and &#8220;submissionType&#8221; attributes of the &lt;rfc&gt; element and the &lt;date&gt; element to determine which portions and which version of the TLP to use, as described in A.1 of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</p>
-<h1 id="rfc.section.5.17"><a href="#rfc.section.5.17">5.17.</a> <a href="#remove-in-rfc-processing" id="remove-in-rfc-processing">RemoveInRFC Processing</a></h1>
-<p id="rfc.section.5.17.p.1">If in I-D mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, add a paragraph to the top of the &lt;note&gt; element with the text &#8220;This note is to be removed before publishing as an RFC.&#8221; unless a paragraph consisting of that exact text already exists.</p>
-<p id="rfc.section.5.17.p.2">If in RFC production mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, remove the &lt;note&gt; element.</p>
-<h1 id="rfc.section.5.18"><a href="#rfc.section.5.18">5.18.</a> <a href="#ascii-atttribute-processing" id="ascii-atttribute-processing">ASCII Attribute Processing</a></h1>
-<p id="rfc.section.5.18.p.1">In every &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt; element, if there is an &#8220;ascii&#8221; attribute and the value of tha attribute is the same as the content of the element, remove the &#8220;ascii&#8221; element and issue a warning about the removal.</p>
-<p id="rfc.section.5.18.p.2">In every &lt;author&gt; element, if there is an &#8220;asciiFullname&#8221;, &#8220;asciiInitials&#8221;, or &#8220;asciiSurname&#8221; attribute, check the content of that element against its matching &#8220;fullname&#8221;, &#8220;initials&#8221;, or &#8220;surname&#8221; element (respectively).  If the two are the same, remove the &#8220;ascii*&#8221; elelement and issue a warning about the removal.</p>
-<h1 id="rfc.section.5.19"><a href="#rfc.section.5.19">5.19.</a> <a href="#reference-target-insertion" id="reference-target-insertion">Reference Target Insertion</a></h1>
-<p id="rfc.section.5.19.p.1">For any &lt;reference&gt; element that does not already have a &#8220;target&#8221; attribute, fill the target attribute in if the element has one or more &lt;seriesinfo&gt; child element(s) and the &#8220;name&#8221; attribute of the &lt;seriesinfo&gt; element is &#8220;RFC&#8221;, &#8220;Internet-Draft&#8221;, or &#8220;DOI&#8221; or other value for which it is clear what the &#8220;target&#8221; should be. The particular URLs for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and the IESG. These URLs might also be different before and after the v3 format is adopted.</p>
-<h1 id="rfc.section.5.20"><a href="#rfc.section.5.20">5.20.</a> <a href="#displayreference-processing" id="displayreference-processing">Displayreference Processing</a></h1>
-<p id="rfc.section.5.20.p.1">For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, replace the value of the &#8220;anchor&#8221; attribute with the value of the &#8220;to&#8221; attribute of the associated &lt;displayreference&gt;.</p>
-<h1 id="rfc.section.5.21"><a href="#rfc.section.5.21">5.21.</a> <a href="#title-attribute-conversion" id="title-attribute-conversion">Title Attribute Conversion</a></h1>
-<p id="rfc.section.5.21.p.1">For every &lt;section&gt;, &lt;note&gt;, &lt;figure&gt;, &lt;references&gt;, and &lt;texttable&gt; element that has a (deprecated) &#8220;title&#8221; attribute, remove the &#8220;title&#8221; attribute and insert a &lt;name&gt; element with the title from the attribute.</p>
-<h1 id="rfc.section.5.22"><a href="#rfc.section.5.22">5.22.</a> <a href="#name-slugification" id="name-slugification">Name Slugification</a></h1>
-<p id="rfc.section.5.22.p.1">Add a &#8220;slugifiedName&#8221; attribute to each &lt;name&gt; element that does not contain one; replace the attribute if it contains a value that begins with &#8220;n-&#8220;.</p>
-<h1 id="rfc.section.5.23"><a href="#rfc.section.5.23">5.23.</a> <a href="#reference-sorting" id="reference-sorting">Reference Sorting</a></h1>
-<p id="rfc.section.5.23.p.1">If the &#8220;sortRefs&#8221; attribute of the &lt;rfc&gt; element is true, sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the &#8220;anchor&#8221; attribute, as modified by the &#8220;to&#8221; attribute of any &lt;displayreference&gt; element. The RFC Editor needs to determine what the rules for lexical sorting are. The authors of this document acknowledge that getting consensus on this will be a difficult task.</p>
-<h1 id="rfc.section.5.24"><a href="#rfc.section.5.24">5.24.</a> <a href="#check-anchors" id="check-anchors">Check Anchors</a></h1>
-<p id="rfc.section.5.24.p.1">Check all elements for &#8220;anchor&#8221; attributes. If any &#8220;anchor&#8221; attribute begins with &#8220;s-&#8220;, &#8220;f-&#8220;, &#8220;t-&#8220;, or &#8220;i-&#8220;, give an error.</p>
-<h1 id="rfc.section.5.25"><a href="#rfc.section.5.25">5.25.</a> <a href="#part-numbering" id="part-numbering">Part Numbering</a></h1>
-<p id="rfc.section.5.25.p.1">Add &#8220;pn&#8221; attributes for all parts.  Parts are: * &lt;section&gt; in &lt;middle&gt;: pn=&#8217;s-1.4.2&#8217; * &lt;references&gt;: pn=&#8217;s-12&#8217; or pn=&#8217;s-12.1&#8217; * &lt;abstract&gt;: pn=&#8217;s-abstract&#8217; * &lt;note&gt;: pn=&#8217;s-note-2&#8217; * &lt;section&gt; in &lt;boilerplate&gt;: pn=&#8217;s-boilerplate-1&#8217; * &lt;table&gt;: pn=&#8217;t-3&#8217; * &lt;figure&gt;: pn=&#8217;f-4&#8217; * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;, &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn=&#8217;p-[section]-[counter]&#8217;</p>
-<h1 id="rfc.section.5.26"><a href="#rfc.section.5.26">5.26.</a> <a href="#iref-id-generation" id="iref-id-generation">Iref ID Generation</a></h1>
-<p id="rfc.section.5.26.p.1">In every &lt;iref&gt; element, create a document-unique &#8220;pn&#8221; attribute.  The value of the &#8220;pn&#8221; attribute will start with &#8216;i-&#8216;, and use the item attribute, the subitem attribute (if it exists), and a counter to ensure uniqueness. For example, the first instance of &#8220;&lt;iref item=&#8217;foo&#8217; subitem=&#8217;bar&#8217;&gt;&#8221; will get the irefid &#8216;i-foo-bar-1&#8217;.</p>
-<h1 id="rfc.section.5.27"><a href="#rfc.section.5.27">5.27.</a> <a href="#group-start-handling" id="group-start-handling">Group Start Handling</a></h1>
-<p id="rfc.section.5.27.p.1">Add a &#8220;start&#8221; attribute to every &lt;ol&gt; element containing a group that does not already have a start.</p>
-<h1 id="rfc.section.5.28"><a href="#rfc.section.5.28">5.28.</a> <a href="#xref-target-rewriting" id="xref-target-rewriting">Xref Target Rewriting</a></h1>
-<p id="rfc.section.5.28.p.1">For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, modify the &#8220;target&#8221; attribute of the &lt;xref&gt; to match the &#8220;to&#8221; attribute of the associated &lt;displayreference&gt;.</p>
-<h1 id="rfc.section.5.29"><a href="#rfc.section.5.29">5.29.</a> <a href="#derivedcontent-insertion-with-content" id="derivedcontent-insertion-with-content">DerivedContent Insertion (With Content)</a></h1>
-<p id="rfc.section.5.29.p.1">For each &lt;xref&gt; element that has content, fill the &#8220;derivedContent&#8221; with the element content, having first trimmed the whitespace from ends of content text. Issue a warning if the &#8220;derivedContent&#8221; attribute already exists and has a different value from what was being filled in.</p>
-<h1 id="rfc.section.5.30"><a href="#rfc.section.5.30">5.30.</a> <a href="#derivedcontent-insertion-without-content" id="derivedcontent-insertion-without-content">DerivedContent Insertion (Without Content)</a></h1>
-<p id="rfc.section.5.30.p.1">For each &lt;xref&gt; element that does not have content, fill the &#8220;derivedContent&#8221; based on the &#8220;format&#8221; attribute.  * For format=&#8217;counter&#8217;, the &#8220;derivedContent&#8221; is the section, figure, table, or ordered list number of the element with anchor equal to the xref target.</p>
+<h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#sanitization" id="sanitization">XML Sanitization</a></h1>
+<p id="rfc.section.5.1.p.1">These steps will ensure that the input document is properly formatted, and that all XML processing has been performed.</p>
+<h1 id="rfc.section.5.1.1"><a href="#rfc.section.5.1.1">5.1.1.</a> <a href="#xinclude-processing" id="xinclude-processing">XInclude Processing</a></h1>
+<p id="rfc.section.5.1.1.p.1">Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The tool may be configurable with a limit on the depth of recursion.</p>
+<h1 id="rfc.section.5.1.2"><a href="#rfc.section.5.1.2">5.1.2.</a> <a href="#dtd-removal" id="dtd-removal">DTD Removal</a></h1>
+<p id="rfc.section.5.1.2.p.1">Fully process any DTDs in the input document, then remove the DTD.  At a minimum, this entails processing the entityrefs and includes for external files.</p>
+<h1 id="rfc.section.5.1.3"><a href="#rfc.section.5.1.3">5.1.3.</a> <a href="#pi-removal" id="pi-removal">Processing Instruction Removal</a></h1>
+<p id="rfc.section.5.1.3.p.1">Remove processing instructions.</p>
+<h1 id="rfc.section.5.1.4"><a href="#rfc.section.5.1.4">5.1.4.</a> <a href="#validity-check" id="validity-check">Validity Check</a></h1>
+<p id="rfc.section.5.1.4.p.1">Check the input against the RNG in <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>. If the input is not valid, give an error.</p>
+<h1 id="rfc.section.5.1.5"><a href="#rfc.section.5.1.5">5.1.5.</a> <a href="#check-anchor" id="check-anchor">Check &#8220;anchor&#8221;</a></h1>
+<p id="rfc.section.5.1.5.p.1">Check all elements for &#8220;anchor&#8221; attributes. If any &#8220;anchor&#8221; attribute begins with &#8220;s-&#8220;, &#8220;f-&#8220;, &#8220;t-&#8220;, or &#8220;i-&#8220;, give an error.</p>
+<h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#defaults" id="defaults">Defaults</a></h1>
+<p id="rfc.section.5.2.p.1">These steps will ensure that all default values have been filled in to the XML, in case the defaults change at a later date.  Steps in this section will not overwrite existing values in the input file.</p>
+<h1 id="rfc.section.5.2.1"><a href="#rfc.section.5.2.1">5.2.1.</a> <a href="#version-insertion" id="version-insertion">&#8220;version&#8221; Insertion</a></h1>
+<p id="rfc.section.5.2.1.p.1">Ensure that the output has the &#8220;version&#8221; attribute of &lt;rfc&gt;, and that it is set to &#8220;3&#8221;. If there is already a different value, give an error.</p>
+<h1 id="rfc.section.5.2.2"><a href="#rfc.section.5.2.2">5.2.2.</a> <a href="#seriesinfo-insertion" id="seriesinfo-insertion">&#8220;seriesInfo&#8221; Insertion</a></h1>
+<p id="rfc.section.5.2.2.p.1">If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name attribute based on the mode in which the preptool is running (&#8220;Internet-Draft&#8221; for Draft mode and &#8220;RFC&#8221; for RFC mode&#8221;) and a value that is the input filename minus any extension for Internet-Drafts, and is a number specified by the RFC Editor for RFCs.</p>
+<h1 id="rfc.section.5.2.3"><a href="#rfc.section.5.2.3">5.2.3.</a> <a href="#date-insertion" id="date-insertion">&lt;date&gt; Insertion</a></h1>
+<p id="rfc.section.5.2.3.p.1">If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt; element, add it and fill in the &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes from the current date. If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt; element with &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes, but the date indicated is more than three days in the past or is in the future, give a warning. If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt; element with some but not all of the &#8220;day&#8221;, &#8220;month&#8221;, and &#8220;year&#8221; attibutes, give an error.</p>
+<h1 id="rfc.section.5.2.4"><a href="#rfc.section.5.2.4">5.2.4.</a> <a href="#preptime-insertion" id="preptime-insertion">&#8220;prepTime&#8221; Insertion</a></h1>
+<p id="rfc.section.5.2.4.p.1">If the input document includes a &#8220;prepTime&#8221; attribute of &lt;rfc&gt;, exit with an error.</p>
+<p id="rfc.section.5.2.4.p.2">Fill in the &#8220;prepTime&#8221; attribute of &lt;rfc&gt; with the current datetime.</p>
+<h1 id="rfc.section.5.2.5"><a href="#rfc.section.5.2.5">5.2.5.</a> <a href="#ol-group-start-insertion" id="ol-group-start-insertion">&lt;ol&gt; Group &#8220;start&#8221; Insertion</a></h1>
+<p id="rfc.section.5.2.5.p.1">Add a &#8220;start&#8221; attribute to every &lt;ol&gt; element containing a group that does not already have a start.</p>
+<h1 id="rfc.section.5.2.6"><a href="#rfc.section.5.2.6">5.2.6.</a> <a href="#attribute-default-value-insertion" id="attribute-default-value-insertion">Attribute Default Value Insertion</a></h1>
+<p id="rfc.section.5.2.6.p.1">Fill in any default values for attributes on elements, except &#8220;keepWithNext&#8221; and &#8220;keepWithPrevious&#8221; of &lt;t&gt;, and &#8220;toc&#8221; of &lt;section&gt;.  Some default values can be found in the Relax NG schema, while others can be found in the prose describing the elements in <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>).</p>
+<h1 id="rfc.section.5.2.7"><a href="#rfc.section.5.2.7">5.2.7.</a> <a href="#section-toc" id="section-toc">Section &#8220;toc&#8221; attribute</a></h1>
+<p id="rfc.section.5.2.7.p.1">For each &lt;section&gt;, modify the &#8220;toc&#8221; attribute to be either &#8220;include&#8221; or &#8220;exclude&#8221;:</p>
+<p/>
+
+<ul>
+  <li>for sections that have an ancestor of &lt;boilerplate&gt;, use &#8220;exclude&#8221;</li>
+  <li>else for sections that have a descendant that has toc=&#8221;include&#8221;, use &#8220;include&#8221;.  If the section has toc=&#8221;exclude&#8221; in the input, this is an error.</li>
+  <li>else for sections that are children of a section with toc=&#8221;exclude&#8221;, use &#8220;exclude&#8221;.</li>
+  <li>else for sections that are deeper than rfc/@tocDepth, use &#8220;exclude&#8221;</li>
+  <li>else use &#8220;include&#8221;</li>
+</ul>
+<h1 id="rfc.section.5.2.8"><a href="#rfc.section.5.2.8">5.2.8.</a> <a href="#remove-in-rfc-warning" id="remove-in-rfc-warning">&#8220;removeInRFC&#8221; Warning Paragraph</a></h1>
+<p id="rfc.section.5.2.8.p.1">If in I-D mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, add a paragraph to the top of the &lt;note&gt; element with the text &#8220;This note is to be removed before publishing as an RFC.&#8221; unless a paragraph consisting of that exact text already exists.</p>
+<h1 id="rfc.section.5.3"><a href="#rfc.section.5.3">5.3.</a> <a href="#normalization" id="normalization">Normalization</a></h1>
+<p id="rfc.section.5.3.p.1">These steps will ensure that ideas that can be expressed in multiple different ways in the input document are only found in one way in the prepared document.</p>
+<h1 id="rfc.section.5.3.1"><a href="#rfc.section.5.3.1">5.3.1.</a> <a href="#normalize-month-attribute" id="normalize-month-attribute">&#8220;month&#8221; Attribute</a></h1>
+<p id="rfc.section.5.3.1.p.1">Normalize the values of &#8220;month&#8221; attributes in all &lt;date&gt; elements in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.</p>
+<h1 id="rfc.section.5.3.2"><a href="#rfc.section.5.3.2">5.3.2.</a> <a href="#normalize-date" id="normalize-date">Document &lt;date&gt;</a></h1>
+<p id="rfc.section.5.3.2.p.1">Normalize the values of &#8220;year&#8221; attributes in all &lt;date&gt; elements in &lt;front&gt; elements in &lt;rfc&gt; elements to be four-digit values.</p>
+<h1 id="rfc.section.5.3.3"><a href="#rfc.section.5.3.3">5.3.3.</a> <a href="#ascii-atttribute-processing" id="ascii-atttribute-processing">ASCII Attribute Processing</a></h1>
+<p id="rfc.section.5.3.3.p.1">In every &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt; element, if there is an &#8220;ascii&#8221; attribute and the value of that attribute is the same as the content of the element, remove the &#8220;ascii&#8221; element and issue a warning about the removal.</p>
+<p id="rfc.section.5.3.3.p.2">In every &lt;author&gt; element, if there is an &#8220;asciiFullname&#8221;, &#8220;asciiInitials&#8221;, or &#8220;asciiSurname&#8221; attribute, check the content of that element against its matching &#8220;fullname&#8221;, &#8220;initials&#8221;, or &#8220;surname&#8221; element (respectively). If the two are the same, remove the &#8220;ascii*&#8221; elelement and issue a warning about the removal.</p>
+<h1 id="rfc.section.5.3.4"><a href="#rfc.section.5.3.4">5.3.4.</a> <a href="#title-conversion" id="title-conversion">&#8220;title&#8221; Conversion</a></h1>
+<p id="rfc.section.5.3.4.p.1">For every &lt;section&gt;, &lt;note&gt;, &lt;figure&gt;, &lt;references&gt;, and &lt;texttable&gt; element that has a (deprecated) &#8220;title&#8221; attribute, remove the &#8220;title&#8221; attribute and insert a &lt;name&gt; element with the title from the attribute.</p>
+<h1 id="rfc.section.5.4"><a href="#rfc.section.5.4">5.4.</a> <a href="#generation" id="generation">Generation</a></h1>
+<p id="rfc.section.5.4.p.1">These steps will generate new content, overriding existing similar content in the input document.  Some of these steps are important enough that they specify a warning to be generated when the content being overwritten does not match the new content.</p>
+<h1 id="rfc.section.5.4.1"><a href="#rfc.section.5.4.1">5.4.1.</a> <a href="#expiresdate-insertion" id="expiresdate-insertion">&#8220;expiresDate&#8221; Insertion</a></h1>
+<p id="rfc.section.5.4.1.p.1">If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element.</p>
+<h1 id="rfc.section.5.4.2"><a href="#rfc.section.5.4.2">5.4.2.</a> <a href="#boilerplate-insertion" id="boilerplate-insertion">&lt;boilerplate&gt; Insertion</a></h1>
+<p id="rfc.section.5.4.2.p.1">Create a &lt;boilerplate&gt; element if it does not exist. If there are any children of the &lt;boilerplate&gt; element, produce a warning that says &#8220;Existing boilerplate being removed. Other tools, specifically the draft submission tool, will treat this condition as an error&#8221; and remove the existing children.</p>
+<h1 id="rfc.section.5.4.2.1"><a href="#rfc.section.5.4.2.1">5.4.2.1.</a> <a href="#status-of-this-memo-insertion" id="status-of-this-memo-insertion">&#8216;Status of this Memo&#8217; Insertion</a></h1>
+<p id="rfc.section.5.4.2.1.p.1">Add the &#8220;Status of this Memo&#8221; section to the &lt;boilerplate&gt; element with current values. The application will use the &#8220;submissionType&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element, the &lt;workgroup&gt; element, and the &#8220;status&#8221; and &#8220;stream&#8221; attributes of the &lt;seriesInfo&gt; element, to determine which <a href="#I-D.iab-rfc5741bis">[I-D.iab-rfc5741bis]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</p>
+<h1 id="rfc.section.5.4.2.2"><a href="#rfc.section.5.4.2.2">5.4.2.2.</a> <a href="#copyright-insertion" id="copyright-insertion">Copyright Insertion</a></h1>
+<p id="rfc.section.5.4.2.2.p.1">Add the &#8220;Copyright Notice&#8221; section to the &lt;boilerplate&gt; element. The application will use the &#8220;ipr&#8221; and &#8220;submissionType&#8221; attributes of the &lt;rfc&gt; element and the &lt;date&gt; element to determine which portions and which version of the TLP to use, as described in A.1 of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</p>
+<h1 id="rfc.section.5.4.3"><a href="#rfc.section.5.4.3">5.4.3.</a> <a href="#reference-target-insertion" id="reference-target-insertion">&lt;reference&gt; &#8220;target&#8221; Insertion</a></h1>
+<p id="rfc.section.5.4.3.p.1">For any &lt;reference&gt; element that does not already have a &#8220;target&#8221; attribute, fill the target attribute in if the element has one or more &lt;seriesinfo&gt; child element(s) and the &#8220;name&#8221; attribute of the &lt;seriesinfo&gt; element is &#8220;RFC&#8221;, &#8220;Internet-Draft&#8221;, or &#8220;DOI&#8221; or other value for which it is clear what the &#8220;target&#8221; should be. The particular URLs for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and the IESG. These URLs might also be different before and after the v3 format is adopted.</p>
+<h1 id="rfc.section.5.4.4"><a href="#rfc.section.5.4.4">5.4.4.</a> <a href="#displayreference-processing" id="displayreference-processing">&lt;displayreference&gt; Processing</a></h1>
+<p id="rfc.section.5.4.4.p.1">For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, replace the value of the &#8220;anchor&#8221; attribute with the value of the &#8220;to&#8221; attribute of the associated &lt;displayreference&gt;.</p>
+<h1 id="rfc.section.5.4.5"><a href="#rfc.section.5.4.5">5.4.5.</a> <a href="#name-slugification" id="name-slugification">&lt;name&gt; Slugification</a></h1>
+<p id="rfc.section.5.4.5.p.1">Add a &#8220;slugifiedName&#8221; attribute to each &lt;name&gt; element that does not contain one; replace the attribute if it contains a value that begins with &#8220;n-&#8220;.</p>
+<h1 id="rfc.section.5.4.6"><a href="#rfc.section.5.4.6">5.4.6.</a> <a href="#reference-sorting" id="reference-sorting">&lt;reference&gt; Sorting</a></h1>
+<p id="rfc.section.5.4.6.p.1">If the &#8220;sortRefs&#8221; attribute of the &lt;rfc&gt; element is true, sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the &#8220;anchor&#8221; attribute, as modified by the &#8220;to&#8221; attribute of any &lt;displayreference&gt; element. The RFC Editor needs to determine what the rules for lexical sorting are. The authors of this document acknowledge that getting consensus on this will be a difficult task.</p>
+<h1 id="rfc.section.5.4.7"><a href="#rfc.section.5.4.7">5.4.7.</a> <a href="#part-numbering" id="part-numbering">Part Numbering</a></h1>
+<p id="rfc.section.5.4.7.p.1">Add &#8220;pn&#8221; attributes for all parts.  Parts are: * &lt;section&gt; in &lt;middle&gt;: pn=&#8217;s-1.4.2&#8217; * &lt;references&gt;: pn=&#8217;s-12&#8217; or pn=&#8217;s-12.1&#8217; * &lt;abstract&gt;: pn=&#8217;s-abstract&#8217; * &lt;note&gt;: pn=&#8217;s-note-2&#8217; * &lt;section&gt; in &lt;boilerplate&gt;: pn=&#8217;s-boilerplate-1&#8217; * &lt;table&gt;: pn=&#8217;t-3&#8217; * &lt;figure&gt;: pn=&#8217;f-4&#8217; * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;, &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn=&#8217;p-[section]-[counter]&#8217;</p>
+<h1 id="rfc.section.5.4.8"><a href="#rfc.section.5.4.8">5.4.8.</a> <a href="#iref-numbering" id="iref-numbering">&lt;iref&gt; Numbering</a></h1>
+<p id="rfc.section.5.4.8.p.1">In every &lt;iref&gt; element, create a document-unique &#8220;pn&#8221; attribute.  The value of the &#8220;pn&#8221; attribute will start with &#8216;i-&#8216;, and use the item attribute, the subitem attribute (if it exists), and a counter to ensure uniqueness. For example, the first instance of &#8220;&lt;iref item=&#8217;foo&#8217; subitem=&#8217;bar&#8217;&gt;&#8221; will get the irefid &#8216;i-foo-bar-1&#8217;.</p>
+<h1 id="rfc.section.5.4.9"><a href="#rfc.section.5.4.9">5.4.9.</a> <a href="#xref-processing" id="xref-processing">&lt;xref&gt; processing</a></h1>
+<h1 id="rfc.section.5.4.9.1"><a href="#rfc.section.5.4.9.1">5.4.9.1.</a> <a href="#xref-target-rewriting" id="xref-target-rewriting">&#8220;target&#8221; Rewriting</a></h1>
+<p id="rfc.section.5.4.9.1.p.1">For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, modify the &#8220;target&#8221; attribute of the &lt;xref&gt; to match the &#8220;to&#8221; attribute of the associated &lt;displayreference&gt;.</p>
+<h1 id="rfc.section.5.4.9.2"><a href="#rfc.section.5.4.9.2">5.4.9.2.</a> <a href="#xref-derivedcontent-insertion-with-content" id="xref-derivedcontent-insertion-with-content">&#8220;derivedContent&#8221; Insertion (With Content)</a></h1>
+<p id="rfc.section.5.4.9.2.p.1">For each &lt;xref&gt; element that has content, fill the &#8220;derivedContent&#8221; with the element content, having first trimmed the whitespace from ends of content text. Issue a warning if the &#8220;derivedContent&#8221; attribute already exists and has a different value from what was being filled in.</p>
+<h1 id="rfc.section.5.4.9.3"><a href="#rfc.section.5.4.9.3">5.4.9.3.</a> <a href="#xref-derivedcontent-insertion-without-content" id="xref-derivedcontent-insertion-without-content">&#8220;derivedContent&#8221; Insertion (Without Content)</a></h1>
+<p id="rfc.section.5.4.9.3.p.1">For each &lt;xref&gt; element that does not have content, fill the &#8220;derivedContent&#8221; based on the &#8220;format&#8221; attribute.  * For format=&#8217;counter&#8217;, the &#8220;derivedContent&#8221; is the section, figure, table, or ordered list number of the element with anchor equal to the xref target.</p>
 <p/>
 
 <ul>
@@ -647,14 +685,16 @@
   <li>For format=&#8217;title&#8217;, if the target element has a &lt;name&gt; child element, the &#8220;derivedContent&#8221; attribute is the text content of that &lt;name&gt; element concatenated with the text content of each descendant node of &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the text).</li>
   <li>For format=&#8217;title&#8217;, if the target element does not contain a &lt;name&gt; child element, the &#8220;derivedContent&#8221; attribute is the value of the &#8220;target&#8221; attribute with no other adornment.  Issue a warning if the &#8220;derivedContent&#8221; attribute already exists and has a different value from what was being filled in.</li>
 </ul>
-<h1 id="rfc.section.5.31"><a href="#rfc.section.5.31">5.31.</a> <a href="#relref-processing" id="relref-processing">Relref Processing</a></h1>
-<p id="rfc.section.5.31.p.1">For each &lt;relref&gt; element referring to a &lt;reference&gt; that has an associated &lt;displayreference&gt;, modify the &#8220;target&#8221; attribute of the &lt;relref&gt; to match the &#8220;to&#8221; attribute of the associated &lt;displayreference&gt;.</p>
-<p id="rfc.section.5.31.p.2">If any &lt;relref&gt; element&#8217;s &#8220;target&#8221; attribute refers to anything but a &lt;reference&gt; element, give an error.</p>
-<p id="rfc.section.5.31.p.3">For each &lt;relref&gt; element, fill in the &#8220;derivedLink&#8221; attribute.</p>
-<p id="rfc.section.5.31.p.4">For each &lt;relref&gt; element, if there is no &#8220;relative&#8221; attribute but the target is a v3 RFC or Internet-Draft, create the &#8220;relative&#8221; attribute from the &#8220;section&#8221; attribute.</p>
-<h1 id="rfc.section.5.32"><a href="#rfc.section.5.32">5.32.</a> <a href="#displayreference-removal" id="displayreference-removal">Displayreference Removal</a></h1>
-<p id="rfc.section.5.32.p.1">Remove every &lt;displayreference&gt; element.</p>
-<h1 id="rfc.section.5.33"><a href="#rfc.section.5.33">5.33.</a> <a href="#artwork-processing" id="artwork-processing">Artwork Processing</a></h1>
+<h1 id="rfc.section.5.4.10"><a href="#rfc.section.5.4.10">5.4.10.</a> <a href="#relref-processing" id="relref-processing">&lt;relref&gt; Processing</a></h1>
+<p id="rfc.section.5.4.10.p.1">For each &lt;relref&gt; element referring to a &lt;reference&gt; that has an associated &lt;displayreference&gt;, modify the &#8220;target&#8221; attribute of the &lt;relref&gt; to match the &#8220;to&#8221; attribute of the associated &lt;displayreference&gt;.</p>
+<p id="rfc.section.5.4.10.p.2">If any &lt;relref&gt; element&#8217;s &#8220;target&#8221; attribute refers to anything but a &lt;reference&gt; element, give an error.</p>
+<p id="rfc.section.5.4.10.p.3">For each &lt;relref&gt; element, fill in the &#8220;derivedLink&#8221; attribute.</p>
+<p id="rfc.section.5.4.10.p.4">For each &lt;relref&gt; element, if there is no &#8220;relative&#8221; attribute but the target is a v3 RFC or Internet-Draft, create the &#8220;relative&#8221; attribute from the &#8220;section&#8221; attribute.</p>
+<h1 id="rfc.section.5.4.11"><a href="#rfc.section.5.4.11">5.4.11.</a> <a href="#displayreference-removal" id="displayreference-removal">&lt;displayreference&gt; Removal</a></h1>
+<p id="rfc.section.5.4.11.p.1">Remove every &lt;displayreference&gt; element.</p>
+<h1 id="rfc.section.5.5"><a href="#rfc.section.5.5">5.5.</a> <a href="#inclusion" id="inclusion">Inclusion</a></h1>
+<p id="rfc.section.5.5.p.1">These steps will include external files into the output document.</p>
+<h1 id="rfc.section.5.5.1"><a href="#rfc.section.5.5.1">5.5.1.</a> <a href="#artwork-processing" id="artwork-processing">&lt;artwork&gt; Processing</a></h1>
 <p/>
 
 <ol>
@@ -665,7 +705,7 @@
   <li>If an &lt;artwork&gt; element has type=&#8217;binary-art&#8217;, the data needs to be in a &#8220;src&#8221; attribute with a URI scheme of &#8220;data:&#8221;. If the &#8220;src&#8221; URI scheme is &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, resolve the URL. Replace the &#8220;src&#8221; attribute with a &#8220;data:&#8221; URI, and add an &#8220;originalSrc&#8221; attribute with the value of the URI. For the &#8220;http:&#8221; and &#8220;https:&#8221; URI schemes, the mediatype of the &#8220;data:&#8221; URI will be the Content-Type of the HTTP response. For the &#8220;file:&#8221; URI scheme, the mediatype of the &#8220;data:&#8221; URI needs to be guessed with heuristics (this is possibly a bad idea). This also fails for content that includes binary images but uses a type other than &#8220;binary-art&#8221;. Note: since this feature can&#8217;t be used for RFCs at the moment, this entire feature might be de-prioritized.</li>
   <li>If an &lt;artwork&gt; element does not have type=&#8217;svg&#8217; or type=&#8217;binary-art&#8217; and there is a &#8220;src&#8221; attribute, the data needs to be moved into the content of the &lt;artwork&gt; element. Note that this step assumes that all of the preferred types other than &#8220;binary-art&#8221; are text, which is possibly wrong.  <ul><li>If the &#8220;src&#8221; URI scheme is &#8220;data:&#8221;, fill the content of the &lt;artwork&gt; element with the correctly-escaped form of that data and remove the &#8220;src&#8221; attribute.</li><li>If the &#8220;src&#8221; URI scheme is &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, fill the content of the &lt;artwork&gt; element with the correctly-escaped form of the resolved text from the URI in the &#8220;src&#8221; attribute.  If there is no &#8220;originalSrc&#8221; attribute, add an &#8220;originalSrc&#8221; attribute with the value of the URI and remove the &#8220;src&#8221; attribute.</li></ul></li>
 </ol>
-<h1 id="rfc.section.5.34"><a href="#rfc.section.5.34">5.34.</a> <a href="#sourcecode-processing" id="sourcecode-processing">Sourecode Processing</a></h1>
+<h1 id="rfc.section.5.5.2"><a href="#rfc.section.5.5.2">5.5.2.</a> <a href="#sourcecode-processing" id="sourcecode-processing">&lt;sourcecode&gt; Processing</a></h1>
 <p/>
 
 <ol>
@@ -674,7 +714,13 @@
   <li>If a &lt;sourcecode&gt; element has a &#8220;src&#8221; attribute, and the element has content, give an error.</li>
   <li>If a &lt;sourcecode&gt; element has a &#8220;src&#8221; attribute, the data needs to be moved into the content of the &lt;sourcecode&gt; element.  <ul><li>If the &#8220;src&#8221; URI scheme is &#8220;data:&#8221;, fill the content of the &lt;sourcecode&gt; element with the appropriately-escaped data and remove the &#8220;src&#8221; attribute.</li><li>If the &#8220;src&#8221; URI scheme is &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, fill the content of the &lt;sourcecode&gt; element with the appropriately-escaped resolved text from the URI in the &#8220;src&#8221; attribute.  If there is no &#8220;originalSrc&#8221; attribute, add an &#8220;originalSrc&#8221; attribute with the value of the URI and remove the &#8220;src&#8221; attribute.</li></ul></li>
 </ol>
-<h1 id="rfc.section.5.35"><a href="#rfc.section.5.35">5.35.</a> <a href="#link-element-processing" id="link-element-processing">Link Element Processing</a></h1>
+<h1 id="rfc.section.5.6"><a href="#rfc.section.5.6">5.6.</a> <a href="#rfc-mode-cleanup" id="rfc-mode-cleanup">RFC-mode cleanup</a></h1>
+<p id="rfc.section.5.6.p.1">These steps provide extra cleanup of the output document in RFC production mode.</p>
+<h1 id="rfc.section.5.6.1"><a href="#rfc.section.5.6.1">5.6.1.</a> <a href="#note-removal" id="note-removal">&lt;note&gt; Removal</a></h1>
+<p id="rfc.section.5.6.1.p.1">If in RFC production mode, if there is a &lt;note&gt; element with a &#8220;removeInRFC&#8221; attribute that has the value &#8220;true&#8221;, remove the &lt;note&gt; element.</p>
+<h1 id="rfc.section.5.6.2"><a href="#rfc.section.5.6.2">5.6.2.</a> <a href="#cref-removal" id="cref-removal">&lt;cref&gt; Removal</a></h1>
+<p id="rfc.section.5.6.2.p.1">If in RFC production mode, remove all &lt;cref&gt; elements.</p>
+<h1 id="rfc.section.5.6.3"><a href="#rfc.section.5.6.3">5.6.3.</a> <a href="#link-processing" id="link-processing">&lt;link&gt; Processing</a></h1>
 <p/>
 
 <ol>
@@ -683,16 +729,18 @@
   <li>If in RFC production mode, check if there is a &lt;link&gt; element with a DOI for this RFC; if not, add one of the form &lt;link rel=&#8221;describedBy&#8221; href=&#8221;https://dx.doi.org/10.17487/rfcdddd&#8221;&gt;.</li>
   <li>If in RFC production mode, check if there is a &lt;link&gt; element with the file name of the Internet-Draft that became this RFC the form &lt;link rel=&#8221;convertedFrom&#8221; href=&#8221;https://datatracker.ietf.org/doc/draft-tttttttttt/&#8221;&gt;.  If one does not exist, give an error.</li>
 </ol>
-<h1 id="rfc.section.5.36"><a href="#rfc.section.5.36">5.36.</a> <a href="#base-originalsrc-removal" id="base-originalsrc-removal">Base and OriginalSrc Removal</a></h1>
-<p id="rfc.section.5.36.p.1">If in RFC production mode, remove all &#8220;xml:base&#8221; or &#8220;originalSrc&#8221; attributes from all elements.</p>
-<h1 id="rfc.section.5.37"><a href="#rfc.section.5.37">5.37.</a> <a href="#version-attribute-insertion" id="version-attribute-insertion">Version Attribute Insertion</a></h1>
-<p id="rfc.section.5.37.p.1">Ensure that the output has the &#8220;version&#8221; attribute of &lt;rfc&gt;, and that</p>
-<h1 id="rfc.section.5.38"><a href="#rfc.section.5.38">5.38.</a> <a href="#scripts-insertion" id="scripts-insertion">Scripts Insertion</a></h1>
-<p id="rfc.section.5.38.p.1">Determine all the characters used in the document, and fill in the &#8220;scripts&#8221; attribute for &lt;rfc&gt;.</p>
-<h1 id="rfc.section.5.39"><a href="#rfc.section.5.39">5.39.</a> <a href="#deprecation-check" id="deprecation-check">Deprecation Check</a></h1>
-<p id="rfc.section.5.39.p.1">If in RFC production mode, ensure that the result is in full compliance to v3 schema, without any deprecated elements or attributes, and give an error if any issues are found.</p>
-<h1 id="rfc.section.5.40"><a href="#rfc.section.5.40">5.40.</a> <a href="#pretty" id="pretty">Pretty-Format</a></h1>
-<p id="rfc.section.5.40.p.1">Pretty-format the XML output.  (Note: tools like <a href="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</a> do an adequate job.)</p>
+<h1 id="rfc.section.5.6.4"><a href="#rfc.section.5.6.4">5.6.4.</a> <a href="#xml-comment-removal" id="xml-comment-removal">XML Comment Removal</a></h1>
+<p id="rfc.section.5.6.4.p.1">If in RFC production mode, remove XML comments.</p>
+<h1 id="rfc.section.5.6.5"><a href="#rfc.section.5.6.5">5.6.5.</a> <a href="#base-originalsrc-removal" id="base-originalsrc-removal">&#8220;xml:base&#8221; and &#8220;originalSrc&#8221; Removal</a></h1>
+<p id="rfc.section.5.6.5.p.1">If in RFC production mode, remove all &#8220;xml:base&#8221; or &#8220;originalSrc&#8221; attributes from all elements.</p>
+<h1 id="rfc.section.5.7"><a href="#rfc.section.5.7">5.7.</a> <a href="#finalization" id="finalization">Finalization</a></h1>
+<p id="rfc.section.5.7.p.1">These steps provide the finishing touches on the output document.</p>
+<h1 id="rfc.section.5.7.1"><a href="#rfc.section.5.7.1">5.7.1.</a> <a href="#scripts-insertion" id="scripts-insertion">&#8220;scripts&#8221; Insertion</a></h1>
+<p id="rfc.section.5.7.1.p.1">Determine all the characters used in the document, and fill in the &#8220;scripts&#8221; attribute for &lt;rfc&gt;.</p>
+<h1 id="rfc.section.5.7.2"><a href="#rfc.section.5.7.2">5.7.2.</a> <a href="#deprecation-check" id="deprecation-check">Deprecation Check</a></h1>
+<p id="rfc.section.5.7.2.p.1">If in RFC production mode, ensure that the result is in full compliance to v3 schema, without any deprecated elements or attributes, and give an error if any issues are found.</p>
+<h1 id="rfc.section.5.7.3"><a href="#rfc.section.5.7.3">5.7.3.</a> <a href="#pretty" id="pretty">Pretty-Format</a></h1>
+<p id="rfc.section.5.7.3.p.1">Pretty-format the XML output.  (Note: tools like <a href="https://github.com/hildjj/dentin">https://github.com/hildjj/dentin</a> do an adequate job.)</p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#additional-uses-for-the-prep-tool" id="additional-uses-for-the-prep-tool">Additional Uses for the Prep Tool</a></h1>
 <p id="rfc.section.6.p.1">There will be a need for Internet-Draft authors who include files from their local disk (such as for &lt;artwork src=&#8221;mydrawing.svg&#8221;/&gt;) to have the contents of those files inlined to their drafts before submitting them to the Internet-Draft processor. (There is a possibility that the Internet-Draft processor will allow XML files and accompanying files to be submitted at the same time, but this seems troublesome from a security, portability, and complexity standpoint.) For these users, having a local copy of the prep tool that has an option to just inline all local files would be terribly useful. That option would be a proper subset of the steps given in <a href="#steps">Section 5</a>.</p>
 <p id="rfc.section.6.p.2">A feature that might be useful in a local prep tool would be the inverse of the &#8220;just inline&#8221; option would be &#8220;extract all&#8221;. This would allow a user who has a v3 RFC or Internet-Draft to dump all of the &lt;artwork&gt; and &lt;sourcecode&gt; elements into local files instead of having to find each one in the XML. This option might even do as much validation as possible on the extracted &lt;sourcecode&gt; elements.  This feature might also remove some of the features added by the prep tool (such as part numbers and slugifiedName&#8217;s starting with &#8220;n-&#8220;) in order to make the resulting file easier to edit.</p>

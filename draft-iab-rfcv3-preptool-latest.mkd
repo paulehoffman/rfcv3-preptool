@@ -93,10 +93,9 @@ larger suite of functionality.
 # Internet-Draft Submission
 
 When the IETF draft submission tool accepts v3 XML as an input format, the
-submission tool runs the submitted file through the prep tool.
-This is called "I-D mode" in this document.
-If the tool finds
-no errors, it keeps two XML files: the submitted file and the prepped file.
+submission tool runs the submitted file through the prep tool. This is called
+"I-D mode" in this document. If the tool finds no errors, it keeps two XML
+files: the submitted file and the prepped file.
 
 The prepped file provides a record of what a submitter was attesting to at the
 time of submission. It represents a self-contained record of what any external
@@ -152,28 +151,49 @@ list below contains some of those errors and warnings, but the deployed version
 of the prep tool may contain additional steps to include more or the checks from
 idnits.
 
-## DTD Removal {#dtd-removal}
+## XML Sanitization {#sanitization}
 
-Fully process any DTDs in the input document, then remove the DTD.
-At a minimum, this entails processing the entityrefs and includes for external
-files.
+These steps will ensure that the input document is properly formatted, and that
+all XML processing has been performed.
 
-## XInclude Processing {#xinclude-processing}
+### XInclude Processing {#xinclude-processing}
 
 Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
 include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
 tool may be configurable with a limit on the depth of recursion.
 
-## Processing Instruction Removal {#pi-removal}
+### DTD Removal {#dtd-removal}
+
+Fully process any DTDs in the input document, then remove the DTD.
+At a minimum, this entails processing the entityrefs and includes for external
+files.
+
+### Processing Instruction Removal {#pi-removal}
 
 Remove processing instructions.
 
-## Validity Check {#validity-check}
+### Validity Check {#validity-check}
 
 Check the input against the RNG in {{I-D.iab-xml2rfc}}. If the input is not
 valid, give an error.
 
-## SeriesInfo Insertion {#seriesinfo-insertion}
+### Check "anchor" {#check-anchor}
+
+Check all elements for "anchor" attributes. If any "anchor" attribute
+begins with "s-", "f-", "t-", or "i-", give an error.
+
+## Defaults {#defaults}
+
+These steps will ensure that all default values have been filled in to the XML,
+in case the defaults change at a later date.  Steps in this section will not
+overwrite existing values in the input file.
+
+### "version" Insertion {#version-insertion}
+
+Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that it
+is set to "3". If there is already a different value, give an error.
+
+### "seriesInfo" Insertion {#seriesinfo-insertion}
 
 If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have
 a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name
@@ -182,7 +202,7 @@ for Draft mode and "RFC" for RFC mode") and a value that is the input filename
 minus any extension for Internet-Drafts, and is a number specified by the RFC
 Editor for RFCs.
 
-## Date Processing {#date-processing}
+### &lt;date&gt; Insertion {#date-insertion}
 
 If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a
 &lt;date&gt; element, add it and fill in the "day", "month", and "year"
@@ -193,41 +213,95 @@ give a warning. If the &lt;front&gt; element in the &lt;rfc&gt; element has a
 &lt;date&gt; element with some but not all of the "day", "month", and "year"
 attibutes, give an error.
 
-## Preptime Insertion {#preptime-insertion}
+### "prepTime" Insertion {#preptime-insertion}
+
+If the input document includes a "prepTime" attribute of &lt;rfc&gt;, exit with
+an error.
 
 Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 
-## Month Attribute Normalization {#month-attribute}
+### &lt;ol&gt; Group "start" Insertion {#ol-group-start-insertion}
 
-Normalize the values of "month" attributes in all &lt;date&gt; elements
-in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.
+Add a "start" attribute to every &lt;ol&gt; element containing a group that
+does not already have a start.
 
-## Normalize Document Date {#normalize-date}
-
-Normalize the values of "year" attributes in all &lt;date&gt; elements
-in &lt;front&gt; elements in &lt;rfc&gt; elements to be four-digit values.
-
-## ExpiresDate Insertion {#expiresdate-insertion}
-
-If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on the
-&lt;date&gt; element of the document's &lt;front&gt; element.
-
-## Attribute Default Value Insertion {#attribute-default-value-insertion}
+### Attribute Default Value Insertion {#attribute-default-value-insertion}
 
 Fill in any default values for attributes on elements, except "keepWithNext"
 and "keepWithPrevious" of &lt;t&gt;, and "toc" of &lt;section&gt;.
 Some default values can be found in the Relax NG schema, while others can be
 found in the prose describing the elements in {{I-D.iab-xml2rfc}}).
 
-## XML Comment Removal {#xml-comment-removal}
+### Section "toc" attribute {#section-toc}
 
-If in RFC production mode, remove XML comments.
+For each &lt;section&gt;, modify the "toc" attribute to be either "include" or
+"exclude":
 
-## Cref Element Removal {#cref-element-removal}
+* for sections that have an ancestor of &lt;boilerplate&gt;, use "exclude"
+* else for sections that have a descendant that has toc="include", use
+  "include".  If the section has toc="exclude" in the input, this is
+  an error.
+* else for sections that are children of a section with toc="exclude",
+  use "exclude".
+* else for sections that are deeper than rfc/@tocDepth, use "exclude"
+* else use "include"
 
-If in RFC production mode, remove all &lt;cref&gt; elements.
+### "removeInRFC" Warning Paragraph  {#remove-in-rfc-warning}
 
-## Boilerplate Insertion {#boilerplate-insertion}
+If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
+attribute that has the value "true", add a paragraph to the top of the
+&lt;note&gt; element with the text "This note is to be removed before publishing
+as an RFC." unless a paragraph consisting of that exact text already exists.
+
+## Normalization {#normalization}
+
+These steps will ensure that ideas that can be expressed in
+multiple different ways in the input document are only found in one way in the
+prepared document.
+
+### "month" Attribute {#normalize-month-attribute}
+
+Normalize the values of "month" attributes in all &lt;date&gt; elements
+in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.
+
+### Document &lt;date&gt; {#normalize-date}
+
+Normalize the values of "year" attributes in all &lt;date&gt; elements
+in &lt;front&gt; elements in &lt;rfc&gt; elements to be four-digit values.
+
+### ASCII Attribute Processing {#ascii-atttribute-processing}
+
+In every &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;,
+&lt;region&gt;, &lt;country&gt;, and &lt;code&gt; element, if there is an
+"ascii" attribute and the value of that attribute is the same as the content of
+the element, remove the "ascii" element and issue a warning about the removal.
+
+In every &lt;author&gt; element, if there is an "asciiFullname",
+"asciiInitials", or "asciiSurname" attribute, check the content of that element
+against its matching "fullname", "initials", or "surname" element
+(respectively). If the two are the same, remove the "ascii*" elelement and issue
+a warning about the removal.
+
+### "title" Conversion {#title-conversion}
+
+For every &lt;section&gt;, &lt;note&gt;, &lt;figure&gt;, &lt;references&gt;, and
+&lt;texttable&gt; element that has a (deprecated) "title" attribute, remove the
+"title" attribute and insert a &lt;name&gt; element with the title from the
+attribute.
+
+## Generation {#generation}
+
+These steps will generate new content, overriding existing similar
+content in the input document.  Some of these steps are important enough that
+they specify a warning to be generated when the content being overwritten does
+not match the new content.
+
+### "expiresDate" Insertion {#expiresdate-insertion}
+
+If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on the
+&lt;date&gt; element of the document's &lt;front&gt; element.
+
+### &lt;boilerplate&gt; Insertion {#boilerplate-insertion}
 
 Create a &lt;boilerplate&gt; element if it does not exist. If there are any
 children of the &lt;boilerplate&gt; element, produce a warning that says
@@ -235,7 +309,7 @@ children of the &lt;boilerplate&gt; element, produce a warning that says
 submission tool, will treat this condition as an error" and remove the existing
 children.
 
-## 'Status of this Memo' Insertion {#status-of-this-memo-insertion}
+#### 'Status of this Memo' Insertion {#status-of-this-memo-insertion}
 
 Add the "Status of this Memo" section to the &lt;boilerplate&gt; element with
 current values. The application will use the "submissionType", and "consensus"
@@ -244,39 +318,14 @@ attributes of the &lt;rfc&gt; element, the &lt;workgroup&gt; element, and the
 which {{I-D.iab-rfc5741bis}} boilerplate to include, as described in Appendix A
 of {{I-D.iab-xml2rfc}}.
 
-## Copyright Insertion {#copyright-insertion}
+#### Copyright Insertion {#copyright-insertion}
 
 Add the "Copyright Notice" section to the &lt;boilerplate&gt; element. The
 application will use the "ipr" and "submissionType" attributes of the
 &lt;rfc&gt; element and the &lt;date&gt; element to determine which portions and
 which version of the TLP to use, as described in A.1 of {{I-D.iab-xml2rfc}}.
 
-## RemoveInRFC Processing {#remove-in-rfc-processing}
-
-If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
-attribute that has the value "true", add a paragraph to the top of the
-&lt;note&gt; element with the text "This note is to be removed before publishing
-as an RFC." unless a paragraph consisting of that exact text already exists.
-
-If in RFC production mode, if there is a &lt;note&gt; element with a
-"removeInRFC" attribute that has the value "true", remove the &lt;note&gt;
-element.
-
-## ASCII Attribute Processing {#ascii-atttribute-processing}
-
-In every &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;,
-&lt;region&gt;, &lt;country&gt;, and &lt;code&gt; element, if there is an
-"ascii" attribute and the value of tha attribute is the same as the content of
-the element, remove the "ascii" element and issue a warning about the removal.
-
-In every &lt;author&gt; element, if there is an
-"asciiFullname", "asciiInitials", or "asciiSurname" attribute,
-check the content of that element against its matching
-"fullname", "initials", or "surname" element (respectively).
-If the two are the same, remove the "ascii*" elelement
-and issue a warning about the removal.
-
-## Reference Target Insertion {#reference-target-insertion}
+### &lt;reference&gt; "target" Insertion {#reference-target-insertion}
 
 For any &lt;reference&gt; element that does not already have a "target"
 attribute, fill the target attribute in if the element has one or more
@@ -287,25 +336,18 @@ Internet-Drafts, and DOIs for this step will be specified later by the RFC
 Editor and the IESG. These URLs might also be different before and after the v3
 format is adopted.
 
-## Displayreference Processing {#displayreference-processing}
+### &lt;displayreference&gt; Processing {#displayreference-processing}
 
 For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated
 &lt;displayreference&gt;, replace the value of the "anchor" attribute with the
 value of the "to" attribute of the associated &lt;displayreference&gt;.
 
-## Title Attribute Conversion {#title-attribute-conversion}
-
-For every &lt;section&gt;, &lt;note&gt;, &lt;figure&gt;, &lt;references&gt;, and
-&lt;texttable&gt; element that has a (deprecated) "title" attribute, remove the
-"title" attribute and insert a &lt;name&gt; element with the title from the
-attribute.
-
-## Name Slugification {#name-slugification}
+### &lt;name&gt; Slugification {#name-slugification}
 
 Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
 
-## Reference Sorting {#reference-sorting}
+### &lt;reference&gt; Sorting {#reference-sorting}
 
 If the "sortRefs" attribute of the &lt;rfc&gt; element is true, sort the
 &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the
@@ -314,12 +356,7 @@ If the "sortRefs" attribute of the &lt;rfc&gt; element is true, sort the
 rules for lexical sorting are. The authors of this document acknowledge that
 getting consensus on this will be a difficult task.
 
-## Check Anchors {#check-anchors}
-
-Check all elements for "anchor" attributes. If any "anchor" attribute
-begins with "s-", "f-", "t-", or "i-", give an error.
-
-## Part Numbering {#part-numbering}
+### Part Numbering {#part-numbering}
 
 Add "pn" attributes for all parts.  Parts are:
   * &lt;section&gt; in &lt;middle&gt;: pn='s-1.4.2'
@@ -332,7 +369,7 @@ Add "pn" attributes for all parts.  Parts are:
   * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;,
     &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn='p-\[section\]-\[counter\]'
 
-## Iref ID Generation {#iref-id-generation}
+### &lt;iref&gt; Numbering {#iref-numbering}
 
 In every &lt;iref&gt; element, create a document-unique "pn" attribute.
 The value of the "pn" attribute will start with 'i-', and use the item
@@ -340,26 +377,23 @@ attribute, the subitem attribute (if it exists), and a counter to ensure
 uniqueness. For example, the first instance of "&lt;iref item='foo'
 subitem='bar'&gt;" will get the irefid 'i-foo-bar-1'.
 
-## Group Start Handling {#group-start-handling}
+### &lt;xref&gt; processing {#xref-processing}
 
-Add a "start" attribute to every &lt;ol&gt; element containing a group that
-does not already have a start.
-
-## Xref Target Rewriting {#xref-target-rewriting}
+#### "target" Rewriting {#xref-target-rewriting}
 
 For each &lt;xref&gt; element referring to a &lt;reference&gt; or
 &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, modify
 the "target" attribute of the &lt;xref&gt; to match the "to" attribute of the
 associated &lt;displayreference&gt;.
 
-## DerivedContent Insertion (With Content) {#derivedcontent-insertion-with-content}
+#### "derivedContent" Insertion (With Content) {#xref-derivedcontent-insertion-with-content}
 
 For each &lt;xref&gt; element that has content, fill the "derivedContent" with
 the element content, having first trimmed the whitespace from ends of content
 text. Issue a warning if the "derivedContent" attribute already exists and has a
 different value from what was being filled in.
 
-## DerivedContent Insertion (Without Content) {#derivedcontent-insertion-without-content}
+#### "derivedContent" Insertion (Without Content) {#xref-derivedcontent-insertion-without-content}
 
 For each &lt;xref&gt; element that does not have content, fill the
 "derivedContent" based on the "format" attribute.
@@ -387,7 +421,7 @@ For each &lt;xref&gt; element that does not have content, fill the
     attribute already exists and has a different value from what was being
     filled in.
 
-## Relref Processing {#relref-processing}
+### &lt;relref&gt; Processing {#relref-processing}
 
 For each &lt;relref&gt; element referring to a &lt;reference&gt; that has an
 associated &lt;displayreference&gt;, modify the "target" attribute of the
@@ -403,11 +437,15 @@ For each &lt;relref&gt; element, if there is no "relative" attribute but the
 target is a v3 RFC or Internet-Draft, create the "relative" attribute from the
 "section" attribute.
 
-## Displayreference Removal {#displayreference-removal}
+### &lt;displayreference&gt; Removal {#displayreference-removal}
 
 Remove every &lt;displayreference&gt; element.
 
-## Artwork Processing {#artwork-processing}
+## Inclusion
+
+These steps will include external files into the output document.
+
+### &lt;artwork&gt; Processing {#artwork-processing}
 
 1. If an &lt;artwork&gt; element has a "src" attribute where no scheme is
 specified, copy the "src" attribute value to the "originalSrc" attribute, and
@@ -462,7 +500,7 @@ preferred types other than "binary-art" are text, which is possibly wrong.
     If there is no "originalSrc" attribute, add an "originalSrc"
     attribute with the value of the URI and remove the "src" attribute.
 
-## Sourecode Processing {#sourcecode-processing}    
+### &lt;sourcecode&gt; Processing {#sourcecode-processing}    
 
 1. If a &lt;sourcecode&gt; element has a "src" attribute where no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
@@ -488,7 +526,22 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     If there is no "originalSrc" attribute, add an "originalSrc" attribute with
     the value of the URI and remove the "src" attribute.
 
-## Link Element Processing {#link-element-processing}
+## RFC-mode cleanup {#rfc-mode-cleanup}
+
+These steps provide extra cleanup of the output document in RFC
+production mode.
+
+### &lt;note&gt; Removal {#note-removal}
+
+If in RFC production mode, if there is a &lt;note&gt; element with a
+"removeInRFC" attribute that has the value "true", remove the &lt;note&gt;
+element.
+
+### &lt;cref&gt; Removal {#cref-removal}
+
+If in RFC production mode, remove all &lt;cref&gt; elements.
+
+### &lt;link&gt; Processing {#link-processing}
 
 1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel"
 attribute has the value "alternate".
@@ -506,27 +559,31 @@ the file name of the Internet-Draft that became this RFC
 the form &lt;link rel="convertedFrom" href="https://datatracker.ietf.org/doc/draft-tttttttttt/"&gt;.
 If one does not exist, give an error.
 
-## Base and OriginalSrc Removal {#base-originalsrc-removal}
+### XML Comment Removal {#xml-comment-removal}
+
+If in RFC production mode, remove XML comments.
+
+### "xml:base" and "originalSrc" Removal {#base-originalsrc-removal}
 
 If in RFC production mode, remove all "xml:base" or "originalSrc" attributes
 from all elements.
 
-## Version Attribute Insertion {#version-attribute-insertion}
+## Finalization {#finalization}
 
-Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
+These steps provide the finishing touches on the output document.
 
-## Scripts Insertion {#scripts-insertion}
+### "scripts" Insertion {#scripts-insertion}
 
 Determine all the characters used in the document, and fill in the "scripts"
 attribute for &lt;rfc&gt;.
 
-## Deprecation Check {#deprecation-check}
+### Deprecation Check {#deprecation-check}
 
 If in RFC production mode, ensure that the result is in full compliance to v3
 schema, without any deprecated elements or attributes, and give an error if any
 issues are found.
 
-## Pretty-Format {#pretty}
+### Pretty-Format {#pretty}
 
 Pretty-format the XML output.  (Note: tools like
 <https://github.com/hildjj/dentin> do an adequate job.)
