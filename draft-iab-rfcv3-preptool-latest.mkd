@@ -214,10 +214,15 @@ Fill in the "prepTime" attribute of &lt;rfc&gt; with the current datetime.
 Normalize the values of "month" attributes in all &lt;date&gt; elements
 in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.
 
+## Normalize Document Date {#normalize-date}
+
+Normalize the values of "year" attributes in all &lt;date&gt; elements
+in &lt;front&gt; elements in &lt;rfc&gt; elements to be four-digit values.
+
 ## ExpiresDate Insertion {#expiresdate-insertion}
 
-If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on
-the &lt;date&gt; element of the document's &lt;front&gt; element.
+If in I-D mode, fill in "expiresDate" attribute of &lt;rfc&gt; based on the
+&lt;date&gt; element of the document's &lt;front&gt; element.
 
 ## Attribute Default Value Insertion {#attribute-default-value-insertion}
 
@@ -302,8 +307,10 @@ value of the "to" attribute of the associated &lt;displayreference&gt;.
 
 ## Title Attribute Conversion {#title-attribute-conversion}
 
-For every &lt;section&gt; element that has a (deprecated) "title" attribute, remove the
-"title" attribute and insert a &lt;name&gt; element in that section with the title from the attribute.
+For every &lt;section&gt;, &lt;note&gt;, &lt;figure&gt;, &lt;references&gt;, and
+&lt;texttable&gt; element that has a (deprecated) "title" attribute, remove the
+"title" attribute and insert a &lt;name&gt; element with the title from the
+attribute.
 
 ## Name Slugification {#name-slugification}
 
@@ -317,6 +324,11 @@ sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value o
 as modified by the "to" attribute of any &lt;displayreference&gt; element.
 The RFC Editor needs to determine what the rules for lexical sorting are.
 The authors of this document acknowledge that getting consensus on this will be a difficult task.
+
+## Check Anchors {#check-anchors}
+
+Check all elements for "anchor" attributes. If any "anchor" attribute
+begins with "s-", "f-", "t-", or "i-", give an error.
 
 ## Part Numbering {#part-numbering}
 
@@ -333,8 +345,8 @@ Add "pn" attributes for all parts.  Parts are:
 
 ## Iref ID Generation {#iref-id-generation}
 
-In every &lt;iref&gt; element, create a document-unique "irefid" attribute.
-The value of the "irefid" attribute will start with 'i-', and use the item
+In every &lt;iref&gt; element, create a document-unique "pn" attribute.
+The value of the "pn" attribute will start with 'i-', and use the item
 attribute, the subitem attribute (if it exists), and a counter to ensure
 uniqueness. For example, the first instance of "&lt;iref item='foo'
 subitem='bar'&gt;" will get the irefid 'i-foo-bar-1'.
@@ -392,11 +404,8 @@ If any &lt;relref&gt; element's "target" attribute refers to anything but a
 
 For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
-For each &lt;relref&gt; element that has content, the "displayFormat" attribute is ignored.
-Fill the "derivedRemoteContent" with the
-element content, having first trimmed the whitespace from ends of content text.
-Issue a warning if the "derivedRemoteContent" attribute already exists and has a different value
-from what was being filled in.
+For each &lt;relref&gt; element, if there is no "relative" attribute but the
+target is a v3 RFC or Internet-Draft, create the "relative" attribute from the "section" attribute.
 
 ## Displayreference Removal {#displayreference-removal}
 
@@ -405,7 +414,8 @@ Remove every &lt;displayreference&gt; element.
 ## Artwork Processing {#artwork-processing}
 
 1. If an &lt;artwork&gt; element has a "src" attribute where no scheme is
-specified, replace it with a URI that uses the "file:" scheme in a path relative to the file being
+specified, copy the "src" attribute value to the "originalSrc" attribute,
+and replace the "src" value with a URI that uses the "file:" scheme in a path relative to the file being
 processed. Do not include the full path in the "src" attribute.
 See {{securitycons}} for warnings about this step.
 This will likely be one of the most common authoring approaches.
@@ -430,15 +440,16 @@ the data needs to be moved into the content of the &lt;artwork&gt; element.
     element with that data and remove the "src" attribute.
   * If the "src" URI scheme is "file:", "http:", or "https:", fill the content
     of the &lt;artwork&gt; element with the resolved XML from the URI in the
-    "src" attribute. Add an "originalSrc" attribute with the value of the URI and
+    "src" attribute. If there is no "originalSrc" attribute,
+    add an "originalSrc" attribute with the value of the URI and
     remove the "src" attribute.
 
 1. If an &lt;artwork&gt; element has type='binary-art', the data needs to be in
 a "src" attribute with a URI scheme of "data:".
 If the "src" URI scheme is "file:", "http:", or "https:", resolve the URL.
 Replace the "src" attribute with a "data:" URI,
-add an "originalSrc" attribute with the value of the URI, and remove the "src"
-attribute.  For the "http:" and "https:" URI schemes,
+and add an "originalSrc" attribute with the value of the URI.
+For the "http:" and "https:" URI schemes,
 the mediatype of the "data:" URI will be the Content-Type of the HTTP response.
 For the "file:" URI scheme,
 the mediatype of the "data:" URI needs to be guessed with heuristics
@@ -456,11 +467,12 @@ preferred types other than "binary-art" are text, which is possibly wrong.
     attribute.
   * If the "src" URI scheme is "file:", "http:", or "https:", fill the content
     of the &lt;artwork&gt; element with the correctly-escaped form of the
-    resolved text from the URI in the "src" attribute. Add an "originalSrc"
+    resolved text from the URI in the "src" attribute.
+    If there is no "originalSrc" attribute, add an "originalSrc"
     attribute with the value of the URI and remove the "src" attribute.
 
 ## Sourecode Processing {#sourcecode-processing}    
-    
+
 1. If a &lt;sourcecode&gt; element has a "src" attribute where no scheme is
 specified, treat the scheme as "file:" in a path relative to the file being
 processed and replace the "src" attribute with a "file:" URI.
@@ -481,13 +493,9 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
     the "src" attribute.
   * If the "src" URI scheme is "file:", "http:", or "https:", fill the content
     of the &lt;sourcecode&gt; element with the appropriately-escaped resolved
-    text from the URI in the "src" attribute. Add an "originalSrc" attribute with
+    text from the URI in the "src" attribute.
+    If there is no "originalSrc" attribute, add an "originalSrc" attribute with
     the value of the URI and remove the "src" attribute.
-
-## Scripts Insertion {#scripts-insertion}    
-    
-Determine all the characters used in the document, and fill in the "scripts"
-attribute for &lt;rfc&gt;.
 
 ## Link Element Processing {#link-element-processing}
 
@@ -515,7 +523,11 @@ all elements.
 ## Version Attribute Insertion {#version-attribute-insertion}
 
 Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that
-it is set to "3". If there is already a different value, give an error.
+
+## Scripts Insertion {#scripts-insertion}
+
+Determine all the characters used in the document, and fill in the "scripts"
+attribute for &lt;rfc&gt;.
 
 ## Deprecation Check {#deprecation-check}
 
