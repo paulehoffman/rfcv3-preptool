@@ -310,7 +310,7 @@ For every &lt;section&gt; element that has a (deprecated) "title" attribute, rem
 Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
 contain one; replace the attribute if it contains a value that begins with "n-".
 
-## Reference Sorting {#reference.sorting}
+## Reference Sorting {#reference-sorting}
 
 If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
 sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
@@ -318,7 +318,7 @@ as modified by the "to" attribute of any &lt;displayreference&gt; element.
 The RFC Editor needs to determine what the rules for lexical sorting are.
 The authors of this document acknowledge that getting consensus on this will be a difficult task.
 
-## Part Numbering {#part.numbering}
+## Part Numbering {#part-numbering}
 
 Add "pn" attributes for all parts.  Parts are:
   * &lt;section&gt; in &lt;middle&gt;: pn='s-1.4.2'
@@ -339,7 +339,7 @@ attribute, the subitem attribute (if it exists), and a counter to ensure
 uniqueness. For example, the first instance of "&lt;iref item='foo'
 subitem='bar'&gt;" will get the irefid 'i-foo-bar-1'.
 
-## Group Start Handling (#group-start-handling}
+## Group Start Handling {#group-start-handling}
 
 Add a "start" attribute to every &lt;ol&gt; element containing a group that
 does not already have a start.
