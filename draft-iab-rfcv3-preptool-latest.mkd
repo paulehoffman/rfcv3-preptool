@@ -423,19 +423,15 @@ For each &lt;xref&gt; element that does not have content, fill the
 
 ### &lt;relref&gt; Processing {#relref-processing}
 
+If any &lt;relref&gt; element's "target" attribute refers to anything but a
+&lt;reference&gt; element, give an error.
+
 For each &lt;relref&gt; element referring to a &lt;reference&gt; that has an
 associated &lt;displayreference&gt;, modify the "target" attribute of the
 &lt;relref&gt; to match the "to" attribute of the associated
 &lt;displayreference&gt;.
 
-If any &lt;relref&gt; element's "target" attribute refers to anything but a
-&lt;reference&gt; element, give an error.
-
 For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
-
-For each &lt;relref&gt; element, if there is no "relative" attribute but the
-target is a v3 RFC or Internet-Draft, create the "relative" attribute from the
-"section" attribute.
 
 ### &lt;displayreference&gt; Removal {#displayreference-removal}
 
