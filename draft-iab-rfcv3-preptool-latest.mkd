@@ -41,13 +41,10 @@ to be created when the new RFC v3 specification is deployed.
 
 --- middle
 
+# Introduction
 
-Introduction
-=====
-
-For the future of the RFC format, the RFC Editor
-has decided that XML (using the XML2RFCv3 vocabulary {{I-D.iab-xml2rfc}}) is the canonical format,
-in the sense
+For the future of the RFC format, the RFC Editor has decided that XML (using the
+XML2RFCv3 vocabulary {{I-D.iab-xml2rfc}}) is the canonical format, in the sense
 that it is the data that is blessed by the process as the actual RFC. See
 {{RFC6949}} for more detail on this.
 
@@ -63,14 +60,13 @@ the xml2rfc process.
 This draft specifies the steps that the prep tool will have to take.
 As changes to {{I-D.iab-xml2rfc}} are made, this document will be updated.
 
-The details (particularly any vocabularies) described in this document are expected to change based
-on experience gained in implementing the RFC production center's toolset. Revised documents will be
-published capturing those changes as the toolset is completed. Other implementers must not expect
-those changes to remain backwards-compatible with the details described in this document.
+The details (particularly any vocabularies) described in this document are
+expected to change based on experience gained in implementing the RFC production
+center's toolset. Revised documents will be published capturing those changes as
+the toolset is completed. Other implementers must not expect those changes to
+remain backwards-compatible with the details described in this document.
 
-
-v3 Prep Tool Usage Scenarios
-=====
+# v3 Prep Tool Usage Scenarios
 
 The prep tool will have several settings:
 
@@ -85,18 +81,16 @@ Note that this only describes what the IETF-sponsored prep tool does. Others
 might create their own work-alike prep tools for their own formatting needs.
 However, an output format developer does not need to change the prep tool in
 order to create their own formatter: they only need to be able to consume
-prepared text.
-The IETF-sponsored prep tool runs in two different modes: "I-D" mode when the
-tool is run during Internet-Draft submission and processing, and "RFC production
-mode" when the tool is run by the RFC Production Center (RPC) while producing an RFC.
+prepared text. The IETF-sponsored prep tool runs in two different modes: "I-D"
+mode when the tool is run during Internet-Draft submission and processing, and
+"RFC production mode" when the tool is run by the RFC Production Center (RPC)
+while producing an RFC.
 
 This tool is described as if it is a separate tool so that we can reason about
 its architectural properties. In actual implementation, it might be a part of a
 larger suite of functionality.
 
-
-Internet-Draft Submission
-=====
+# Internet-Draft Submission
 
 When the IETF draft submission tool accepts v3 XML as an input format, the
 submission tool runs the submitted file through the prep tool.
@@ -122,9 +116,7 @@ content of included external references and all of the part numbers and
 boilerplate will be the same as what was produced by the previous IETF
 formatters at the time the document was first uploaded.
 
-
-Canonical RFC Preparation
-=====
+# Canonical RFC Preparation
 
 During AUTH48, the RPC will run the prep tool in canonical RFC preparation mode
 and make the results available to the authors so they can see what the final
@@ -135,15 +127,14 @@ formats, and publishes all of those. It is probably a good idea for the RPC to
 keep a copy of the input XML file from the various steps of the RFC production
 process.
 
-This document assumes that the prep tool will be used in the following manner by the RFC Production Center;
-they may use something different, or with different configuration.
+This document assumes that the prep tool will be used in the following manner by
+the RFC Production Center; they may use something different, or with different
+configuration.
 
 Similarly to I-D's, the prepped XML can be used later to re-render the output
 formats, or to generate new formats.
 
-
-What the v3 Prep Tool Does {#steps}
-=====
+# What the v3 Prep Tool Does {#steps}
 
 The steps listed here are in order of processing. In all cases where the prep
 tool would "add" an attribute or element, if that attribute or element already
@@ -155,11 +146,10 @@ Currently, the IETF uses a tool called "idnits" to check text input to the
 Internet-Drafts publishing process. idnits indicates if it encountered any
 errors, and also provide text with all of the warnings and errors in a
 human-readable form. The prep tool should probably check for as many of these
-errors and warnings as possible when it is processing the XML input.
-For the moment, tooling might run idnts on the text output from the prepared XML.
-The list
-below contains some of those errors and warnings, but the deployed version of
-the prep tool may contain additional steps to include more or the checks from
+errors and warnings as possible when it is processing the XML input. For the
+moment, tooling might run idnts on the text output from the prepared XML. The
+list below contains some of those errors and warnings, but the deployed version
+of the prep tool may contain additional steps to include more or the checks from
 idnits.
 
 ## DTD Removal {#dtd-removal}
@@ -194,16 +184,14 @@ Editor for RFCs.
 
 ## Date Processing {#date-processing}
 
-If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a &lt;date&gt;
-element, add it and fill in the "day", "month", and "year" attibutes from the
-current date.
-If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt;
-element with "day", "month", and "year" attibutes, but the date indicated is
-more than three days in the past or is in the future,
-give a warning.
-If the &lt;front&gt; element in the &lt;rfc&gt; element has a &lt;date&gt;
-element with some but not all of the "day", "month", and "year" attibutes,
-give an error.
+If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a
+&lt;date&gt; element, add it and fill in the "day", "month", and "year"
+attibutes from the current date. If the &lt;front&gt; element in the &lt;rfc&gt;
+element has a &lt;date&gt; element with "day", "month", and "year" attibutes,
+but the date indicated is more than three days in the past or is in the future,
+give a warning. If the &lt;front&gt; element in the &lt;rfc&gt; element has a
+&lt;date&gt; element with some but not all of the "day", "month", and "year"
+attibutes, give an error.
 
 ## Preptime Insertion {#preptime-insertion}
 
@@ -241,46 +229,45 @@ If in RFC production mode, remove all &lt;cref&gt; elements.
 
 ## Boilerplate Insertion {#boilerplate-insertion}
 
-Create a &lt;boilerplate&gt; element if it does not exist.
-If there are any children of the &lt;boilerplate&gt; element, produce a warning that says
-"Existing boilerplate being removed. Other tools, specifically the draft submission tool,
-will treat this condition as an error" and remove the existing children.
+Create a &lt;boilerplate&gt; element if it does not exist. If there are any
+children of the &lt;boilerplate&gt; element, produce a warning that says
+"Existing boilerplate being removed. Other tools, specifically the draft
+submission tool, will treat this condition as an error" and remove the existing
+children.
 
 ## 'Status of this Memo' Insertion {#status-of-this-memo-insertion}
 
-Add the "Status of this Memo" section to the &lt;boilerplate&gt; element with current values.
-The application will use the
-"submissionType", and "consensus" attributes of the &lt;rfc&gt; element,
-the &lt;workgroup&gt; element,
-and the "status" and "stream" attributes of the &lt;seriesInfo&gt; element,
-to determine
-which {{I-D.iab-rfc5741bis}} boilerplate to include, as described in Appendix A of
-{{I-D.iab-xml2rfc}}.
+Add the "Status of this Memo" section to the &lt;boilerplate&gt; element with
+current values. The application will use the "submissionType", and "consensus"
+attributes of the &lt;rfc&gt; element, the &lt;workgroup&gt; element, and the
+"status" and "stream" attributes of the &lt;seriesInfo&gt; element, to determine
+which {{I-D.iab-rfc5741bis}} boilerplate to include, as described in Appendix A
+of {{I-D.iab-xml2rfc}}.
 
 ## Copyright Insertion {#copyright-insertion}
 
-Add the "Copyright Notice" section to the &lt;boilerplate&gt; element. The application will use the
-"ipr" and "submissionType" attributes of the &lt;rfc&gt; element and
-the &lt;date&gt; element to determine which portions and which
-version of the TLP to use, as described in A.1 of {{I-D.iab-xml2rfc}}.
+Add the "Copyright Notice" section to the &lt;boilerplate&gt; element. The
+application will use the "ipr" and "submissionType" attributes of the
+&lt;rfc&gt; element and the &lt;date&gt; element to determine which portions and
+which version of the TLP to use, as described in A.1 of {{I-D.iab-xml2rfc}}.
 
 ## RemoveInRFC Processing {#remove-in-rfc-processing}
 
 If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
-attribute that has the value "true", add a paragraph to the top of the &lt;note&gt; element
-with the text "This note is to be removed before publishing as an RFC."
-unless a paragraph consisting of that exact text already exists.
+attribute that has the value "true", add a paragraph to the top of the
+&lt;note&gt; element with the text "This note is to be removed before publishing
+as an RFC." unless a paragraph consisting of that exact text already exists.
 
-If in RFC production mode, if there is a &lt;note&gt; element with a "removeInRFC"
-attribute that has the value "true", remove the &lt;note&gt; element.
+If in RFC production mode, if there is a &lt;note&gt; element with a
+"removeInRFC" attribute that has the value "true", remove the &lt;note&gt;
+element.
 
 ## ASCII Attribute Processing {#ascii-atttribute-processing}
 
-In every
-&lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;, &lt;region&gt;, &lt;country&gt;, and &lt;code&gt;
-element, if there is an "ascii" attribute and the value of tha attribute is
-the same as the content of the element, remove the "ascii" element
-and issue a warning about the removal.
+In every &lt;email&gt;, &lt;organization&gt;, &lt;street&gt;, &lt;city&gt;,
+&lt;region&gt;, &lt;country&gt;, and &lt;code&gt; element, if there is an
+"ascii" attribute and the value of tha attribute is the same as the content of
+the element, remove the "ascii" element and issue a warning about the removal.
 
 In every &lt;author&gt; element, if there is an
 "asciiFullname", "asciiInitials", or "asciiSurname" attribute,
@@ -291,18 +278,19 @@ and issue a warning about the removal.
 
 ## Reference Target Insertion {#reference-target-insertion}
 
-For any &lt;reference&gt; element that does not already have a "target" attribute, fill the target
-attribute in if the element has one or more &lt;seriesinfo&gt; child element(s)
-and the "name" attribute of the  &lt;seriesinfo&gt; element is
-"RFC", "Internet-Draft", or "DOI" or other value for which it is clear what the "target" should be.
-The particular URLs
-for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and
-the IESG. These URLs might also be different before and after the v3 format is adopted.
+For any &lt;reference&gt; element that does not already have a "target"
+attribute, fill the target attribute in if the element has one or more
+&lt;seriesinfo&gt; child element(s) and the "name" attribute of the
+&lt;seriesinfo&gt; element is "RFC", "Internet-Draft", or "DOI" or other value
+for which it is clear what the "target" should be. The particular URLs for RFCs,
+Internet-Drafts, and DOIs for this step will be specified later by the RFC
+Editor and the IESG. These URLs might also be different before and after the v3
+format is adopted.
 
 ## Displayreference Processing {#displayreference-processing}
 
-For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated &lt;displayreference&gt;,
-replace the value of the "anchor" attribute with the
+For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated
+&lt;displayreference&gt;, replace the value of the "anchor" attribute with the
 value of the "to" attribute of the associated &lt;displayreference&gt;.
 
 ## Title Attribute Conversion {#title-attribute-conversion}
@@ -319,11 +307,12 @@ contain one; replace the attribute if it contains a value that begins with "n-".
 
 ## Reference Sorting {#reference-sorting}
 
-If the "sortRefs" attribute of the &lt;rfc&gt; element is true,
-sort the &lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the "anchor" attribute,
-as modified by the "to" attribute of any &lt;displayreference&gt; element.
-The RFC Editor needs to determine what the rules for lexical sorting are.
-The authors of this document acknowledge that getting consensus on this will be a difficult task.
+If the "sortRefs" attribute of the &lt;rfc&gt; element is true, sort the
+&lt;reference&gt;s and &lt;referencegroup&gt;s lexically by the value of the
+"anchor" attribute, as modified by the "to" attribute of any
+&lt;displayreference&gt; element. The RFC Editor needs to determine what the
+rules for lexical sorting are. The authors of this document acknowledge that
+getting consensus on this will be a difficult task.
 
 ## Check Anchors {#check-anchors}
 
@@ -358,46 +347,52 @@ does not already have a start.
 
 ## Xref Target Rewriting {#xref-target-rewriting}
 
-For each &lt;xref&gt; element referring to a &lt;reference&gt; or &lt;referencegroup&gt;
-that has an associated &lt;displayreference&gt;, modify the "target"
-attribute of the &lt;xref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
+For each &lt;xref&gt; element referring to a &lt;reference&gt; or
+&lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, modify
+the "target" attribute of the &lt;xref&gt; to match the "to" attribute of the
+associated &lt;displayreference&gt;.
 
 ## DerivedContent Insertion (With Content) {#derivedcontent-insertion-with-content}
 
-For each &lt;xref&gt; element that has content, fill the "derivedContent" with the element
-content, having first trimmed the whitespace from ends of content text.
-Issue a warning if the "derivedContent" attribute already exists and has a different value from what
-was being filled in.
+For each &lt;xref&gt; element that has content, fill the "derivedContent" with
+the element content, having first trimmed the whitespace from ends of content
+text. Issue a warning if the "derivedContent" attribute already exists and has a
+different value from what was being filled in.
 
 ## DerivedContent Insertion (Without Content) {#derivedcontent-insertion-without-content}
 
-For each &lt;xref&gt; element that does not have content, fill the "derivedContent" based on the
-"format" attribute.
-  * For format='counter', the "derivedContent" is the section, figure, table, or ordered list number
-    of the element with anchor equal to the xref target.
-  * For format='default' and the "target" attribute points to a &lt;reference&gt; or
-    &lt;referencegroup&gt; element, the "derivedContent" is the value of the "target" attribute
-    (or the "to" attribute of a &lt;displayreference&gt; element for the targeted &lt;reference&gt;).
-  * For format='default' and the "target" attribute points to a &lt;section&gt;, &lt;figure&gt;, or &lt;table&gt;,
-    the "derivedContent" is the
-    name of the thing pointed to, such as "Section 2.3", "Figure 12", or "Table 4".
-  * For format='title', if the target is a &lt;reference&gt; element, the "derivedContent" attribute is
-    the name of the reference, extracted from the &lt;title&gt; child of the &lt;front&gt; child of the
-    reference.
-  * For format='title', if the target element has a &lt;name&gt; child element, the "derivedContent"
-    attribute is the text content of that &lt;name&gt; element concatenated with the text content of
-    each descendant node of &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
+For each &lt;xref&gt; element that does not have content, fill the
+"derivedContent" based on the "format" attribute.
+  * For format='counter', the "derivedContent" is the section, figure, table, or
+    ordered list number of the element with anchor equal to the xref target.
+
+  * For format='default' and the "target" attribute points to a
+    &lt;reference&gt; or &lt;referencegroup&gt; element, the "derivedContent" is
+    the value of the "target" attribute (or the "to" attribute of a
+    &lt;displayreference&gt; element for the targeted &lt;reference&gt;).
+  * For format='default' and the "target" attribute points to a &lt;section&gt;,
+    &lt;figure&gt;, or &lt;table&gt;, the "derivedContent" is the name of the
+    thing pointed to, such as "Section 2.3", "Figure 12", or "Table 4".
+  * For format='title', if the target is a &lt;reference&gt; element, the
+    "derivedContent" attribute is the name of the reference, extracted from the
+    &lt;title&gt; child of the &lt;front&gt; child of the reference.
+  * For format='title', if the target element has a &lt;name&gt; child element,
+    the "derivedContent" attribute is the text content of that &lt;name&gt;
+    element concatenated with the text content of each descendant node of
+    &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
     text).  
-  * For format='title', if the target element does not contain a &lt;name&gt; child element, the
-    "derivedContent" attribute is the value of the "target" attribute with no other adornment.
-    Issue a warning if the "derivedContent" attribute already exists and has a different value from what
-    was being filled in.
+  * For format='title', if the target element does not contain a &lt;name&gt;
+    child element, the "derivedContent" attribute is the value of the "target"
+    attribute with no other adornment.  Issue a warning if the "derivedContent"
+    attribute already exists and has a different value from what was being
+    filled in.
 
 ## Relref Processing {#relref-processing}
 
-For each &lt;relref&gt; element referring to a &lt;reference&gt;
-that has an associated &lt;displayreference&gt;, modify the "target"
-attribute of the &lt;relref&gt; to match the "to" attribute of the associated &lt;displayreference&gt;.
+For each &lt;relref&gt; element referring to a &lt;reference&gt; that has an
+associated &lt;displayreference&gt;, modify the "target" attribute of the
+&lt;relref&gt; to match the "to" attribute of the associated
+&lt;displayreference&gt;.
 
 If any &lt;relref&gt; element's "target" attribute refers to anything but a
 &lt;reference&gt; element, give an error.
@@ -405,7 +400,8 @@ If any &lt;relref&gt; element's "target" attribute refers to anything but a
 For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
 
 For each &lt;relref&gt; element, if there is no "relative" attribute but the
-target is a v3 RFC or Internet-Draft, create the "relative" attribute from the "section" attribute.
+target is a v3 RFC or Internet-Draft, create the "relative" attribute from the
+"section" attribute.
 
 ## Displayreference Removal {#displayreference-removal}
 
@@ -414,22 +410,20 @@ Remove every &lt;displayreference&gt; element.
 ## Artwork Processing {#artwork-processing}
 
 1. If an &lt;artwork&gt; element has a "src" attribute where no scheme is
-specified, copy the "src" attribute value to the "originalSrc" attribute,
-and replace the "src" value with a URI that uses the "file:" scheme in a path relative to the file being
-processed. Do not include the full path in the "src" attribute.
-See {{securitycons}} for warnings about this step.
-This will likely be one of the most common authoring approaches.
+specified, copy the "src" attribute value to the "originalSrc" attribute, and
+replace the "src" value with a URI that uses the "file:" scheme in a path
+relative to the file being processed. Do not include the full path in the "src"
+attribute. See {{securitycons}} for warnings about this step. This will likely
+be one of the most common authoring approaches.
 
 1. If an &lt;artwork&gt; element has a "src" attribute with a "file:" scheme,
 and if processing the URL would cause the processor to retrieve a file that is
 not in the same directory, or a subdirectory, as the file being processed, give
-an error.
-If the "src" has any shellmeta strings (such as "`", "$USER", and so on) that would be processed , give an error.
-Replace the "src" attribute with a URI that uses the "file:" scheme in a path relative to the file being
-processed.
-This rule attempts to prevent
-&lt;artwork src='file:///etc/passwd'&gt; and similar security issues.
-See {{securitycons}} for warnings about this step.
+an error. If the "src" has any shellmeta strings (such as "`", "$USER", and so
+on) that would be processed , give an error. Replace the "src" attribute with a
+URI that uses the "file:" scheme in a path relative to the file being processed.
+This rule attempts to prevent &lt;artwork src='file:///etc/passwd'&gt; and
+similar security issues. See {{securitycons}} for warnings about this step.
 
 1. If an &lt;artwork&gt; element has a "src" attribute, and the element has
 content, give an error.
@@ -445,18 +439,15 @@ the data needs to be moved into the content of the &lt;artwork&gt; element.
     remove the "src" attribute.
 
 1. If an &lt;artwork&gt; element has type='binary-art', the data needs to be in
-a "src" attribute with a URI scheme of "data:".
-If the "src" URI scheme is "file:", "http:", or "https:", resolve the URL.
-Replace the "src" attribute with a "data:" URI,
-and add an "originalSrc" attribute with the value of the URI.
-For the "http:" and "https:" URI schemes,
-the mediatype of the "data:" URI will be the Content-Type of the HTTP response.
-For the "file:" URI scheme,
-the mediatype of the "data:" URI needs to be guessed with heuristics
-(this is possibly a bad idea).
-This also fails for content that includes binary images but uses a type other than "binary-art".
-Note: since this feature can't be used for RFCs at the moment, this entire
-feature might be de-prioritized.
+a "src" attribute with a URI scheme of "data:". If the "src" URI scheme is
+"file:", "http:", or "https:", resolve the URL. Replace the "src" attribute with
+a "data:" URI, and add an "originalSrc" attribute with the value of the URI. For
+the "http:" and "https:" URI schemes, the mediatype of the "data:" URI will be
+the Content-Type of the HTTP response. For the "file:" URI scheme, the mediatype
+of the "data:" URI needs to be guessed with heuristics (this is possibly a bad
+idea). This also fails for content that includes binary images but uses a type
+other than "binary-art". Note: since this feature can't be used for RFCs at the
+moment, this entire feature might be de-prioritized.
 
 1. If an &lt;artwork&gt; element does not have type='svg' or type='binary-art'
 and there is a "src" attribute, the data needs to be moved into the content of
@@ -499,8 +490,8 @@ the data needs to be moved into the content of the &lt;sourcecode&gt; element.
 
 ## Link Element Processing {#link-element-processing}
 
-1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel" attribute
-has the value "alternate".
+1. If in RFC production mode, remove all &lt;link&gt; elements whose "rel"
+attribute has the value "alternate".
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with the
 current ISSN for the RFC series (2070-1721); if not, add
@@ -517,8 +508,8 @@ If one does not exist, give an error.
 
 ## Base and OriginalSrc Removal {#base-originalsrc-removal}
 
-If in RFC production mode, remove all "xml:base" or "originalSrc" attributes from
-all elements.
+If in RFC production mode, remove all "xml:base" or "originalSrc" attributes
+from all elements.
 
 ## Version Attribute Insertion {#version-attribute-insertion}
 
@@ -537,11 +528,10 @@ issues are found.
 
 ## Pretty-Format {#pretty}
 
-Pretty-format the XML output.  (Note: tools like <https://github.com/hildjj/dentin> do an adequate job.)
+Pretty-format the XML output.  (Note: tools like
+<https://github.com/hildjj/dentin> do an adequate job.)
 
-
-Additional Uses for the Prep Tool
-=====
+# Additional Uses for the Prep Tool
 
 There will be a need for Internet-Draft authors who include files from their
 local disk (such as for &lt;artwork src="mydrawing.svg"/&gt;) to have the
@@ -562,27 +552,24 @@ extracted &lt;sourcecode&gt; elements.  This feature might also remove some of
 the features added by the prep tool (such as part numbers and slugifiedName's
 starting with "n-") in order to make the resulting file easier to edit.
 
-
-IANA Considerations {#ianacons}
-=====
+# IANA Considerations {#ianacons}
 
 None.
 
+# Security Considerations {#securitycons}
 
-Security Considerations {#securitycons}
-=====
+Steps in this document attempt to prevent the &lt;artwork&gt; and
+&lt;sourcecode&gt; entities from exposing the contents of files outside the
+directory in which the document being processed resides. For example, values
+starting with "/", "./", or "../" should generate errors.
 
-Steps in this document attempt to prevent the &lt;artwork&gt; and &lt;sourcecode&gt; entities from exposing
-the contents of files outside the directory in which the document being processed
-resides. For example, values starting with "/", "./", or "../" should generate errors.
+The security considerations in {{RFC3470}} apply here. In specific, processing
+XML external references can expose a prep tool implementation to various threats
+by causing the implementation to access external resources automatically. It is
+important to disallow arbitrary access to such external references within XML
+data from untrusted sources.
 
-The security considerations in {{RFC3470}} apply here. In specific,
-processing XML external references can expose a prep tool implementation to various threats
-by causing the implementation to access external resources automatically.
-It is important to disallow arbitrary access to such external references within XML data from untrusted sources.
-
-Acknowledgements
-=====
+# Acknowledgements
 
 Many people contributed valuable ideas to this document. Special thanks go to
 Robert Sparks for his in-depth review and contributions early in the
