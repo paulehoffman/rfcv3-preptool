@@ -61,8 +61,8 @@ This draft specifies the steps that the prep tool will have to take.
 As changes to {{I-D.iab-xml2rfc}} are made, this document will be updated.
 
 The details (particularly any vocabularies) described in this document are
-expected to change based on experience gained in implementing the RFC production
-center's toolset. Revised documents will be published capturing those changes as
+expected to change based on experience gained in implementing the RFC Production
+Center's (RPC) toolset. Revised documents will be published capturing those changes as
 the toolset is completed. Other implementers must not expect those changes to
 remain backwards-compatible with the details described in this document.
 
@@ -83,7 +83,7 @@ However, an output format developer does not need to change the prep tool in
 order to create their own formatter: they only need to be able to consume
 prepared text. The IETF-sponsored prep tool runs in two different modes: "I-D"
 mode when the tool is run during Internet-Draft submission and processing, and
-"RFC production mode" when the tool is run by the RFC Production Center (RPC)
+"RFC production mode" when the tool is run by the RFC Production Center
 while producing an RFC.
 
 This tool is described as if it is a separate tool so that we can reason about
@@ -117,17 +117,17 @@ formatters at the time the document was first uploaded.
 
 # Canonical RFC Preparation
 
-During AUTH48, the RPC will run the prep tool in canonical RFC preparation mode
+During AUTH48, the RPC will run the prep tool in canonical RFC production mode
 and make the results available to the authors so they can see what the final
 output might look like. When the document is done with AUTH48 review, the RPC
-runs the prep tool in canonical RFC preparation mode one last time, locks down
+runs the prep tool in canonical RFC production mode one last time, locks down
 the canonicalized XML, runs the formatters for the publication
 formats, and publishes all of those. It is probably a good idea for the RPC to
 keep a copy of the input XML file from the various steps of the RFC production
 process.
 
 This document assumes that the prep tool will be used in the following manner by
-the RFC Production Center; they may use something different, or with different
+the RPC; they may use something different, or with different
 configuration.
 
 Similarly to I-D's, the prepped XML can be used later to re-render the output
@@ -198,7 +198,7 @@ is set to "3". If there is already a different value, give an error.
 If the &lt;front&gt; element of the &lt;rfc&gt; element does not already have
 a &lt;seriesInfo&gt; element, add a &lt;seriesInfo&gt; element with the name
 attribute based on the mode in which the preptool is running ("Internet-Draft"
-for Draft mode and "RFC" for RFC mode") and a value that is the input filename
+for Draft mode and "RFC" for RFC production mode) and a value that is the input filename
 minus any extension for Internet-Drafts, and is a number specified by the RFC
 Editor for RFCs.
 
