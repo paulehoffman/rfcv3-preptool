@@ -159,7 +159,7 @@ all XML processing has been performed.
 ### XInclude Processing {#xinclude-processing}
 
 Process all &lt;x:include&gt; elements. Note: &lt;x:include&gt;d XML may
-include more &lt;x:include&gt;s (with relative URLs rooted at the xml:base). The
+include more &lt;x:include&gt;s (with relative references resolved against the base URI potentially modified by a previously inserted xml:base attribute). The
 tool may be configurable with a limit on the depth of recursion.
 
 ### DTD Removal {#dtd-removal}
