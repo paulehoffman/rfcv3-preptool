@@ -312,7 +312,7 @@ the element, remove the “ascii” element and issue a warning about the remova
 <t>In every &lt;author&gt; element, if there is an “asciiFullname”,
 “asciiInitials”, or “asciiSurname” attribute, check the content of that element
 against its matching “fullname”, “initials”, or “surname” element
-(respectively). If the two are the same, remove the “ascii*” elelement and issue
+(respectively). If the two are the same, remove the “ascii*” element and issue
 a warning about the removal.</t>
 
 </section>
