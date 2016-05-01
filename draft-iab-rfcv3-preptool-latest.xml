@@ -228,7 +228,7 @@ Editor for RFCs.</t>
 
 <t>If the &lt;front&gt; element in the &lt;rfc&gt; element does not contain a
 &lt;date&gt; element, add it and fill in the “day”, “month”, and “year”
-attibutes from the current date. If the &lt;front&gt; element in the &lt;rfc&gt;
+attributes from the current date. If the &lt;front&gt; element in the &lt;rfc&gt;
 element has a &lt;date&gt; element with “day”, “month”, and “year” attibutes,
 but the date indicated is more than three days in the past or is in the future,
 give a warning. If the &lt;front&gt; element in the &lt;rfc&gt; element has a
