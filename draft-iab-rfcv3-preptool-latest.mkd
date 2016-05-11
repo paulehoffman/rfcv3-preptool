@@ -31,6 +31,7 @@ normative:
 informative:
   RFC3470:
   RFC6949:
+  RFC7669:
   I-D.iab-rfc5741bis:
   I-D.iab-xml2rfc:
 
@@ -45,7 +46,8 @@ to be created when the new RFC v3 specification is deployed.
 
 For the future of the RFC format, the RFC Editor has decided that XML (using the
 XML2RFCv3 vocabulary {{I-D.iab-xml2rfc}}) is the canonical format, in the sense
-that it is the data that is blessed by the process as the actual RFC. See
+that it is the data that is
+the authorized, recognized, accepted, and  archived version of the document. See
 {{RFC6949}} for more detail on this.
 
 Most people will read other formats, such as HTML, PDF, ASCII text, or other
@@ -119,12 +121,10 @@ formatters at the time the document was first uploaded.
 
 During AUTH48, the RPC will run the prep tool in canonical RFC production mode
 and make the results available to the authors so they can see what the final
-output might look like. When the document is done with AUTH48 review, the RPC
+output might look like. When the document has passed AUTH48 review, the RPC
 runs the prep tool in canonical RFC production mode one last time, locks down
 the canonicalized XML, runs the formatters for the publication
-formats, and publishes all of those. It is probably a good idea for the RPC to
-keep a copy of the input XML file from the various steps of the RFC production
-process.
+formats, and publishes all of those.
 
 This document assumes that the prep tool will be used in the following manner by
 the RPC; they may use something different, or with different
@@ -137,7 +137,7 @@ formats, or to generate new formats.
 
 The steps listed here are in order of processing. In all cases where the prep
 tool would "add" an attribute or element, if that attribute or element already
-exists, the prep tool will check that the attribute or element is correct. If
+exists, the prep tool will check that the attribute or element has valid values. If
 the value is incorrect, the prep tool will warn with the old and new values,
 then replace the incorrect value with the new value.
 
@@ -164,8 +164,8 @@ tool may be configurable with a limit on the depth of recursion.
 
 ### DTD Removal {#dtd-removal}
 
-Fully process any DTDs in the input document, then remove the DTD.
-At a minimum, this entails processing the entityrefs and includes for external
+Fully process any Document Type Definitions (DTDs) in the input document, then remove the DTD.
+At a minimum, this entails processing the entity references and includes for external
 files.
 
 ### Processing Instruction Removal {#pi-removal}
@@ -190,8 +190,8 @@ overwrite existing values in the input file.
 
 ### "version" Insertion {#version-insertion}
 
-Ensure that the output has the "version" attribute of &lt;rfc&gt;, and that it
-is set to "3". If there is already a different value, give an error.
+If the &lt;rfc&gt; element has a "version" attribute with a value other than "3", give an error. 
+If the &lt;rfc&gt; element has no "version" attribute, add one with the value "3".
 
 ### "seriesInfo" Insertion {#seriesinfo-insertion}
 
@@ -248,9 +248,9 @@ For each &lt;section&gt;, modify the "toc" attribute to be either "include" or
 
 ### "removeInRFC" Warning Paragraph  {#remove-in-rfc-warning}
 
-If in I-D mode, if there is a &lt;note&gt; element with a "removeInRFC"
+If in I-D mode, if there is a &lt;note&gt; or &lt;section&gt; element with a "removeInRFC"
 attribute that has the value "true", add a paragraph to the top of the
-&lt;note&gt; element with the text "This note is to be removed before publishing
+element with the text "This note is to be removed before publishing
 as an RFC." unless a paragraph consisting of that exact text already exists.
 
 ## Normalization {#normalization}
@@ -263,11 +263,6 @@ prepared document.
 
 Normalize the values of "month" attributes in all &lt;date&gt; elements
 in &lt;front&gt; elements in &lt;rfc&gt; elements to numeric values.
-
-### Document &lt;date&gt; {#normalize-date}
-
-Normalize the values of "year" attributes in all &lt;date&gt; elements
-in &lt;front&gt; elements in &lt;rfc&gt; elements to be four-digit values.
 
 ### ASCII Attribute Processing {#ascii-atttribute-processing}
 
@@ -534,8 +529,8 @@ production mode.
 
 ### &lt;note&gt; Removal {#note-removal}
 
-If in RFC production mode, if there is a &lt;note&gt; element with a
-"removeInRFC" attribute that has the value "true", remove the &lt;note&gt;
+If in RFC production mode, if there is a &lt;note&gt; or &lt;section&gt; element with a
+"removeInRFC" attribute that has the value "true", remove the
 element.
 
 ### &lt;cref&gt; Removal {#cref-removal}
@@ -553,7 +548,11 @@ current ISSN for the RFC series (2070-1721); if not, add
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
 a DOI for this RFC; if not, add one
-of the form &lt;link rel="describedBy" href="https://dx.doi.org/10.17487/rfcdddd"&gt;.
+of the form &lt;link rel="describedBy" href="https://dx.doi.org/10.17487/rfcdd"&gt;
+where "dd" is the number of the RFC, such as "https://dx.doi.org/10.17487/rfc2109".
+The URI is described in <xref target="RFC7669"/>.
+If there was already a &lt;link&gt; element with a DOI for this RFC, check that
+the "href" value has the right format.
 
 1. If in RFC production mode, check if there is a &lt;link&gt; element with
 the file name of the Internet-Draft that became this RFC
@@ -586,8 +585,8 @@ attribute for &lt;rfc&gt;.
 
 ### Pretty-Format {#pretty}
 
-Pretty-format the XML output.  (Note: tools like
-<https://github.com/hildjj/dentin> do an adequate job.)
+Pretty-format the XML output.  (Note: there are many tools
+that do an adequate job.)
 
 # Additional Uses for the Prep Tool
 
