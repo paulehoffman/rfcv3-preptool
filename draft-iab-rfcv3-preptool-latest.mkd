@@ -355,6 +355,7 @@ getting consensus on this will be a difficult task.
 ### "pn" Numbering {#part-numbering}
 
 Add "pn" attributes for all parts.  Parts are:
+
   * &lt;section&gt; in &lt;middle&gt;: pn='s-1.4.2'
   * &lt;references&gt;: pn='s-12' or pn='s-12.1'
   * &lt;abstract&gt;: pn='s-abstract'
