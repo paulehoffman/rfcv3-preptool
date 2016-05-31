@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="May" day="10"/>
+    <date year="2016" month="May" day="25"/>
 
     
     
@@ -370,13 +370,6 @@ Editor and the IESG. These URLs might also be different before and after the v3
 format is adopted.</t>
 
 </section>
-<section anchor="displayreference-processing" title="&lt;displayreference&gt; Processing">
-
-<t>For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated
-&lt;displayreference&gt;, replace the value of the “anchor” attribute with the
-value of the “to” attribute of the associated &lt;displayreference&gt;.</t>
-
-</section>
 <section anchor="name-slugification" title="&lt;name&gt; Slugification">
 
 <t>Add a “slugifiedName” attribute to each &lt;name&gt; element that does not
@@ -395,16 +388,19 @@ getting consensus on this will be a difficult task.</t>
 </section>
 <section anchor="part-numbering" title="“pn” Numbering">
 
-<t>Add “pn” attributes for all parts.  Parts are:
-  * &lt;section&gt; in &lt;middle&gt;: pn=’s-1.4.2’
-  * &lt;references&gt;: pn=’s-12’ or pn=’s-12.1’
-  * &lt;abstract&gt;: pn=’s-abstract’
-  * &lt;note&gt;: pn=’s-note-2’
-  * &lt;section&gt; in &lt;boilerplate&gt;: pn=’s-boilerplate-1’
-  * &lt;table&gt;: pn=’t-3’
-  * &lt;figure&gt;: pn=’f-4’
-  * &lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;,
-    &lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn=’p-[section]-[counter]’</t>
+<t>Add “pn” attributes for all parts.  Parts are:</t>
+
+<t><list style="symbols">
+  <t>&lt;section&gt; in &lt;middle&gt;: pn=’s-1.4.2’</t>
+  <t>&lt;references&gt;: pn=’s-12’ or pn=’s-12.1’</t>
+  <t>&lt;abstract&gt;: pn=’s-abstract’</t>
+  <t>&lt;note&gt;: pn=’s-note-2’</t>
+  <t>&lt;section&gt; in &lt;boilerplate&gt;: pn=’s-boilerplate-1’</t>
+  <t>&lt;table&gt;: pn=’t-3’</t>
+  <t>&lt;figure&gt;: pn=’f-4’</t>
+  <t>&lt;artwork&gt;, &lt;aside&gt;, &lt;blockquote&gt;, &lt;dt&gt;,
+&lt;li&gt;, &lt;sourcecode&gt;, &lt;t&gt;: pn=’p-[section]-[counter]’</t>
+</list></t>
 
 </section>
 <section anchor="iref-numbering" title="&lt;iref&gt; Numbering">
@@ -418,14 +414,6 @@ subitem=’bar’&gt;” will get the irefid ‘i-foo-bar-1’.</t>
 </section>
 <section anchor="xref-processing" title="&lt;xref&gt; processing">
 
-<section anchor="xref-target-rewriting" title="“target” Rewriting">
-
-<t>For each &lt;xref&gt; element referring to a &lt;reference&gt; or
-&lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, modify
-the “target” attribute of the &lt;xref&gt; to match the “to” attribute of the
-associated &lt;displayreference&gt;.</t>
-
-</section>
 <section anchor="xref-derivedcontent-insertion-with-content" title="“derivedContent” Insertion (With Content)">
 
 <t>For each &lt;xref&gt; element that has content, fill the “derivedContent” with
@@ -439,30 +427,27 @@ different value from what was being filled in.</t>
 <t>For each &lt;xref&gt; element that does not have content, fill the
 “derivedContent” based on the “format” attribute.
   * For format=’counter’, the “derivedContent” is the section, figure, table, or
-    ordered list number of the element with anchor equal to the xref target.</t>
-
-<t><list style="symbols">
-  <t>For format=’default’ and the “target” attribute points to a
-&lt;reference&gt; or &lt;referencegroup&gt; element, the “derivedContent” is
-the value of the “target” attribute (or the “to” attribute of a
-&lt;displayreference&gt; element for the targeted &lt;reference&gt;).</t>
-  <t>For format=’default’ and the “target” attribute points to a &lt;section&gt;,
-&lt;figure&gt;, or &lt;table&gt;, the “derivedContent” is the name of the
-thing pointed to, such as “Section 2.3”, “Figure 12”, or “Table 4”.</t>
-  <t>For format=’title’, if the target is a &lt;reference&gt; element, the
-“derivedContent” attribute is the name of the reference, extracted from the
-&lt;title&gt; child of the &lt;front&gt; child of the reference.</t>
-  <t>For format=’title’, if the target element has a &lt;name&gt; child element,
-the “derivedContent” attribute is the text content of that &lt;name&gt;
-element concatenated with the text content of each descendant node of
-&lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
-text).</t>
-  <t>For format=’title’, if the target element does not contain a &lt;name&gt;
-child element, the “derivedContent” attribute is the value of the “target”
-attribute with no other adornment.  Issue a warning if the “derivedContent”
-attribute already exists and has a different value from what was being
-filled in.</t>
-</list></t>
+    ordered list number of the element with anchor equal to the xref target.
+  * For format=’default’ and the “target” attribute points to a
+    &lt;reference&gt; or &lt;referencegroup&gt; element, the “derivedContent” is
+    the value of the “target” attribute (or the “to” attribute of a
+    &lt;displayreference&gt; element for the targeted &lt;reference&gt;).
+  * For format=’default’ and the “target” attribute points to a &lt;section&gt;,
+    &lt;figure&gt;, or &lt;table&gt;, the “derivedContent” is the name of the
+    thing pointed to, such as “Section 2.3”, “Figure 12”, or “Table 4”.
+  * For format=’title’, if the target is a &lt;reference&gt; element, the
+    “derivedContent” attribute is the name of the reference, extracted from the
+    &lt;title&gt; child of the &lt;front&gt; child of the reference.
+  * For format=’title’, if the target element has a &lt;name&gt; child element,
+    the “derivedContent” attribute is the text content of that &lt;name&gt;
+    element concatenated with the text content of each descendant node of
+    &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
+    text).
+  * For format=’title’, if the target element does not contain a &lt;name&gt;
+    child element, the “derivedContent” attribute is the value of the “target”
+    attribute with no other adornment.  Issue a warning if the “derivedContent”
+    attribute already exists and has a different value from what was being
+    filled in.</t>
 
 </section>
 </section>
@@ -471,17 +456,7 @@ filled in.</t>
 <t>If any &lt;relref&gt; element’s “target” attribute refers to anything but a
 &lt;reference&gt; element, give an error.</t>
 
-<t>For each &lt;relref&gt; element referring to a &lt;reference&gt; that has an
-associated &lt;displayreference&gt;, modify the “target” attribute of the
-&lt;relref&gt; to match the “to” attribute of the associated
-&lt;displayreference&gt;.</t>
-
 <t>For each &lt;relref&gt; element, fill in the “derivedLink” attribute.</t>
-
-</section>
-<section anchor="displayreference-removal" title="&lt;displayreference&gt; Removal">
-
-<t>Remove every &lt;displayreference&gt; element.</t>
 
 </section>
 </section>

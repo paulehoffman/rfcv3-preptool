@@ -332,12 +332,6 @@ Internet-Drafts, and DOIs for this step will be specified later by the RFC
 Editor and the IESG. These URLs might also be different before and after the v3
 format is adopted.
 
-### &lt;displayreference&gt; Processing {#displayreference-processing}
-
-For each &lt;reference&gt; or &lt;referencegroup&gt; that has an associated
-&lt;displayreference&gt;, replace the value of the "anchor" attribute with the
-value of the "to" attribute of the associated &lt;displayreference&gt;.
-
 ### &lt;name&gt; Slugification {#name-slugification}
 
 Add a "slugifiedName" attribute to each &lt;name&gt; element that does not
@@ -376,13 +370,6 @@ subitem='bar'&gt;" will get the irefid 'i-foo-bar-1'.
 
 ### &lt;xref&gt; processing {#xref-processing}
 
-#### "target" Rewriting {#xref-target-rewriting}
-
-For each &lt;xref&gt; element referring to a &lt;reference&gt; or
-&lt;referencegroup&gt; that has an associated &lt;displayreference&gt;, modify
-the "target" attribute of the &lt;xref&gt; to match the "to" attribute of the
-associated &lt;displayreference&gt;.
-
 #### "derivedContent" Insertion (With Content) {#xref-derivedcontent-insertion-with-content}
 
 For each &lt;xref&gt; element that has content, fill the "derivedContent" with
@@ -396,7 +383,6 @@ For each &lt;xref&gt; element that does not have content, fill the
 "derivedContent" based on the "format" attribute.
   * For format='counter', the "derivedContent" is the section, figure, table, or
     ordered list number of the element with anchor equal to the xref target.
-
   * For format='default' and the "target" attribute points to a
     &lt;reference&gt; or &lt;referencegroup&gt; element, the "derivedContent" is
     the value of the "target" attribute (or the "to" attribute of a
@@ -411,7 +397,7 @@ For each &lt;xref&gt; element that does not have content, fill the
     the "derivedContent" attribute is the text content of that &lt;name&gt;
     element concatenated with the text content of each descendant node of
     &lt;name&gt; (that is, stripping out all of the XML markup, leaving only the
-    text).  
+    text).
   * For format='title', if the target element does not contain a &lt;name&gt;
     child element, the "derivedContent" attribute is the value of the "target"
     attribute with no other adornment.  Issue a warning if the "derivedContent"
@@ -423,16 +409,7 @@ For each &lt;xref&gt; element that does not have content, fill the
 If any &lt;relref&gt; element's "target" attribute refers to anything but a
 &lt;reference&gt; element, give an error.
 
-For each &lt;relref&gt; element referring to a &lt;reference&gt; that has an
-associated &lt;displayreference&gt;, modify the "target" attribute of the
-&lt;relref&gt; to match the "to" attribute of the associated
-&lt;displayreference&gt;.
-
 For each &lt;relref&gt; element, fill in the "derivedLink" attribute.
-
-### &lt;displayreference&gt; Removal {#displayreference-removal}
-
-Remove every &lt;displayreference&gt; element.
 
 ## Inclusion
 
@@ -493,7 +470,7 @@ preferred types other than "binary-art" are text, which is possibly wrong.
     If there is no "originalSrc" attribute, add an "originalSrc"
     attribute with the value of the URI and remove the "src" attribute.
 
-### &lt;sourcecode&gt; Processing {#sourcecode-processing}    
+### &lt;sourcecode&gt; Processing {#sourcecode-processing}
 
 1. If an &lt;sourcecode&gt; element has a "src" attribute where no scheme is
 specified, copy the "src" attribute value to the "originalSrc" attribute, and
