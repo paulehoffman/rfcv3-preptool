@@ -5,8 +5,8 @@
 Network Working Group                                         P. Hoffman
 Internet-Draft                                                     ICANN
 Intended status: Informational                             J. Hildebrand
-Expires: November 26, 2016                                         Cisco
-                                                            May 25, 2016
+Expires: December 5, 2016                                          Cisco
+                                                           June 03, 2016
 
 
                       RFC v3 Prep Tool Description
@@ -32,7 +32,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 26, 2016.
+   This Internet-Draft will expire on December 5, 2016.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 1]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 1]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 2]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 2]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
        5.6.5.  "xml:base" and "originalSrc" Removal  . . . . . . . .  14
@@ -165,9 +165,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 3]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 3]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
    o  Canonical RFC preparation
@@ -221,9 +221,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 4]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 4]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 4.  Canonical RFC Preparation
@@ -277,9 +277,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 5]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 5]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
    attribute).  The tool may be configurable with a limit on the depth
@@ -333,9 +333,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 6]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 6]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 5.2.3.  <date> Insertion
@@ -389,9 +389,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 7]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 7]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
    o  else use "include"
@@ -401,8 +401,8 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
    If in I-D mode, if there is a <note> or <section> element with a
    "removeInRFC" attribute that has the value "true", add a paragraph to
    the top of the element with the text "This note is to be removed
-   before publishing as an RFC." unless a paragraph consisting of that
-   exact text already exists.
+   before publishing as an RFC." or "This section...", unless a
+   paragraph consisting of that exact text already exists.
 
 5.3.  Normalization
 
@@ -445,9 +445,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 8]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 8]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 5.4.1.  "expiresDate" Insertion
@@ -501,9 +501,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016               [Page 9]
+Hoffman & Hildebrand    Expires December 5, 2016                [Page 9]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 5.4.5.  <reference> Sorting
@@ -557,9 +557,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016              [Page 10]
+Hoffman & Hildebrand    Expires December 5, 2016               [Page 10]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 5.4.8.2.  "derivedContent" Insertion (Without Content)
@@ -613,9 +613,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016              [Page 11]
+Hoffman & Hildebrand    Expires December 5, 2016               [Page 11]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
        retrieve a file that is not in the same directory, or a
@@ -669,9 +669,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016              [Page 12]
+Hoffman & Hildebrand    Expires December 5, 2016               [Page 12]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
        *  If the "src" URI scheme is "data:", fill the content of the
@@ -725,9 +725,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016              [Page 13]
+Hoffman & Hildebrand    Expires December 5, 2016               [Page 13]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 5.6.  RFC Production Mode Cleanup
@@ -781,9 +781,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016              [Page 14]
+Hoffman & Hildebrand    Expires December 5, 2016               [Page 14]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 5.6.6.  Compliance Check
@@ -837,9 +837,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016              [Page 15]
+Hoffman & Hildebrand    Expires December 5, 2016               [Page 15]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
 7.  IANA Considerations
@@ -893,9 +893,9 @@ Internet-Draft        RFC v3 Prep Tool Description              May 2016
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016              [Page 16]
+Hoffman & Hildebrand    Expires December 5, 2016               [Page 16]
 
-Internet-Draft        RFC v3 Prep Tool Description              May 2016
+Internet-Draft        RFC v3 Prep Tool Description             June 2016
 
 
    [RFC7669]  Levine, J., "Assigning Digital Object Identifiers to
@@ -949,4 +949,4 @@ Authors' Addresses
 
 
 
-Hoffman & Hildebrand    Expires November 26, 2016              [Page 17]
+Hoffman & Hildebrand    Expires December 5, 2016               [Page 17]
