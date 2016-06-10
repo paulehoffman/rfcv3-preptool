@@ -40,6 +40,14 @@ informative:
 This document describes some aspects of the "prep tool" that is expected
 to be created when the new RFC v3 specification is deployed.
 
+<!--
+
+Joe wants to add something that says that rfc/@submissionType and seriesInfo/@stream
+must both be the same, and that they are both present. Remember that they now
+both have a default value of "IETF".
+
+-->
+
 
 --- middle
 
