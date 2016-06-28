@@ -46,6 +46,9 @@ Joe wants to add something that says that rfc/@submissionType and seriesInfo/@st
 must both be the same, and that they are both present. Remember that they now
 both have a default value of "IETF".
 
+Joe wants to have a step that looks artwork/@alt and adds it to SVG if the SVG
+has no alt text.
+
 -->
 
 
