@@ -28,7 +28,7 @@
       </address>
     </author>
 
-    <date year="2016" month="June" day="03"/>
+    <date year="2016" month="June" day="30"/>
 
     
     
@@ -39,6 +39,12 @@
 
 <t>This document describes some aspects of the “prep tool” that is expected
 to be created when the new RFC v3 specification is deployed.</t>
+
+<!--
+
+Notes between the authors go here. Nothing at the moment.
+
+-->
 
 
 
@@ -339,6 +345,14 @@ children of the &lt;boilerplate&gt; element, produce a warning that says
 submission tool, will treat this condition as an error” and remove the existing
 children.</t>
 
+<section anchor="compare-submission" title="Compare &lt;rfc&gt; “submissionType” and &lt;seriesInfo&gt; “stream”">
+
+<t>Verify that &lt;rfc&gt; “submissionType” and &lt;seriesInfo&gt; “stream” are the same
+if they are both present.
+If either is missing, add it.
+Note that both have a default value of “IETF”.</t>
+
+</section>
 <section anchor="status-of-this-memo-insertion" title="‘Status of this Memo’ Insertion">
 
 <t>Add the “Status of this Memo” section to the &lt;boilerplate&gt; element with
@@ -493,6 +507,9 @@ the data needs to be moved into the content of the &lt;artwork&gt; element.
  “src” attribute. If there is no “originalSrc” attribute,
  add an “originalSrc” attribute with the value of the URI and
  remove the “src” attribute.</t>
+      <t>If the &lt;artwork&gt; element has an “alt” attribute, and the SVG does not
+ have a &lt;desc&gt; element, add the &lt;desc&gt; element with the contents
+ of the “alt” attribute.</t>
     </list></t>
   <t>If an &lt;artwork&gt; element has type=’binary-art’, the data needs to be in
 a “src” attribute with a URI scheme of “data:”. If the “src” URI scheme is
@@ -772,15 +789,15 @@ structured more clearly.</t>
     <organization />
 </author>
 
-<date month='February' day='10' year='2016' />
+<date month='June' day='22' year='2016' />
 
 <abstract><t>This document defines the "xml2rfc" version 3 vocabulary: an XML- based language used for writing RFCs and Internet-Drafts.  It is heavily derived from the version 2 vocabulary that is also under discussion.  This document obsoletes the v2 grammar described in RFC 2629 and its followup, RFC 7749.  Editorial Note (To be removed by RFC Editor)  Discussion of this draft takes place on the rfc-interest mailing list (rfc-interest@rfc-editor.org), which has its home page at &lt;https://www.rfc-editor.org/mailman/listinfo/rfc-interest>.</t></abstract>
 
 </front>
 
-<seriesInfo name='Internet-Draft' value='draft-iab-xml2rfc-03' />
+<seriesInfo name='Internet-Draft' value='draft-iab-xml2rfc-04' />
 <format type='TXT'
-        target='http://www.ietf.org/internet-drafts/draft-iab-xml2rfc-03.txt' />
+        target='http://www.ietf.org/internet-drafts/draft-iab-xml2rfc-04.txt' />
 </reference>
 
 

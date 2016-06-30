@@ -401,8 +401,9 @@
 <link href="#rfc.section.5.4" rel="Chapter" title="5.4 Generation"/>
 <link href="#rfc.section.5.4.1" rel="Chapter" title="5.4.1 &#x201C;expiresDate&#x201D; Insertion"/>
 <link href="#rfc.section.5.4.2" rel="Chapter" title="5.4.2 &lt;boilerplate&gt; Insertion"/>
-<link href="#rfc.section.5.4.2.1" rel="Chapter" title="5.4.2.1 &#x2018;Status of this Memo&#x2019; Insertion"/>
-<link href="#rfc.section.5.4.2.2" rel="Chapter" title="5.4.2.2 Copyright Insertion"/>
+<link href="#rfc.section.5.4.2.1" rel="Chapter" title="5.4.2.1 Compare &lt;rfc&gt; &#x201C;submissionType&#x201D; and &lt;seriesInfo&gt; &#x201C;stream&#x201D;"/>
+<link href="#rfc.section.5.4.2.2" rel="Chapter" title="5.4.2.2 &#x2018;Status of this Memo&#x2019; Insertion"/>
+<link href="#rfc.section.5.4.2.3" rel="Chapter" title="5.4.2.3 Copyright Insertion"/>
 <link href="#rfc.section.5.4.3" rel="Chapter" title="5.4.3 &lt;reference&gt; &#x201C;target&#x201D; Insertion"/>
 <link href="#rfc.section.5.4.4" rel="Chapter" title="5.4.4 &lt;name&gt; Slugification"/>
 <link href="#rfc.section.5.4.5" rel="Chapter" title="5.4.5 &lt;reference&gt; Sorting"/>
@@ -438,7 +439,7 @@
 
   <meta name="dct.creator" content="Hoffman, P. and J. Hildebrand" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-iab-rfcv3-preptool" />
-  <meta name="dct.issued" scheme="ISO8601" content="2016-6-03" />
+  <meta name="dct.issued" scheme="ISO8601" content="2016-6-30" />
   <meta name="dct.abstract" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed." />
   <meta name="description" content="This document describes some aspects of the &#8220;prep tool&#8221; that is expected to be created when the new RFC v3 specification is deployed." />
 
@@ -462,12 +463,12 @@
   <td class="right">J. Hildebrand</td>
 </tr>
 <tr>
-  <td class="left">Expires: December 5, 2016</td>
+  <td class="left">Expires: January 1, 2017</td>
   <td class="right">Cisco</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">June 03, 2016</td>
+  <td class="right">June 30, 2016</td>
 </tr>
 
     	
@@ -487,7 +488,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 5, 2016.</p>
+<p>This Internet-Draft will expire on January 1, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -526,8 +527,9 @@
 </ul><li>5.4.   <a href="#rfc.section.5.4">Generation</a></li>
 <ul><li>5.4.1.   <a href="#rfc.section.5.4.1">&#8220;expiresDate&#8221; Insertion</a></li>
 <li>5.4.2.   <a href="#rfc.section.5.4.2">&lt;boilerplate&gt; Insertion</a></li>
-<ul><li>5.4.2.1.   <a href="#rfc.section.5.4.2.1">&#8216;Status of this Memo&#8217; Insertion</a></li>
-<li>5.4.2.2.   <a href="#rfc.section.5.4.2.2">Copyright Insertion</a></li>
+<ul><li>5.4.2.1.   <a href="#rfc.section.5.4.2.1">Compare &lt;rfc&gt; &#8220;submissionType&#8221; and &lt;seriesInfo&gt; &#8220;stream&#8221;</a></li>
+<li>5.4.2.2.   <a href="#rfc.section.5.4.2.2">&#8216;Status of this Memo&#8217; Insertion</a></li>
+<li>5.4.2.3.   <a href="#rfc.section.5.4.2.3">Copyright Insertion</a></li>
 </ul><li>5.4.3.   <a href="#rfc.section.5.4.3">&lt;reference&gt; &#8220;target&#8221; Insertion</a></li>
 <li>5.4.4.   <a href="#rfc.section.5.4.4">&lt;name&gt; Slugification</a></li>
 <li>5.4.5.   <a href="#rfc.section.5.4.5">&lt;reference&gt; Sorting</a></li>
@@ -643,10 +645,12 @@
 <p id="rfc.section.5.4.1.p.1">If in I-D mode, fill in &#8220;expiresDate&#8221; attribute of &lt;rfc&gt; based on the &lt;date&gt; element of the document&#8217;s &lt;front&gt; element.</p>
 <h1 id="rfc.section.5.4.2"><a href="#rfc.section.5.4.2">5.4.2.</a> <a href="#boilerplate-insertion" id="boilerplate-insertion">&lt;boilerplate&gt; Insertion</a></h1>
 <p id="rfc.section.5.4.2.p.1">Create a &lt;boilerplate&gt; element if it does not exist. If there are any children of the &lt;boilerplate&gt; element, produce a warning that says &#8220;Existing boilerplate being removed. Other tools, specifically the draft submission tool, will treat this condition as an error&#8221; and remove the existing children.</p>
-<h1 id="rfc.section.5.4.2.1"><a href="#rfc.section.5.4.2.1">5.4.2.1.</a> <a href="#status-of-this-memo-insertion" id="status-of-this-memo-insertion">&#8216;Status of this Memo&#8217; Insertion</a></h1>
-<p id="rfc.section.5.4.2.1.p.1">Add the &#8220;Status of this Memo&#8221; section to the &lt;boilerplate&gt; element with current values. The application will use the &#8220;submissionType&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element, the &lt;workgroup&gt; element, and the &#8220;status&#8221; and &#8220;stream&#8221; attributes of the &lt;seriesInfo&gt; element, to determine which <a href="#I-D.iab-rfc5741bis">[I-D.iab-rfc5741bis]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</p>
-<h1 id="rfc.section.5.4.2.2"><a href="#rfc.section.5.4.2.2">5.4.2.2.</a> <a href="#copyright-insertion" id="copyright-insertion">Copyright Insertion</a></h1>
-<p id="rfc.section.5.4.2.2.p.1">Add the &#8220;Copyright Notice&#8221; section to the &lt;boilerplate&gt; element. The application will use the &#8220;ipr&#8221; and &#8220;submissionType&#8221; attributes of the &lt;rfc&gt; element and the &lt;date&gt; element to determine which portions and which version of the TLP to use, as described in A.1 of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</p>
+<h1 id="rfc.section.5.4.2.1"><a href="#rfc.section.5.4.2.1">5.4.2.1.</a> <a href="#compare-submission" id="compare-submission">Compare &lt;rfc&gt; &#8220;submissionType&#8221; and &lt;seriesInfo&gt; &#8220;stream&#8221;</a></h1>
+<p id="rfc.section.5.4.2.1.p.1">Verify that &lt;rfc&gt; &#8220;submissionType&#8221; and &lt;seriesInfo&gt; &#8220;stream&#8221; are the same if they are both present.  If either is missing, add it.  Note that both have a default value of &#8220;IETF&#8221;.</p>
+<h1 id="rfc.section.5.4.2.2"><a href="#rfc.section.5.4.2.2">5.4.2.2.</a> <a href="#status-of-this-memo-insertion" id="status-of-this-memo-insertion">&#8216;Status of this Memo&#8217; Insertion</a></h1>
+<p id="rfc.section.5.4.2.2.p.1">Add the &#8220;Status of this Memo&#8221; section to the &lt;boilerplate&gt; element with current values. The application will use the &#8220;submissionType&#8221;, and &#8220;consensus&#8221; attributes of the &lt;rfc&gt; element, the &lt;workgroup&gt; element, and the &#8220;status&#8221; and &#8220;stream&#8221; attributes of the &lt;seriesInfo&gt; element, to determine which <a href="#I-D.iab-rfc5741bis">[I-D.iab-rfc5741bis]</a> boilerplate to include, as described in Appendix A of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</p>
+<h1 id="rfc.section.5.4.2.3"><a href="#rfc.section.5.4.2.3">5.4.2.3.</a> <a href="#copyright-insertion" id="copyright-insertion">Copyright Insertion</a></h1>
+<p id="rfc.section.5.4.2.3.p.1">Add the &#8220;Copyright Notice&#8221; section to the &lt;boilerplate&gt; element. The application will use the &#8220;ipr&#8221; and &#8220;submissionType&#8221; attributes of the &lt;rfc&gt; element and the &lt;date&gt; element to determine which portions and which version of the TLP to use, as described in A.1 of <a href="#I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</a>.</p>
 <h1 id="rfc.section.5.4.3"><a href="#rfc.section.5.4.3">5.4.3.</a> <a href="#reference-target-insertion" id="reference-target-insertion">&lt;reference&gt; &#8220;target&#8221; Insertion</a></h1>
 <p id="rfc.section.5.4.3.p.1">For any &lt;reference&gt; element that does not already have a &#8220;target&#8221; attribute, fill the target attribute in if the element has one or more &lt;seriesinfo&gt; child element(s) and the &#8220;name&#8221; attribute of the &lt;seriesinfo&gt; element is &#8220;RFC&#8221;, &#8220;Internet-Draft&#8221;, or &#8220;DOI&#8221; or other value for which it is clear what the &#8220;target&#8221; should be. The particular URLs for RFCs, Internet-Drafts, and DOIs for this step will be specified later by the RFC Editor and the IESG. These URLs might also be different before and after the v3 format is adopted.</p>
 <h1 id="rfc.section.5.4.4"><a href="#rfc.section.5.4.4">5.4.4.</a> <a href="#name-slugification" id="name-slugification">&lt;name&gt; Slugification</a></h1>
@@ -686,7 +690,7 @@
   <li>If an &lt;artwork&gt; element has a &#8220;src&#8221; attribute where no scheme is specified, copy the &#8220;src&#8221; attribute value to the &#8220;originalSrc&#8221; attribute, and replace the &#8220;src&#8221; value with a URI that uses the &#8220;file:&#8221; scheme in a path relative to the file being processed.  See <a href="#securitycons">Section 8</a> for warnings about this step. This will likely be one of the most common authoring approaches.</li>
   <li>If an &lt;artwork&gt; element has a &#8220;src&#8221; attribute with a &#8220;file:&#8221; scheme, and if processing the URL would cause the processor to retrieve a file that is not in the same directory, or a subdirectory, as the file being processed, give an error. If the &#8220;src&#8221; has any shellmeta strings (such as &#8220;`&#8221;, &#8220;$USER&#8221;, and so on) that would be processed , give an error. Replace the &#8220;src&#8221; attribute with a URI that uses the &#8220;file:&#8221; scheme in a path relative to the file being processed.  This rule attempts to prevent &lt;artwork src=&#8217;file:///etc/passwd&#8217;&gt; and similar security issues. See <a href="#securitycons">Section 8</a> for warnings about this step.</li>
   <li>If an &lt;artwork&gt; element has a &#8220;src&#8221; attribute, and the element has content, give an error.</li>
-  <li>If an &lt;artwork&gt; element has type=&#8217;svg&#8217; and there is a &#8220;src&#8221; attribute, the data needs to be moved into the content of the &lt;artwork&gt; element.  <ul><li>If the &#8220;src&#8221; URI scheme is &#8220;data:&#8221;, fill the content of the &lt;artwork&gt; element with that data and remove the &#8220;src&#8221; attribute.</li><li>If the &#8220;src&#8221; URI scheme is &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, fill the content of the &lt;artwork&gt; element with the resolved XML from the URI in the &#8220;src&#8221; attribute. If there is no &#8220;originalSrc&#8221; attribute, add an &#8220;originalSrc&#8221; attribute with the value of the URI and remove the &#8220;src&#8221; attribute.</li></ul></li>
+  <li>If an &lt;artwork&gt; element has type=&#8217;svg&#8217; and there is a &#8220;src&#8221; attribute, the data needs to be moved into the content of the &lt;artwork&gt; element.  <ul><li>If the &#8220;src&#8221; URI scheme is &#8220;data:&#8221;, fill the content of the &lt;artwork&gt; element with that data and remove the &#8220;src&#8221; attribute.</li><li>If the &#8220;src&#8221; URI scheme is &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, fill the content of the &lt;artwork&gt; element with the resolved XML from the URI in the &#8220;src&#8221; attribute. If there is no &#8220;originalSrc&#8221; attribute, add an &#8220;originalSrc&#8221; attribute with the value of the URI and remove the &#8220;src&#8221; attribute.</li><li>If the &lt;artwork&gt; element has an &#8220;alt&#8221; attribute, and the SVG does not have a &lt;desc&gt; element, add the &lt;desc&gt; element with the contents of the &#8220;alt&#8221; attribute.</li></ul></li>
   <li>If an &lt;artwork&gt; element has type=&#8217;binary-art&#8217;, the data needs to be in a &#8220;src&#8221; attribute with a URI scheme of &#8220;data:&#8221;. If the &#8220;src&#8221; URI scheme is &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, resolve the URL. Replace the &#8220;src&#8221; attribute with a &#8220;data:&#8221; URI, and add an &#8220;originalSrc&#8221; attribute with the value of the URI. For the &#8220;http:&#8221; and &#8220;https:&#8221; URI schemes, the mediatype of the &#8220;data:&#8221; URI will be the Content-Type of the HTTP response. For the &#8220;file:&#8221; URI scheme, the mediatype of the &#8220;data:&#8221; URI needs to be guessed with heuristics (this is possibly a bad idea). This also fails for content that includes binary images but uses a type other than &#8220;binary-art&#8221;. Note: since this feature can&#8217;t be used for RFCs at the moment, this entire feature might be de-prioritized.</li>
   <li>If an &lt;artwork&gt; element does not have type=&#8217;svg&#8217; or type=&#8217;binary-art&#8217; and there is a &#8220;src&#8221; attribute, the data needs to be moved into the content of the &lt;artwork&gt; element. Note that this step assumes that all of the preferred types other than &#8220;binary-art&#8221; are text, which is possibly wrong.  <ul><li>If the &#8220;src&#8221; URI scheme is &#8220;data:&#8221;, fill the content of the &lt;artwork&gt; element with the correctly-escaped form of that data and remove the &#8220;src&#8221; attribute.</li><li>If the &#8220;src&#8221; URI scheme is &#8220;file:&#8221;, &#8220;http:&#8221;, or &#8220;https:&#8221;, fill the content of the &lt;artwork&gt; element with the correctly-escaped form of the resolved text from the URI in the &#8220;src&#8221; attribute.  If there is no &#8220;originalSrc&#8221; attribute, add an &#8220;originalSrc&#8221; attribute with the value of the URI and remove the &#8220;src&#8221; attribute.</li></ul></li>
 </ol>
@@ -749,7 +753,7 @@
       <td class="reference">
         <b id="I-D.iab-xml2rfc">[I-D.iab-xml2rfc]</b>
       </td>
-      <td class="top"><a>Hoffman, P.</a>, "<a href="http://tools.ietf.org/html/draft-iab-xml2rfc-03">The "xml2rfc" version 3 Vocabulary</a>", Internet-Draft draft-iab-xml2rfc-03, February 2016.</td>
+      <td class="top"><a>Hoffman, P.</a>, "<a href="http://tools.ietf.org/html/draft-iab-xml2rfc-04">The "xml2rfc" version 3 Vocabulary</a>", Internet-Draft draft-iab-xml2rfc-04, June 2016.</td>
     </tr>
     <tr>
       <td class="reference">
