@@ -42,12 +42,7 @@ to be created when the new RFC v3 specification is deployed.
 
 <!--
 
-Joe wants to add something that says that rfc/@submissionType and seriesInfo/@stream
-must both be the same, and that they are both present. Remember that they now
-both have a default value of "IETF".
-
-Joe wants to have a step that looks artwork/@alt and adds it to SVG if the SVG
-has no alt text.
+Notes between the authors go here. Nothing at the moment.
 
 -->
 
@@ -316,6 +311,13 @@ children of the &lt;boilerplate&gt; element, produce a warning that says
 submission tool, will treat this condition as an error" and remove the existing
 children.
 
+#### Compare &lt;rfc&gt; "submissionType" and &lt;seriesInfo&gt; "stream" {#compare-submission}
+
+Verify that &lt;rfc&gt; "submissionType" and &lt;seriesInfo&gt; "stream" are the same
+if they are both present.
+If either is missing, add it.
+Note that both have a default value of "IETF".
+
 #### 'Status of this Memo' Insertion {#status-of-this-memo-insertion}
 
 Add the "Status of this Memo" section to the &lt;boilerplate&gt; element with
@@ -456,6 +458,9 @@ the data needs to be moved into the content of the &lt;artwork&gt; element.
     "src" attribute. If there is no "originalSrc" attribute,
     add an "originalSrc" attribute with the value of the URI and
     remove the "src" attribute.
+  * If the &lt;artwork&gt; element has an "alt" attribute, and the SVG does not
+    have a &lt;desc&gt; element, add the &lt;desc&gt; element with the contents
+    of the "alt" attribute.
 
 1. If an &lt;artwork&gt; element has type='binary-art', the data needs to be in
 a "src" attribute with a URI scheme of "data:". If the "src" URI scheme is
