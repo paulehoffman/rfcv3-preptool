@@ -10,7 +10,7 @@
 <?rfc sortrefs="yes"?>
 <?rfc symrefs="yes"?>
 
-<rfc ipr="trust200902" docName="draft-iab-rfcv3-preptool" category="info">
+<rfc ipr="trust200902" docName="draft-iab-rfcv3-preptool-02" category="info">
 
   <front>
     <title>RFC v3 Prep Tool Description</title>
@@ -30,8 +30,8 @@
 
     <date year="2016" month="June" day="30"/>
 
-    
-    
+
+
     <keyword>Internet-Draft</keyword>
 
     <abstract>
@@ -215,7 +215,7 @@ overwrite existing values in the input file.</t>
 
 <section anchor="version-insertion" title="“version” Insertion">
 
-<t>If the &lt;rfc&gt; element has a “version” attribute with a value other than “3”, give an error. 
+<t>If the &lt;rfc&gt; element has a “version” attribute with a value other than “3”, give an error.
 If the &lt;rfc&gt; element has no “version” attribute, add one with the value “3”.</t>
 
 </section>
